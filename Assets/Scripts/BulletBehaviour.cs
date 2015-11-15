@@ -1,14 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
-public class GameManager : MonoBehaviour
+public class BulletBehaviour : MonoBehaviour
 {
-    public GameObject m_Asteroid_Big_Prefab;
-    public GameObject m_Asteroid_Small_Prefab;
-    public int m_AsteroidCount = 6;
-    //List<GameObject> m_AsteroidList = new List<GameObject>();
 
+    public float m_BulletLife;
 
     // For objects added to the scene, the Awake and OnEnable functions for all scripts will be called before Start, Update, etc are called for any of them.
     // Cannot be enforced when an object is instantiated during gameplay.
@@ -32,15 +28,29 @@ public class GameManager : MonoBehaviour
     // Use this for initialization.
     void Start()
     {
-        for (int i = 0; i < m_AsteroidCount; i++)
-        {
-            if (i < m_AsteroidCount / 2)
-                Instantiate(m_Asteroid_Big_Prefab);
-            else
-                Instantiate(m_Asteroid_Small_Prefab);
-            //GameObject asteroid = Instantiate(m_AsteroidPrefab);
-        }
+        Destroy(gameObject, m_BulletLife);
     }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "AsteroidBig")
+        {
+            // AsteroidManager should handle this?
+            AsteroidBehaviour script = other.gameObject.GetComponent("AsteroidBehaviour") as AsteroidBehaviour;
+            script.SplitInTwo();
+        }
+        else// "AsteroidSmall" logically due to Layers.
+        {
+            // Destroy the asteroid.
+            Destroy(other.gameObject);
+            //Score();
+        }
+
+        // Destroy the bullet & asteroid.
+        Destroy(gameObject);
+    }
+
 
 
     // Update is called once per frame. It is the main workhorse function for frame updates.

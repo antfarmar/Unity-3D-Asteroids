@@ -4,20 +4,29 @@ using System.Collections;
 public class AsteroidBehaviour : MonoBehaviour
 {
 
-    private Rigidbody rb;
-
+    public GameObject m_SmallAsteroidPrefab;
     public float m_Force = 2000f;
     public float m_Torque = 1000f;
 
-    // Calculate a random spawn point, scale, velocities.
-    void SpawnRandom()
-    {
-        float rScale = Random.Range(0.5f, 2f);
-        float rForceX = Random.Range(-m_Force, m_Force);
-        float rForceY = Random.Range(-m_Force, m_Force);
-        float rTorqueX = Random.Range(-m_Torque, m_Torque);
-        float rTorqueY = Random.Range(-m_Torque, m_Torque);
+    private Rigidbody rb;
 
+    void SetRandomForces()
+    {
+        float rForceX = m_Force * Random.Range(-1f, 1f);
+        float rForceY = m_Force * Random.Range(-1f, 1f);
+        float rTorqueX = m_Torque * Random.Range(-1f, 1f);
+        float rTorqueY = m_Torque * Random.Range(-1f, 1f);
+
+        rb.velocity = Vector3.zero;
+        rb.AddForce(new Vector3(rForceX, rForceY, 0f));
+
+        rb.angularVelocity = Vector3.zero;
+        rb.AddTorque(new Vector3(rTorqueX, rTorqueY, 0f));
+    }
+
+    // Calculate a random spawn point, scale, velocities.
+    void SpawnRandomEdge()
+    {
         float rX = Random.value;
         float rY = Random.value;
         float x = Random.value < 0.5f ? 0f : 1f;
@@ -35,14 +44,25 @@ public class AsteroidBehaviour : MonoBehaviour
         spawnPosition.z = 0f;
 
         transform.position = spawnPosition;
-        transform.localScale = Vector3.one * rScale;
 
-        rb.velocity = Vector3.zero;
-        rb.AddForce(new Vector3(rForceX, rForceY, 0f));
-
-        rb.angularVelocity = Vector3.zero;
-        rb.AddTorque(new Vector3(rTorqueX, rTorqueY, 0f));
+        // Add some small scale variation
+        float rScale = Random.Range(1f, 2f);
+        transform.localScale *= rScale;
     }
+
+
+    public void SplitInTwo()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
+            a1.transform.position = this.gameObject.transform.position;
+            //a1.transform.localScale *= 0.5f;
+        }
+
+        Destroy(this.gameObject);
+    }
+
 
 
     // For objects added to the scene, the Awake and OnEnable functions for all scripts will be called before Start, Update, etc are called for any of them.
@@ -59,7 +79,8 @@ public class AsteroidBehaviour : MonoBehaviour
     // This happens when a MonoBehaviour instance is created, such as when a level is loaded or a GameObject with the script component is instantiated.
     void OnEnable()
     {
-        SpawnRandom();
+        SpawnRandomEdge(); // debug. belongs in start.
+        SetRandomForces();
     }
 
 

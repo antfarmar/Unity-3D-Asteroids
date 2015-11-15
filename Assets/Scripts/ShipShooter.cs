@@ -5,7 +5,6 @@ public class ShipShooter : MonoBehaviour
 {
 
     public Rigidbody m_BulletPrefab;
-    public float m_BulletLife;
     public float m_BulletVelocity;
 
     //public Transform m_BulletSpawnPoint;
@@ -47,7 +46,6 @@ public class ShipShooter : MonoBehaviour
                 Instantiate(m_BulletPrefab, m_BulletSpawnPoint.position, m_BulletSpawnPoint.rotation) as Rigidbody;
 
             bulletInstance.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up = y-axis)
-            Destroy(bulletInstance.gameObject, m_BulletLife);
         }
     }
 
