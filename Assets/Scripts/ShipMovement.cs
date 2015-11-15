@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ShipController : MonoBehaviour
+public class ShipMovement : MonoBehaviour
 {
     public float m_Thrust = 1000f;               // Thrust force.
     public float m_Torque = 200f;                 // To turn the ship on z-axis.
@@ -48,6 +48,10 @@ public class ShipController : MonoBehaviour
         m_TurnInputValue = Input.GetAxis("Horizontal");
         m_MovementInputValue = Input.GetAxis("Vertical");
 
+        // Freeze z-position (Rigidbody already does this though)
+        Vector3 pos = transform.position;
+        pos.z = 0f;
+        transform.position = pos;
 
     }
 
@@ -83,6 +87,12 @@ public class ShipController : MonoBehaviour
         float turn = m_TurnInputValue * m_Torque * Time.deltaTime;
         Vector3 zTorque = transform.forward * -turn;
         m_Rigidbody.AddTorque(zTorque);
+    }
+
+
+    void OnCollisionEnter(Collision coll)
+    {
+        Debug.Log(coll.collider.name);
     }
 
 

@@ -4,8 +4,9 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject m_AsteroidPrefab;
-    public int m_AsteroidCount = 5;
+    public GameObject m_Asteroid_1_Prefab;
+    public GameObject m_Asteroid_2_Prefab;
+    public int m_AsteroidCount = 6;
     List<GameObject> m_AsteroidList = new List<GameObject>();
 
 
@@ -33,7 +34,11 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < m_AsteroidCount; i++)
         {
-            GameObject asteroid = Instantiate(m_AsteroidPrefab);
+            if (i < m_AsteroidCount / 2)
+                Instantiate(m_Asteroid_1_Prefab);
+            else
+                Instantiate(m_Asteroid_2_Prefab);
+            //GameObject asteroid = Instantiate(m_AsteroidPrefab);
         }
     }
 

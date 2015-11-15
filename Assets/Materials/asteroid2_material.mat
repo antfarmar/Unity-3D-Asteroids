@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ship_material
+  m_Name: asteroid2_material
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -109,7 +109,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .504999995
+        second: 0
       data:
         first:
           name: _BumpScale
@@ -142,7 +142,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: .848275781, b: 0, a: 1}
+        second: {r: .382352948, g: .336206883, b: .185553625, a: 1}
       data:
         first:
           name: _SpecColor

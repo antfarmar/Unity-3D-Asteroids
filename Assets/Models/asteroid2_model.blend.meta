@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 590dd2f58d285a24a9e5414e845c7ddd
-timeCreated: 1447505025
+guid: 21fc6ba3d374f1b4e874d55e176b8577
+timeCreated: 1447544416
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,13 +9,12 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cube
-    4300002: Asteroid
-    6400000: //RootNode
+    4300000: Asteroid
+    4300002: Asteroid_2
     7400000: Default Take
     9500000: //RootNode
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -39,8 +38,8 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 1
-    importBlendShapes: 0
+    addColliders: 0
+    importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
