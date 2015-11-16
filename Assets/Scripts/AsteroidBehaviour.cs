@@ -4,6 +4,8 @@ using System.Collections;
 public class AsteroidBehaviour : MonoBehaviour
 {
 
+    //public AudioClip m_ExplosionClip;
+
     public GameObject m_SmallAsteroidPrefab;
     public float m_Force = 2000f;
     public float m_Torque = 1000f;
@@ -51,6 +53,8 @@ public class AsteroidBehaviour : MonoBehaviour
         float rScale = Random.Range(1f, 2f);
         transform.localScale *= rScale;
     }
+
+
 
 
     public void SplitInTwo()

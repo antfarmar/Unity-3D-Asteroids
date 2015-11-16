@@ -4,6 +4,7 @@ using System.Collections;
 public class BulletBehaviour : MonoBehaviour
 {
 
+    public AudioClip m_ExplosionClip;
     public float m_BulletLife;
 
     // For objects added to the scene, the Awake and OnEnable functions for all scripts will be called before Start, Update, etc are called for any of them.
@@ -34,13 +35,16 @@ public class BulletBehaviour : MonoBehaviour
     }
 
 
+    // Convenience method to be called by Invoke().
     void PoolBullet()
     {
         ObjectPooler.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
     }
 
+
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject.tag == "AsteroidBig")
         {
             // AsteroidManager should handle this?
@@ -55,9 +59,12 @@ public class BulletBehaviour : MonoBehaviour
             //Score();
         }
 
-        // Destroy the bullet.
+        SoundManager.instance.PlaySingle(m_ExplosionClip);
+
+        // Recycle the bullet only once.
         CancelInvoke("PoolBullet");
         PoolBullet();
+
     }
 
 

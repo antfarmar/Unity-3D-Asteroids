@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-// A pool that stores objects made of prefabs.
+// A pool that stores objects made from prefabs.
 public class Pool
 {
     public GameObject prefab;

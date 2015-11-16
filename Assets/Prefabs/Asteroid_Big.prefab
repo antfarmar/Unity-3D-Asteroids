@@ -102,6 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4447694d941b2674aa4af87367121375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ExplosionAudio: {fileID: 8231176, guid: c1955aaa0bfd5d046a37119e23a74bc1, type: 2}
+  m_ExplosionClip: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
   m_SmallAsteroidPrefab: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7,
     type: 2}
   m_Force: 2000
@@ -145,6 +147,27 @@ Prefab:
       propertyPath: m_SmallAsteroidPrefab
       value: 
       objectReference: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_ExplosionAudio
+      value: 
+      objectReference: {fileID: 8231176, guid: c1955aaa0bfd5d046a37119e23a74bc1, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_ExplosionClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186268}

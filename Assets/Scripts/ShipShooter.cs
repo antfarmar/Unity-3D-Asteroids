@@ -7,8 +7,13 @@ public class ShipShooter : MonoBehaviour
     public GameObject m_BulletPrefab;
     public float m_BulletVelocity;
 
+    //public AudioSource m_ShootingAudio; // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
+    public AudioClip m_ShootClip;       // Audio that plays when each shot is fired.
+
+
     //public Transform m_BulletSpawnPoint;
     private Transform m_BulletSpawnPoint;
+
 
 
     // For objects added to the scene, the Awake and OnEnable functions for all scripts will be called before Start, Update, etc are called for any of them.
@@ -45,6 +50,10 @@ public class ShipShooter : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            // Change the clip to the firing clip and play it.
+            //m_ShootingAudio.clip = m_ShootClip;
+            SoundManager.instance.PlaySingle(m_ShootClip);
+
             //Rigidbody bulletInstance =
             //    Instantiate(m_BulletPrefab, m_BulletSpawnPoint.position, m_BulletSpawnPoint.rotation) as Rigidbody;
 

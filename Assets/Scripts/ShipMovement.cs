@@ -92,7 +92,7 @@ public class ShipMovement : MonoBehaviour
 
     void OnCollisionEnter(Collision coll)
     {
-        Debug.Log(coll.collider.name);
+        //Debug.Log(coll.collider.name);
     }
 
 

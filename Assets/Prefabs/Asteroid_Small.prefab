@@ -102,7 +102,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4447694d941b2674aa4af87367121375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SmallAsteroidPrefab: {fileID: 0}
+  m_ExplosionAudio: {fileID: 8231176, guid: c1955aaa0bfd5d046a37119e23a74bc1, type: 2}
+  m_ExplosionClip: {fileID: 0}
+  m_SmallAsteroidPrefab: {fileID: 186268}
   m_Force: 2000
   m_Torque: 1000
 --- !u!114 &11492270
@@ -155,6 +157,31 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalScale.z
       value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
+    - target: {fileID: 0}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_ExplosionAudio
+      value: 
+      objectReference: {fileID: 8231176, guid: c1955aaa0bfd5d046a37119e23a74bc1, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_SmallAsteroidPrefab
+      value: 
+      objectReference: {fileID: 186268}
+    - target: {fileID: 0}
+      propertyPath: m_Pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
