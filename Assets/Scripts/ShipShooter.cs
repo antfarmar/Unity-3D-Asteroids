@@ -4,7 +4,7 @@ using System.Collections;
 public class ShipShooter : MonoBehaviour
 {
 
-    public Rigidbody m_BulletPrefab;
+    public GameObject m_BulletPrefab;
     public float m_BulletVelocity;
 
     //public Transform m_BulletSpawnPoint;
@@ -18,7 +18,10 @@ public class ShipShooter : MonoBehaviour
     // If a GameObject is inactive during start up Awake is not called until it is made active, or a function in any script attached to it is called.
     void Awake()
     {
-
+        if (ObjectPooler.CreatePool("bullets", m_BulletPrefab, 2, 5))
+            Debug.Log("Pre-populating pool");
+        else
+            Debug.Log("Pool already configured");
     }
 
     // Only called if the Object is active. This function is called just after the object is enabled.
@@ -42,10 +45,26 @@ public class ShipShooter : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Rigidbody bulletInstance =
-                Instantiate(m_BulletPrefab, m_BulletSpawnPoint.position, m_BulletSpawnPoint.rotation) as Rigidbody;
+            //Rigidbody bulletInstance =
+            //    Instantiate(m_BulletPrefab, m_BulletSpawnPoint.position, m_BulletSpawnPoint.rotation) as Rigidbody;
 
-            bulletInstance.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up = y-axis)
+            //bulletInstance.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up = y-axis)
+            Poolable bullet = ObjectPooler.Dequeue("bullets");
+
+
+            // Active before position? FixedUpdate?
+            //rb.position = m_BulletSpawnPoint.position;
+            //rb.rotation = m_BulletSpawnPoint.rotation;
+
+            // This order of operations is important to not have bullet flashes in old position.
+            // Also, use transform, not rigidbody for position/rotation.
+            bullet.transform.position = m_BulletSpawnPoint.position;
+            bullet.transform.rotation = m_BulletSpawnPoint.rotation;
+            bullet.gameObject.SetActive(true);
+
+            Rigidbody rigidbody = bullet.gameObject.GetComponent<Rigidbody>();
+            rigidbody.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up = y-axis)
+
         }
     }
 

@@ -116,7 +116,7 @@ MonoBehaviour:
     type: 2}
   m_Asteroid_Small_Prefab: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7,
     type: 2}
-  m_AsteroidCount: 2
+  m_AsteroidCount: 10
 --- !u!4 &65102340
 Transform:
   m_ObjectHideFlags: 0

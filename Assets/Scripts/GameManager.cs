@@ -32,14 +32,20 @@ public class GameManager : MonoBehaviour
     // Use this for initialization.
     void Start()
     {
+        Transform asteroidHolder = new GameObject("AsteroidHolder").transform;
+        GameObject asteroid;
+
         for (int i = 0; i < m_AsteroidCount; i++)
         {
             if (i < m_AsteroidCount / 2)
-                Instantiate(m_Asteroid_Big_Prefab);
+                asteroid = Instantiate(m_Asteroid_Big_Prefab);
             else
-                Instantiate(m_Asteroid_Small_Prefab);
-            //GameObject asteroid = Instantiate(m_AsteroidPrefab);
+                asteroid = Instantiate(m_Asteroid_Small_Prefab);
+
+            asteroid.transform.SetParent(asteroidHolder);
         }
+
+
     }
 
 

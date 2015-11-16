@@ -8,7 +8,8 @@ public class AsteroidBehaviour : MonoBehaviour
     public float m_Force = 2000f;
     public float m_Torque = 1000f;
 
-    private Rigidbody rb;
+    private Rigidbody m_Rigidbody;
+
 
     void SetRandomForces()
     {
@@ -17,12 +18,13 @@ public class AsteroidBehaviour : MonoBehaviour
         float rTorqueX = m_Torque * Random.Range(-1f, 1f);
         float rTorqueY = m_Torque * Random.Range(-1f, 1f);
 
-        rb.velocity = Vector3.zero;
-        rb.AddForce(new Vector3(rForceX, rForceY, 0f));
+        m_Rigidbody.velocity = Vector3.zero;
+        m_Rigidbody.AddForce(new Vector3(rForceX, rForceY, 0f));
 
-        rb.angularVelocity = Vector3.zero;
-        rb.AddTorque(new Vector3(rTorqueX, rTorqueY, 0f));
+        m_Rigidbody.angularVelocity = Vector3.zero;
+        m_Rigidbody.AddTorque(new Vector3(rTorqueX, rTorqueY, 0f));
     }
+
 
     // Calculate a random spawn point, scale, velocities.
     void SpawnRandomEdge()
@@ -72,14 +74,14 @@ public class AsteroidBehaviour : MonoBehaviour
     // If a GameObject is inactive during start up Awake is not called until it is made active, or a function in any script attached to it is called.
     void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        m_Rigidbody = GetComponent<Rigidbody>();
     }
 
     // Only called if the Object is active. This function is called just after the object is enabled.
     // This happens when a MonoBehaviour instance is created, such as when a level is loaded or a GameObject with the script component is instantiated.
     void OnEnable()
     {
-        SpawnRandomEdge(); // debug. belongs in start.
+        SpawnRandomEdge(); // debug. both belong in start.
         SetRandomForces();
     }
 

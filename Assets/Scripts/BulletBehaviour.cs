@@ -17,10 +17,11 @@ public class BulletBehaviour : MonoBehaviour
     }
 
     // Only called if the Object is active. This function is called just after the object is enabled.
-    // This happens when a MonoBehaviour instance is created, such as when a level is loaded or a GameObject with the script component is instantiated.
+    // This happens when a MonoBehaviour instance is created, such as when a level is loaded
+    // or a GameObject with the script component is instantiated.
     void OnEnable()
     {
-
+        Invoke("PoolBullet", m_BulletLife);
     }
 
 
@@ -28,9 +29,15 @@ public class BulletBehaviour : MonoBehaviour
     // Use this for initialization.
     void Start()
     {
-        Destroy(gameObject, m_BulletLife);
+        //Destroy(gameObject, m_BulletLife);
+
     }
 
+
+    void PoolBullet()
+    {
+        ObjectPooler.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -40,15 +47,17 @@ public class BulletBehaviour : MonoBehaviour
             AsteroidBehaviour script = other.gameObject.GetComponent("AsteroidBehaviour") as AsteroidBehaviour;
             script.SplitInTwo();
         }
-        else// "AsteroidSmall" logically due to Layers.
+        else// "AsteroidSmall" logically due to Layers matrix.
         {
             // Destroy the asteroid.
             Destroy(other.gameObject);
+
             //Score();
         }
 
-        // Destroy the bullet & asteroid.
-        Destroy(gameObject);
+        // Destroy the bullet.
+        CancelInvoke("PoolBullet");
+        PoolBullet();
     }
 
 

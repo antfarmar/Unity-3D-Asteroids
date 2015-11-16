@@ -11,7 +11,7 @@ GameObject:
   m_Layer: 0
   m_Name: BulletSpawnPoint
   m_TagString: BulletSpawn
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -75,7 +75,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100520}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1.10000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 425480}
@@ -185,9 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e715fa2fc8492154f96186641f741e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BulletPrefab: {fileID: 5415630, guid: c2c7c9743d4d55645b40878bbce4c25e, type: 2}
-  m_BulletLife: 1
-  m_BulletVelocity: 50
+  m_BulletPrefab: {fileID: 175094, guid: c2c7c9743d4d55645b40878bbce4c25e, type: 2}
+  m_BulletVelocity: 25
 --- !u!198 &19862720
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1299,6 +1298,18 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_BulletVelocity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.y
+      value: 1.20000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_BulletPrefab
+      value: 
+      objectReference: {fileID: 175094, guid: c2c7c9743d4d55645b40878bbce4c25e, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
