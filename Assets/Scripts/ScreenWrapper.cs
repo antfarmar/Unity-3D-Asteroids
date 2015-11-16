@@ -11,7 +11,7 @@ public class ScreenWrapper : MonoBehaviour
     // Also, when running in the editor, the scene view cameras will also cause this function to be called.
     public void OnBecameInvisible()
     {
-        if (gameObject.activeSelf)
+        if (gameObject.activeSelf && gameObject != null && Camera.main.isActiveAndEnabled)
         {
             Vector3 viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
             Vector3 newPosition = transform.position;

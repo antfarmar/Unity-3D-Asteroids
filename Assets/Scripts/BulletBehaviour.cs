@@ -4,7 +4,7 @@ using System.Collections;
 public class BulletBehaviour : MonoBehaviour
 {
 
-    public AudioClip m_ExplosionClip;
+    //public AudioClip m_ExplosionClip;
     public float m_BulletLife;
 
     // For objects added to the scene, the Awake and OnEnable functions for all scripts will be called before Start, Update, etc are called for any of them.
@@ -42,29 +42,29 @@ public class BulletBehaviour : MonoBehaviour
     }
 
 
+    // Let the Asteroid handle the collision?
     private void OnTriggerEnter(Collider other)
     {
 
         if (other.gameObject.tag == "AsteroidBig")
         {
             // AsteroidManager should handle this?
-            AsteroidBehaviour script = other.gameObject.GetComponent("AsteroidBehaviour") as AsteroidBehaviour;
-            script.SplitInTwo();
+            //AsteroidBehaviour script = other.gameObject.GetComponent("AsteroidBehaviour") as AsteroidBehaviour;
+            //script.SplitInTwo();
         }
         else// "AsteroidSmall" logically due to Layers matrix.
         {
             // Destroy the asteroid.
-            Destroy(other.gameObject);
+            //Destroy(other.gameObject);
 
             //Score();
         }
 
-        SoundManager.instance.PlaySingle(m_ExplosionClip);
+        //SoundManager.instance.PlaySingle(m_ExplosionClip);
 
         // Recycle the bullet only once.
         CancelInvoke("PoolBullet");
         PoolBullet();
-
     }
 
 

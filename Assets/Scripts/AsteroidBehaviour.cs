@@ -4,7 +4,8 @@ using System.Collections;
 public class AsteroidBehaviour : MonoBehaviour
 {
 
-    //public AudioClip m_ExplosionClip;
+    public ParticleSystem m_ExplosionPS;
+    public AudioClip m_ExplosionClip;
 
     public GameObject m_SmallAsteroidPrefab;
     public float m_Force = 2000f;
@@ -55,19 +56,50 @@ public class AsteroidBehaviour : MonoBehaviour
     }
 
 
-
-
-    public void SplitInTwo()
+    // Called when hit by a bullet trigger collider.
+    void OnTriggerEnter(Collider other)
     {
-        for (int i = 0; i < 2; i++)
+        if (gameObject.CompareTag("AsteroidBig"))
         {
-            GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
-            a1.transform.position = this.gameObject.transform.position;
-            //a1.transform.localScale *= 0.5f;
+            // Split the big asteroid into 2 smaller ones.
+            for (int i = 0; i < 2; i++)
+            {
+                GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
+                a1.transform.position = this.gameObject.transform.position;
+                //a1.transform.localScale *= 0.5f;  // scaling done in editor now
+            }
+        }
+        else // "AsteroidSmall"
+        {
+            SoundManager.instance.sfxSource.pitch = 2;
         }
 
+        // Play the explosion clip.
+        SoundManager.instance.PlaySingle(m_ExplosionClip);
+        SoundManager.instance.sfxSource.pitch = 1;
+
+        // Play the explosion particles, then destroy after particle max lifetime.
+        ParticleSystem explosion = Instantiate(m_ExplosionPS, transform.position, Quaternion.identity) as ParticleSystem;
+        explosion.Play();   // could set to play on awake also.
+        Destroy(explosion.gameObject, m_ExplosionPS.startLifetime);
+
+        // Destroy the asteroid.
+        gameObject.SetActive(false);
         Destroy(this.gameObject);
     }
+
+
+    //public void SplitInTwo()
+    //{
+    //    for (int i = 0; i < 2; i++)
+    //    {
+    //        GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
+    //        a1.transform.position = this.gameObject.transform.position;
+    //        //a1.transform.localScale *= 0.5f;
+    //    }
+
+    //    Destroy(this.gameObject);
+    //}
 
 
 

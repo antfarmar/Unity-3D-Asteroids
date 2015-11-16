@@ -178,10 +178,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 109316}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9664006bbf82436782d24280d78f122, type: 3}
+  m_Script: {fileID: 11500000, guid: f8a3542c2f042f245a45e7583c3d565f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  efxSource: {fileID: 8209314}
+  sfxSource: {fileID: 8209314}
   musicSource: {fileID: 8209316}
   lowPitchRange: .949999988
   highPitchRange: 1.04999995
@@ -196,6 +196,14 @@ Prefab:
       propertyPath: m_Volume
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: sfxSource
+      value: 
+      objectReference: {fileID: 8209314}
+    - target: {fileID: 0}
+      propertyPath: musicSource
+      value: 
+      objectReference: {fileID: 8209316}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 109316}

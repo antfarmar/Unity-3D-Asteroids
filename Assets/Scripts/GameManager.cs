@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject m_ShipPrefab;
     public GameObject m_Asteroid_Big_Prefab;
     public GameObject m_Asteroid_Small_Prefab;
     public int m_AsteroidCount = 6;
@@ -32,6 +33,10 @@ public class GameManager : MonoBehaviour
     // Use this for initialization.
     void Start()
     {
+        // Spawn the ship.
+        Instantiate(m_ShipPrefab);
+
+        // Spawn some asteroids.
         Transform asteroidHolder = new GameObject("AsteroidHolder").transform;
         GameObject asteroid;
 
@@ -44,8 +49,6 @@ public class GameManager : MonoBehaviour
 
             asteroid.transform.SetParent(asteroidHolder);
         }
-
-
     }
 
 

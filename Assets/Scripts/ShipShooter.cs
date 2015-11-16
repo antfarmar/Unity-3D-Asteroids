@@ -23,10 +23,7 @@ public class ShipShooter : MonoBehaviour
     // If a GameObject is inactive during start up Awake is not called until it is made active, or a function in any script attached to it is called.
     void Awake()
     {
-        if (ObjectPooler.CreatePool("bullets", m_BulletPrefab, 2, 5))
-            Debug.Log("Pre-populating pool");
-        else
-            Debug.Log("Pool already configured");
+        ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 2, 5);
     }
 
     // Only called if the Object is active. This function is called just after the object is enabled.
@@ -58,7 +55,7 @@ public class ShipShooter : MonoBehaviour
             //    Instantiate(m_BulletPrefab, m_BulletSpawnPoint.position, m_BulletSpawnPoint.rotation) as Rigidbody;
 
             //bulletInstance.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up = y-axis)
-            Poolable bullet = ObjectPooler.Dequeue("bullets");
+            Poolable bullet = ObjectPooler.Dequeue("BulletPool");
 
 
             // Active before position? FixedUpdate?

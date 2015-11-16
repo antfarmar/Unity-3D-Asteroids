@@ -27,6 +27,7 @@ public class SoundManager : MonoBehaviour
     }
 
 
+
     //Used to play single sound clips.
     public void PlaySingle(AudioClip clip)
     {

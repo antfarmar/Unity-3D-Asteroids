@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06b9b42d61229014aaa47443f1df6d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ExplosionClip: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
   m_BulletLife: 1
 --- !u!1001 &100100000
 Prefab:
@@ -182,6 +183,10 @@ Prefab:
       propertyPath: m_ExplosionAudio
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ExplosionClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 175094}
