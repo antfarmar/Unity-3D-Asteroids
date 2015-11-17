@@ -14,36 +14,32 @@ public class AsteroidBehaviour : MonoBehaviour
     private Rigidbody m_Rigidbody;
 
 
+    // Apply random forces.
     void SetRandomForces()
     {
-        float rForceX = m_Force * Random.Range(-1f, 1f);
-        float rForceY = m_Force * Random.Range(-1f, 1f);
-        float rTorqueX = m_Torque * Random.Range(-1f, 1f);
-        float rTorqueY = m_Torque * Random.Range(-1f, 1f);
+        Vector3 randomForce = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f);
+        Vector3 randomTorque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+
+        randomForce = m_Force * Vector3.Normalize(randomForce);
+        randomTorque = m_Torque * Vector3.Normalize(randomTorque);
 
         m_Rigidbody.velocity = Vector3.zero;
-        m_Rigidbody.AddForce(new Vector3(rForceX, rForceY, 0f));
+        m_Rigidbody.AddForce(randomForce);
 
         m_Rigidbody.angularVelocity = Vector3.zero;
-        m_Rigidbody.AddTorque(new Vector3(rTorqueX, rTorqueY, 0f));
+        m_Rigidbody.AddTorque(randomTorque);
     }
 
 
-    // Calculate a random spawn point, scale, velocities.
+    // Calculate a random spawn point along the screen edge.
     void SpawnRandomEdge()
     {
-        float rX = Random.value;
-        float rY = Random.value;
-        float x = Random.value < 0.5f ? 0f : 1f;
-        float y = Random.value < 0.5f ? 0f : 1f;
+        Vector3 randomPosition = new Vector3(Random.value, Random.value, 0f);
 
-        Vector3 randomPosition;
-        //var z = Camera.main.WorldToViewportPoint(Vector3.zero).z;
-
-        if(Random.value < 0.5f)
-            randomPosition = new Vector3(rX, y, 0f);// Camera.main.nearClipPlane);
+        if(Random.value < 0.5f) // coin flip
+            randomPosition.x = Random.value < 0.5f ? 0.1f : 0.9f;
         else
-            randomPosition = new Vector3(x, rY, 0f);
+            randomPosition.y = Random.value < 0.5f ? 0.1f : 0.9f;
 
         Vector3 spawnPosition = Camera.main.ViewportToWorldPoint(randomPosition);
         spawnPosition.z = 0f;
@@ -51,8 +47,7 @@ public class AsteroidBehaviour : MonoBehaviour
         transform.position = spawnPosition;
 
         // Add some small scale variation
-        float rScale = Random.Range(1f, 2f);
-        transform.localScale *= rScale;
+        transform.localScale *= Random.Range(1f, 2f);
     }
 
 
