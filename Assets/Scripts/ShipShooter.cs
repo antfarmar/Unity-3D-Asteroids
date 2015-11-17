@@ -23,7 +23,7 @@ public class ShipShooter : MonoBehaviour
     // If a GameObject is inactive during start up Awake is not called until it is made active, or a function in any script attached to it is called.
     void Awake()
     {
-        ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 2, 5);
+
     }
 
     // Only called if the Object is active. This function is called just after the object is enabled.
@@ -38,39 +38,36 @@ public class ShipShooter : MonoBehaviour
     // Use this for initialization.
     void Start()
     {
-        m_BulletSpawnPoint = GameObject.FindGameObjectWithTag("BulletSpawn").GetComponent<Transform>();
+        // Create a reserve pool of bullets for use.
+        ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
+
+        // This is probably more robust than below (child could change index).
+        //m_BulletSpawnPoint = GameObject.FindGameObjectWithTag("BulletSpawn").GetComponent<Transform>();
+
+        //Assigns the transform of the first child of the GameObject this script is attached to.
+        m_BulletSpawnPoint = transform.GetChild(0);
     }
 
 
     // Update is called once per frame. It is the main workhorse function for frame updates.
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if(Input.GetButtonDown("Fire1"))
         {
+            //Rigidbody bulletInstance = Instantiate(m_BulletPrefab, m_BulletSpawnPoint.position, m_BulletSpawnPoint.rotation) as Rigidbody;
+            //bulletInstance.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up = y-axis)
+
+            // Get a bullet and initialize it before activating it.
+            Poolable bullet = ObjectPooler.Dequeue("BulletPool");
+            Rigidbody rigidbody = bullet.gameObject.GetComponent<Rigidbody>();
+            bullet.transform.position = m_BulletSpawnPoint.position;
+            bullet.transform.rotation = m_BulletSpawnPoint.rotation;
+            rigidbody.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up: y-axis)
+            bullet.gameObject.SetActive(true);
+
             // Change the clip to the firing clip and play it.
             //m_ShootingAudio.clip = m_ShootClip;
             SoundManager.instance.PlaySingle(m_ShootClip);
-
-            //Rigidbody bulletInstance =
-            //    Instantiate(m_BulletPrefab, m_BulletSpawnPoint.position, m_BulletSpawnPoint.rotation) as Rigidbody;
-
-            //bulletInstance.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up = y-axis)
-            Poolable bullet = ObjectPooler.Dequeue("BulletPool");
-
-
-            // Active before position? FixedUpdate?
-            //rb.position = m_BulletSpawnPoint.position;
-            //rb.rotation = m_BulletSpawnPoint.rotation;
-
-            // This order of operations is important to not have bullet flashes in old position.
-            // Also, use transform, not rigidbody for position/rotation.
-            bullet.transform.position = m_BulletSpawnPoint.position;
-            bullet.transform.rotation = m_BulletSpawnPoint.rotation;
-            bullet.gameObject.SetActive(true);
-
-            Rigidbody rigidbody = bullet.gameObject.GetComponent<Rigidbody>();
-            rigidbody.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up = y-axis)
-
         }
     }
 
