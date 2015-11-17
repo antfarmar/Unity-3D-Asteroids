@@ -40,7 +40,7 @@ public class AsteroidBehaviour : MonoBehaviour
         Vector3 randomPosition;
         //var z = Camera.main.WorldToViewportPoint(Vector3.zero).z;
 
-        if (Random.value < 0.5f)
+        if(Random.value < 0.5f)
             randomPosition = new Vector3(rX, y, 0f);// Camera.main.nearClipPlane);
         else
             randomPosition = new Vector3(x, rY, 0f);
@@ -59,10 +59,10 @@ public class AsteroidBehaviour : MonoBehaviour
     // Called when hit by a bullet trigger collider.
     void OnTriggerEnter(Collider other)
     {
-        if (gameObject.CompareTag("AsteroidBig"))
+        if(gameObject.CompareTag("AsteroidBig"))
         {
             // Split the big asteroid into 2 smaller ones.
-            for (int i = 0; i < 2; i++)
+            for(int i = 0; i < 2; i++)
             {
                 GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
                 a1.transform.position = this.gameObject.transform.position;
@@ -79,6 +79,7 @@ public class AsteroidBehaviour : MonoBehaviour
         // Play the explosion clip via SM (because object will be destroyed.
         // Could also use  AudioSource.PlayClipAtPoint()
         SoundManager.instance.PlaySingle(m_ExplosionClip);
+
         //This function creates an audio source but automatically disposes of it once the clip has finished playing.
         // AudioSource.PlayClipAtPoint(clip, new Vector3(5, 1, 2));
 

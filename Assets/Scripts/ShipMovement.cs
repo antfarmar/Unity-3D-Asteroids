@@ -71,8 +71,8 @@ public class ShipMovement : MonoBehaviour
 
     private void Move()
     {
-        // No backwards for you!
-        if (m_MovementInputValue <= 0) return;
+        // No backwards movement for you!
+        if(m_MovementInputValue <= 0) return;
 
         // Create a vector in the direction the ship is facing.
         // Magnitude based on the input, speed and the time between frames.
