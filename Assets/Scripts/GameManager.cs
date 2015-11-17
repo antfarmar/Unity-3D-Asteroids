@@ -5,8 +5,9 @@ using System.Collections.Generic;
 public class GameManager : MonoBehaviour
 {
     public GameObject m_ShipPrefab;
-    public GameObject m_Asteroid_Big_Prefab;
-    public GameObject m_Asteroid_Small_Prefab;
+    public GameObject m_BulletPrefab;
+    public GameObject m_AsteroidBigPrefab;
+    public GameObject m_AsteroidSmallPrefab;
     public int m_AsteroidCount = 6;
     //List<GameObject> m_AsteroidList = new List<GameObject>();
 
@@ -33,21 +34,30 @@ public class GameManager : MonoBehaviour
     // Use this for initialization.
     void Start()
     {
+        // Create object pools for bullets & asteroids.
+        ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
+        ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 10, 10);
+        ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 10);
+
         // Spawn the ship.
         Instantiate(m_ShipPrefab);
 
         // Spawn some asteroids.
         Transform asteroidHolder = new GameObject("AsteroidHolder").transform;
-        GameObject asteroid;
+        //GameObject asteroid;
+        Poolable asteroid;
 
-        for (int i = 0; i < m_AsteroidCount; i++)
+        for(int i = 0; i < m_AsteroidCount; i++)
         {
-            if (i < m_AsteroidCount / 2)
-                asteroid = Instantiate(m_Asteroid_Big_Prefab);
+            if(i < m_AsteroidCount / 2)
+                asteroid = ObjectPooler.Dequeue("AsteroidBigPool");
+            //asteroid = Instantiate(m_AsteroidBigPrefab);
             else
-                asteroid = Instantiate(m_Asteroid_Small_Prefab);
+                asteroid = ObjectPooler.Dequeue("AsteroidSmallPool");
+            //asteroid = Instantiate(m_AsteroidSmallPrefab);
 
             asteroid.transform.SetParent(asteroidHolder);
+            asteroid.gameObject.SetActive(true);
         }
     }
 

@@ -20,10 +20,9 @@ public class BulletBehaviour : MonoBehaviour
     // Only called if the Object is active. This function is called just after the object is enabled.
     // This happens when a MonoBehaviour instance is created, such as when a level is loaded
     // or a GameObject with the script component is instantiated.
-
-    // Recycle the bullet after each (re)activation.
     void OnEnable()
     {
+        // Recycle the bullet after each (re)activation after lifetime up.
         Invoke("PoolBullet", m_BulletLife);
     }
 
@@ -32,8 +31,8 @@ public class BulletBehaviour : MonoBehaviour
     // Use this for initialization.
     void Start()
     {
-        //Destroy(gameObject, m_BulletLife);
 
+        //Destroy(gameObject, m_BulletLife);
     }
 
 
@@ -48,7 +47,7 @@ public class BulletBehaviour : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Prevent recycling the bullet twice. (Pooler already checks for this)
-        // CancelInvoke("PoolBullet");
+        CancelInvoke("PoolBullet");
         PoolBullet();
     }
 

@@ -4,7 +4,7 @@ using System.Collections;
 public class ShipShooter : MonoBehaviour
 {
 
-    public GameObject m_BulletPrefab;
+    //public GameObject m_BulletPrefab;
     public float m_BulletVelocity;
 
     //public AudioSource m_ShootingAudio; // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
@@ -39,7 +39,7 @@ public class ShipShooter : MonoBehaviour
     void Start()
     {
         // Create a reserve pool of bullets for use.
-        ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
+        //ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
 
         // This is probably more robust than below (child could change index).
         //m_BulletSpawnPoint = GameObject.FindGameObjectWithTag("BulletSpawn").GetComponent<Transform>();

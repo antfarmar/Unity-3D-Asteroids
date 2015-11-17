@@ -64,8 +64,15 @@ public class AsteroidBehaviour : MonoBehaviour
             // Split the big asteroid into 2 smaller ones.
             for(int i = 0; i < 2; i++)
             {
-                GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
-                a1.transform.position = this.gameObject.transform.position;
+                //GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
+                Poolable small = ObjectPooler.Dequeue("AsteroidSmallPool");
+                small.transform.position = gameObject.transform.position;
+                small.gameObject.SetActive(true);
+                //((AsteroidBehaviour)small.GetComponent("AsteroidBehaviour")).SetRandomForces();
+
+                //((AsteroidBehaviour)a1.GetComponent("AsteroidBehaviour")).SetRandomForces();
+                //AsteroidBehaviour script = a1.GetComponent("AsteroidBehaviour") as AsteroidBehaviour;
+                //script.SetRandomForces();
                 //a1.transform.localScale *= 0.5f;  // scaling done in editor now
             }
 
@@ -89,24 +96,13 @@ public class AsteroidBehaviour : MonoBehaviour
         explosion.Play();   // could set PS to play on awake instead.
         Destroy(explosion.gameObject, m_ExplosionPS.startLifetime);
 
+        // Recycle the asteroid.
+        ObjectPooler.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
+
         // Destroy the asteroid.
-        gameObject.SetActive(false);
-        Destroy(this.gameObject);
+        //gameObject.SetActive(false);
+        //Destroy(this.gameObject);
     }
-
-
-    //public void SplitInTwo()
-    //{
-    //    for (int i = 0; i < 2; i++)
-    //    {
-    //        GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
-    //        a1.transform.position = this.gameObject.transform.position;
-    //        //a1.transform.localScale *= 0.5f;
-    //    }
-
-    //    Destroy(this.gameObject);
-    //}
-
 
 
     // For objects added to the scene, the Awake and OnEnable functions for all scripts will be called before Start, Update, etc are called for any of them.
@@ -117,13 +113,14 @@ public class AsteroidBehaviour : MonoBehaviour
     void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        SpawnRandomEdge();
     }
 
     // Only called if the Object is active. This function is called just after the object is enabled.
     // This happens when a MonoBehaviour instance is created, such as when a level is loaded or a GameObject with the script component is instantiated.
     void OnEnable()
     {
-        SpawnRandomEdge(); // debug. both belong in start.
+        //SpawnRandomEdge(); // debug. both belong in start.
         SetRandomForces();
     }
 
@@ -132,7 +129,7 @@ public class AsteroidBehaviour : MonoBehaviour
     // Use this for initialization.
     void Start()
     {
-
+        //SpawnRandomEdge();
     }
 
 
