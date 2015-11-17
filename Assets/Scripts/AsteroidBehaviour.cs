@@ -68,19 +68,24 @@ public class AsteroidBehaviour : MonoBehaviour
                 a1.transform.position = this.gameObject.transform.position;
                 //a1.transform.localScale *= 0.5f;  // scaling done in editor now
             }
+
+            SoundManager.instance.sfxSource.pitch = 1;
         }
         else // "AsteroidSmall"
         {
             SoundManager.instance.sfxSource.pitch = 2;
         }
 
-        // Play the explosion clip.
+        // Play the explosion clip via SM (because object will be destroyed.
+        // Could also use  AudioSource.PlayClipAtPoint()
         SoundManager.instance.PlaySingle(m_ExplosionClip);
-        SoundManager.instance.sfxSource.pitch = 1;
+        //This function creates an audio source but automatically disposes of it once the clip has finished playing.
+        // AudioSource.PlayClipAtPoint(clip, new Vector3(5, 1, 2));
+
 
         // Play the explosion particles, then destroy after particle max lifetime.
         ParticleSystem explosion = Instantiate(m_ExplosionPS, transform.position, Quaternion.identity) as ParticleSystem;
-        explosion.Play();   // could set to play on awake also.
+        explosion.Play();   // could set PS to play on awake instead.
         Destroy(explosion.gameObject, m_ExplosionPS.startLifetime);
 
         // Destroy the asteroid.

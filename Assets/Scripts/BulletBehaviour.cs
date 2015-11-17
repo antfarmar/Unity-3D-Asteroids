@@ -20,6 +20,8 @@ public class BulletBehaviour : MonoBehaviour
     // Only called if the Object is active. This function is called just after the object is enabled.
     // This happens when a MonoBehaviour instance is created, such as when a level is loaded
     // or a GameObject with the script component is instantiated.
+
+    // Recycle the bullet after each (re)activation.
     void OnEnable()
     {
         Invoke("PoolBullet", m_BulletLife);
@@ -45,25 +47,8 @@ public class BulletBehaviour : MonoBehaviour
     // Let the Asteroid handle the collision?
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject.tag == "AsteroidBig")
-        {
-            // AsteroidManager should handle this?
-            //AsteroidBehaviour script = other.gameObject.GetComponent("AsteroidBehaviour") as AsteroidBehaviour;
-            //script.SplitInTwo();
-        }
-        else// "AsteroidSmall" logically due to Layers matrix.
-        {
-            // Destroy the asteroid.
-            //Destroy(other.gameObject);
-
-            //Score();
-        }
-
-        //SoundManager.instance.PlaySingle(m_ExplosionClip);
-
-        // Recycle the bullet only once.
-        CancelInvoke("PoolBullet");
+        // Prevent recycling the bullet twice. (Pooler already checks for this)
+        // CancelInvoke("PoolBullet");
         PoolBullet();
     }
 
