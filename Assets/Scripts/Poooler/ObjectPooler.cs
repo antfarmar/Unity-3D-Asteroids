@@ -20,7 +20,7 @@ public class ObjectPooler : MonoBehaviour
     {
         get
         {
-            if (instance == null)
+            if(instance == null)
                 CreateSharedInstance();
             return instance;
         }
@@ -38,7 +38,7 @@ public class ObjectPooler : MonoBehaviour
     // Enforce Singleton pattern on awake.
     void Awake()
     {
-        if (instance != null && instance != this)
+        if(instance != null && instance != this)
             Destroy(this);
         else
             instance = this;
@@ -50,7 +50,7 @@ public class ObjectPooler : MonoBehaviour
     // Set an upper-limit on pool growth.
     public static void SetMaxCount(string key, int maxCount)
     {
-        if (!pools.ContainsKey(key))
+        if(!pools.ContainsKey(key))
             return;
         Pool pool = pools[key];
         pool.maxCount = maxCount;
@@ -60,7 +60,7 @@ public class ObjectPooler : MonoBehaviour
     // Creates a new pool for use by a prefab type & fills it with startCount new prefab instances.
     public static bool CreatePool(string key, GameObject prefab, int startCount, int maxCount)
     {
-        if (pools.ContainsKey(key))
+        if(pools.ContainsKey(key))
             return false;
 
         Pool pool = new Pool();
@@ -69,7 +69,7 @@ public class ObjectPooler : MonoBehaviour
         pool.queue = new Queue<Poolable>(startCount);
         pools.Add(key, pool);
 
-        for (int i = 0; i < startCount; ++i)
+        for(int i = 0; i < startCount; ++i)
             Enqueue(CreatePoolableObject(key, prefab));
 
         return true;
@@ -79,11 +79,11 @@ public class ObjectPooler : MonoBehaviour
     // Removes an entire pool from use and destroys all of its objects.
     public static void DestroyPool(string key)
     {
-        if (!pools.ContainsKey(key))
+        if(!pools.ContainsKey(key))
             return;
 
         Pool pool = pools[key];
-        while (pool.queue.Count > 0)
+        while(pool.queue.Count > 0)
         {
             Poolable obj = pool.queue.Dequeue();
             GameObject.Destroy(obj.gameObject);
@@ -95,13 +95,13 @@ public class ObjectPooler : MonoBehaviour
     // Pool and deactivate an item for reuse, or destroy it if pool is full.
     public static void Enqueue(Poolable item)
     {
-        if (item == null || item.isPooled || !pools.ContainsKey(item.key))
+        if(item == null || item.isPooled || !pools.ContainsKey(item.key))
             return;
 
         Pool pool = pools[item.key];
 
         // Pool is full! Destroy the object.
-        if (pool.queue.Count >= pool.maxCount)
+        if(pool.queue.Count >= pool.maxCount)
         {
             GameObject.Destroy(item.gameObject);
             return;
@@ -118,13 +118,13 @@ public class ObjectPooler : MonoBehaviour
     // Always returns an inactive prefab instance for the client.
     public static Poolable Dequeue(string key)
     {
-        if (!pools.ContainsKey(key))
+        if(!pools.ContainsKey(key))
             return null;
 
         Pool pool = pools[key];
 
         // Pool is spent! Create a new object for client.
-        if (pool.queue.Count == 0)
+        if(pool.queue.Count == 0)
         {
             return CreatePoolableObject(key, pool.prefab);
         }

@@ -4,7 +4,7 @@ using System.Collections;
 public class AsteroidBehaviour : MonoBehaviour
 {
 
-    public ParticleSystem m_ExplosionPS;
+    //public ParticleSystem m_ExplosionPS;
     public AudioClip m_ExplosionClip;
 
     public GameObject m_SmallAsteroidPrefab;
@@ -17,6 +17,7 @@ public class AsteroidBehaviour : MonoBehaviour
     // Apply random forces.
     void SetRandomForces()
     {
+        // Random.insideUnitSphere();
         Vector3 randomForce = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f);
         Vector3 randomTorque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
 
@@ -87,17 +88,23 @@ public class AsteroidBehaviour : MonoBehaviour
 
 
         // Play the explosion particles, then destroy after particle max lifetime.
-        ParticleSystem explosion = Instantiate(m_ExplosionPS, transform.position, Quaternion.identity) as ParticleSystem;
-        explosion.Play();   // could set PS to play on awake instead.
-        Destroy(explosion.gameObject, m_ExplosionPS.startLifetime);
+        //ParticleSystem explosion = Instantiate(m_ExplosionPS, transform.position, Quaternion.identity) as ParticleSystem;
+        //explosion.Play();   // could set PS to play on awake instead.
+        //Destroy(explosion.gameObject, m_ExplosionPS.startLifetime);
 
-        // Recycle the asteroid.
+        Poolable explosion = ObjectPooler.Dequeue("ExplosionPool");
+        explosion.transform.position = transform.position;
+        explosion.gameObject.SetActive(true);
+
+        // Recycle & deactivate this asteroid.
         ObjectPooler.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
 
         // Destroy the asteroid.
         //gameObject.SetActive(false);
         //Destroy(this.gameObject);
     }
+
+
 
 
     // For objects added to the scene, the Awake and OnEnable functions for all scripts will be called before Start, Update, etc are called for any of them.

@@ -12,8 +12,8 @@ GameObject:
   - 23: {fileID: 2347452}
   - 64: {fileID: 6492038}
   - 54: {fileID: 5482936}
-  - 114: {fileID: 11492270}
   - 114: {fileID: 11406672}
+  - 114: {fileID: 11492270}
   m_Layer: 8
   m_Name: AsteroidBig
   m_TagString: AsteroidBig
@@ -102,7 +102,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4447694d941b2674aa4af87367121375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ExplosionPS: {fileID: 19831888, guid: afbde139a9d69944289debfcbd33e75d, type: 2}
   m_ExplosionClip: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
   m_SmallAsteroidPrefab: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7,
     type: 2}
@@ -176,6 +175,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: playOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Interpolate
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

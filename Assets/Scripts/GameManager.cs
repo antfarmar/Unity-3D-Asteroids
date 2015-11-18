@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject m_ShipPrefab;
     public GameObject m_BulletPrefab;
+    public GameObject m_Explosion;
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
     public int m_AsteroidCount = 6;
@@ -36,8 +37,9 @@ public class GameManager : MonoBehaviour
     {
         // Create object pools for bullets & asteroids.
         ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
-        ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 10, 10);
-        ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 10);
+        ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
+        ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
+        ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
 
         // Spawn the ship.
         Instantiate(m_ShipPrefab);

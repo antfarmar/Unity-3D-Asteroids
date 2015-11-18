@@ -113,9 +113,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShipPrefab: {fileID: 178224, guid: c1955aaa0bfd5d046a37119e23a74bc1, type: 2}
-  m_Asteroid_Big_Prefab: {fileID: 186268, guid: 0cc2b6c448b0759409599f21e66ce41e,
-    type: 2}
-  m_Asteroid_Small_Prefab: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7,
+  m_BulletPrefab: {fileID: 175094, guid: c2c7c9743d4d55645b40878bbce4c25e, type: 2}
+  m_Explosion: {fileID: 148916, guid: afbde139a9d69944289debfcbd33e75d, type: 2}
+  m_AsteroidBigPrefab: {fileID: 186268, guid: 0cc2b6c448b0759409599f21e66ce41e, type: 2}
+  m_AsteroidSmallPrefab: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7,
     type: 2}
   m_AsteroidCount: 10
 --- !u!4 &65102340
