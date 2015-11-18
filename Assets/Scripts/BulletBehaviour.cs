@@ -14,6 +14,16 @@ public class BulletBehaviour : MonoBehaviour
     }
 
 
+    // OnDisable is called:
+    // when the Behaviour becomes disabled || GO inactive.
+    // when the GO is destroyed.
+    // when scripts are reloaded after compilation (OnDisable->OnEnable)
+    // USAGE: cleanup.
+    void OnDisable()
+    {
+        ObjectPooler.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
+    }
+
     // We hit something (asteroid). Recycle/deactivate the bullet.
     private void OnTriggerEnter(Collider other)
     {

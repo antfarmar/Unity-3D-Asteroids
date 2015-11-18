@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
     public int m_AsteroidCount = 6;
+    private bool paused;
+
     //List<GameObject> m_AsteroidList = new List<GameObject>();
 
 
@@ -46,7 +48,6 @@ public class GameManager : MonoBehaviour
 
         // Spawn some asteroids.
         Transform asteroidHolder = new GameObject("AsteroidHolder").transform;
-        //GameObject asteroid;
         Poolable asteroid;
 
         for(int i = 0; i < m_AsteroidCount; i++)
@@ -67,7 +68,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame. It is the main workhorse function for frame updates.
     void Update()
     {
-
+        if(paused) Debug.Log("Game Paused.");
     }
 
 
@@ -94,9 +95,9 @@ public class GameManager : MonoBehaviour
 
     // This is called at the end of the frame where the pause is detected, effectively between the normal frame updates.
     // One extra frame will be issued after OnApplicationPause is called to allow the game to show graphics that indicate the paused state.
-    void OnApplicationPause()
+    void OnApplicationPause(bool pauseStatus)
     {
-
+        paused = pauseStatus;
     }
 
 

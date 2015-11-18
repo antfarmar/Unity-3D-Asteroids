@@ -59,7 +59,8 @@ public class ShipShooter : MonoBehaviour
 
             // Get a bullet and initialize it before activating it.
             Poolable bullet = ObjectPooler.Dequeue("BulletPool");
-            Rigidbody rigidbody = bullet.gameObject.GetComponent<Rigidbody>();
+            Debug.Log(bullet);
+            Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
             bullet.transform.position = m_BulletSpawnPoint.position;
             bullet.transform.rotation = m_BulletSpawnPoint.rotation;
             rigidbody.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up: y-axis)
