@@ -59,7 +59,7 @@ public class ShipShooter : MonoBehaviour
 
             // Get a bullet and initialize it before activating it.
             Poolable bullet = ObjectPooler.Dequeue("BulletPool");
-            //Debug.Log(bullet);
+            //Debug.Log(bullet); // is null on hot-reload, so is queue.
             Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
             bullet.transform.position = m_BulletSpawnPoint.position;
             bullet.transform.rotation = m_BulletSpawnPoint.rotation;

@@ -15,45 +15,39 @@ public class GameManager : MonoBehaviour
     //List<GameObject> m_AsteroidList = new List<GameObject>();
 
 
-    // For objects added to the scene, the Awake and OnEnable functions for all scripts will be called before Start, Update, etc are called for any of them.
-    // Cannot be enforced when an object is instantiated during gameplay.
-
-    // This function is always called before any Start functions and also just after a prefab is instantiated.
-    // If a GameObject is inactive during start up Awake is not called until it is made active, or a function in any script attached to it is called.
     void Awake()
     {
 
     }
 
-    // Only called if the Object is active. This function is called just after the object is enabled.
-    // This happens when a MonoBehaviour instance is created, such as when a level is loaded or a GameObject with the script component is instantiated.
-    void OnEnable()
-    {
-        Debug.Log("OnEnable");
-        ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
-        ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
-        ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
-        ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
-    }
 
-    void OnDisable()
-    {
-        Debug.Log("OnDisable");
-        ObjectPooler.DestroyPool("BulletPool");
-        ObjectPooler.DestroyPool("AsteroidBigPool");
-        ObjectPooler.DestroyPool("AsteroidSmallPool");
-        ObjectPooler.DestroyPool("ExplosionPool");
-    }
+    //void OnEnable()
+    //{
+    //    Debug.Log("OnEnable");
+    //    ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
+    //    ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
+    //    ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
+    //    ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
+    //}
+
+    //void OnDisable()
+    //{
+    //    Debug.Log("OnDisable");
+    //    ObjectPooler.DestroyPool("BulletPool");
+    //    ObjectPooler.DestroyPool("AsteroidBigPool");
+    //    ObjectPooler.DestroyPool("AsteroidSmallPool");
+    //    ObjectPooler.DestroyPool("ExplosionPool");
+    //}
 
     // Start is called before the first frame update only if the script instance is enabled.
     // Use this for initialization.
     void Start()
     {
         // Create object pools for bullets & asteroids.
-        //ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
-        //ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
-        //ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
-        //ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
+        ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
+        ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
+        ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
+        ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
 
         // Spawn the ship.
         Instantiate(m_ShipPrefab);
@@ -80,7 +74,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame. It is the main workhorse function for frame updates.
     void Update()
     {
-        if(paused) Debug.Log("Game Paused...");
+        if(paused) Debug.Log("Game Paused.");
     }
 
 

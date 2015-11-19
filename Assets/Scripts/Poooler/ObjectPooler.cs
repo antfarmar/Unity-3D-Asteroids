@@ -40,10 +40,11 @@ public class ObjectPooler : MonoBehaviour
 
     #region MonoBehaviour
     // Enforce Singleton pattern on awake.
-    void OnEnable()
+    void Awake()
+    //void OnEnable()
     {
         if(instance != null && instance != this)
-            Destroy(this);
+            Destroy(this.gameObject);
         else
             instance = this;
     }
@@ -54,6 +55,7 @@ public class ObjectPooler : MonoBehaviour
     {
         return pools.Find(x => x.key == key);
     }
+
 
     #region Public
     // Set an upper-limit on pool growth.
