@@ -70,12 +70,13 @@ public class AsteroidBehaviour : MonoBehaviour
     // Apply random forces.
     void SetRandomForces()
     {
-        // Random.insideUnitSphere();
-        Vector3 randomForce = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f);
-        Vector3 randomTorque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        //Vector3 randomForce = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f);
+        //Vector3 randomTorque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        //randomForce = m_Force * Vector3.Normalize(randomForce);
+        //randomTorque = m_Torque * Vector3.Normalize(randomTorque);
 
-        randomForce = m_Force * Vector3.Normalize(randomForce);
-        randomTorque = m_Torque * Vector3.Normalize(randomTorque);
+        Vector3 randomTorque = m_Torque * Random.insideUnitSphere;
+        Vector3 randomForce = m_Force * Random.insideUnitSphere;
 
         m_Rigidbody.velocity = Vector3.zero;
         m_Rigidbody.AddForce(randomForce);
