@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 // A pool that stores objects made from prefabs.
+[Serializable]
 public class Pool
 {
-    public GameObject prefab;
+    public string key;
     public int maxCount;
-    public Queue<Poolable> queue;
+    public GameObject prefab;
+    public List<Poolable> list;
 }
 
 
@@ -30,13 +33,14 @@ public class ObjectPooler : MonoBehaviour
     static ObjectPooler instance;
 
     // The table of pools available for use. Each accessible by a key string.
-    static Dictionary<string, Pool> pools = new Dictionary<string, Pool>();
+    //static Dictionary<string, Pool> pools = new Dictionary<string, Pool>();
+    static List<Pool> pools = new List<Pool>();
     #endregion
 
 
     #region MonoBehaviour
     // Enforce Singleton pattern on awake.
-    void Awake()
+    void OnEnable()
     {
         if(instance != null && instance != this)
             Destroy(this);
@@ -46,13 +50,19 @@ public class ObjectPooler : MonoBehaviour
     #endregion
 
 
+    public static Pool FindPool(string key)
+    {
+        return pools.Find(x => x.key == key);
+    }
+
     #region Public
     // Set an upper-limit on pool growth.
     public static void SetMaxCount(string key, int maxCount)
     {
-        if(!pools.ContainsKey(key))
+        Pool pool = FindPool(key);
+        if(pool == null)
             return;
-        Pool pool = pools[key];
+        pool.key = key;
         pool.maxCount = maxCount;
     }
 
@@ -60,14 +70,15 @@ public class ObjectPooler : MonoBehaviour
     // Creates a new pool for use by a prefab type & fills it with startCount new prefab instances.
     public static bool CreatePool(string key, GameObject prefab, int startCount, int maxCount)
     {
-        if(pools.ContainsKey(key))
+        if(FindPool(key) != null)
             return false;
 
         Pool pool = new Pool();
+        pool.key = key;
         pool.prefab = prefab;
         pool.maxCount = maxCount;
-        pool.queue = new Queue<Poolable>(startCount);
-        pools.Add(key, pool);
+        pool.list = new List<Poolable>(startCount);
+        pools.Add(pool);
 
         for(int i = 0; i < startCount; ++i)
             Enqueue(CreatePoolableObject(key, prefab));
@@ -79,36 +90,37 @@ public class ObjectPooler : MonoBehaviour
     // Removes an entire pool from use and destroys all of its objects.
     public static void DestroyPool(string key)
     {
-        if(!pools.ContainsKey(key))
+        Pool pool = FindPool(key);
+        if(pool == null)
             return;
 
-        Pool pool = pools[key];
-        while(pool.queue.Count > 0)
+        while(pool.list.Count > 0)
         {
-            Poolable obj = pool.queue.Dequeue();
+            Poolable obj = pool.list[0];
+            pool.list.RemoveAt(0);
             GameObject.Destroy(obj.gameObject);
         }
-        pools.Remove(key);
+        pools.Remove(pool);
     }
 
 
     // Pool and deactivate an item for reuse, or destroy it if pool is full.
     public static void Enqueue(Poolable item)
     {
-        if(item == null || item.isPooled || !pools.ContainsKey(item.key))
+        Pool pool = FindPool(item.key);
+        if(item == null || item.isPooled || pool == null)
             return;
 
-        Pool pool = pools[item.key];
 
         // Pool is full! Destroy the object.
-        if(pool.queue.Count >= pool.maxCount)
+        if(pool.list.Count >= pool.maxCount)
         {
             GameObject.Destroy(item.gameObject);
             return;
         }
 
         // Pool the object for reuse.
-        pool.queue.Enqueue(item);
+        pool.list.Add(item);
         item.isPooled = true;
         item.transform.SetParent(Instance.transform);
         item.gameObject.SetActive(false);
@@ -118,19 +130,21 @@ public class ObjectPooler : MonoBehaviour
     // Always returns an inactive prefab instance for the client.
     public static Poolable Dequeue(string key)
     {
-        if(!pools.ContainsKey(key))
+        Pool pool = FindPool(key);
+        //Debug.Log(pool);
+        //Debug.Log(pool.list);
+        if(pool == null)
             return null;
 
-        Pool pool = pools[key];
-
         // Pool is spent! Create a new object for client.
-        if(pool.queue.Count == 0)
+        if(pool.list.Count == 0)
         {
             return CreatePoolableObject(key, pool.prefab);
         }
 
         // Dequeue an existing object for client.
-        Poolable obj = pool.queue.Dequeue();
+        Poolable obj = pool.list[0];
+        pool.list.RemoveAt(0);
         obj.isPooled = false;
         return obj;
     }

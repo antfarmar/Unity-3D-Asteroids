@@ -11,14 +11,14 @@ public class SoundManager : MonoBehaviour
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
 
 
-    void Awake()
+    void OnEnable()
     {
         //Check if there is already an instance of SoundManager
-        if (instance == null)
+        if(instance == null)
             //if not, set it to this.
             instance = this;
         //If instance already exists:
-        else if (instance != this)
+        else if(instance != this)
             //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
             Destroy(this.gameObject);
 

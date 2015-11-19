@@ -29,19 +29,31 @@ public class GameManager : MonoBehaviour
     // This happens when a MonoBehaviour instance is created, such as when a level is loaded or a GameObject with the script component is instantiated.
     void OnEnable()
     {
-
+        Debug.Log("OnEnable");
+        ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
+        ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
+        ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
+        ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
     }
 
+    void OnDisable()
+    {
+        Debug.Log("OnDisable");
+        ObjectPooler.DestroyPool("BulletPool");
+        ObjectPooler.DestroyPool("AsteroidBigPool");
+        ObjectPooler.DestroyPool("AsteroidSmallPool");
+        ObjectPooler.DestroyPool("ExplosionPool");
+    }
 
     // Start is called before the first frame update only if the script instance is enabled.
     // Use this for initialization.
     void Start()
     {
         // Create object pools for bullets & asteroids.
-        ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
-        ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
-        ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
-        ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
+        //ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
+        //ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
+        //ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
+        //ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
 
         // Spawn the ship.
         Instantiate(m_ShipPrefab);
@@ -68,7 +80,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame. It is the main workhorse function for frame updates.
     void Update()
     {
-        if(paused) Debug.Log("Game Paused.");
+        if(paused) Debug.Log("Game Paused...");
     }
 
 
