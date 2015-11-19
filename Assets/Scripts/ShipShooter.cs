@@ -42,10 +42,11 @@ public class ShipShooter : MonoBehaviour
         //ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
 
         // This is probably more robust than below (child could change index).
-        //m_BulletSpawnPoint = GameObject.FindGameObjectWithTag("BulletSpawn").GetComponent<Transform>();
+        //m_BulletSpawnPoint = GameObject.FindGameObjectWithTag("BulletSpawnPoint").GetComponent<Transform>();
+        m_BulletSpawnPoint = transform.Find("BulletSpawnPoint");
 
         //Assigns the transform of the first child of the GameObject this script is attached to.
-        m_BulletSpawnPoint = transform.GetChild(0);
+        //m_BulletSpawnPoint = transform.GetChild(0);
     }
 
 
