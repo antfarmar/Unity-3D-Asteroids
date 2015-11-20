@@ -6,7 +6,7 @@ TagManager:
   tags:
   - AsteroidBig
   - AsteroidSmall
-  - BulletSpawn
+  - BulletSpawnPoint
   - Asteroid
   layers:
   - Default

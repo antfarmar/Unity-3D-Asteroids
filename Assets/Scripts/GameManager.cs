@@ -1,71 +1,81 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject m_ShipPrefab;
     public GameObject m_BulletPrefab;
-    public GameObject m_Explosion;
+    public GameObject m_ExplosionPrefab;
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
-    public int m_AsteroidCount = 6;
+
+    public int m_AsteroidCount = 10;
     private bool paused;
 
-    //List<GameObject> m_AsteroidList = new List<GameObject>();
+    public ObjectPool m_BulletPool;
+    public ObjectPool m_AsteroidBigPool;
+    public ObjectPool m_AsteroidSmallPool;
+    public ObjectPool m_ExplosionPool;
+
+    public static GameManager instance;
+
+    Transform asteroidTransform;
 
 
     void Awake()
     {
+        if(instance == null)
+            instance = this;
+        else if(instance != this)
+            Destroy(this.gameObject);
 
+        DontDestroyOnLoad(this.gameObject);
+
+        asteroidTransform = new GameObject("Asteroids").transform;
+        m_BulletPool = new ObjectPool(m_BulletPrefab, gameObject.transform, 3, 5);
+        m_AsteroidBigPool = new ObjectPool(m_AsteroidBigPrefab, asteroidTransform, 5, 10);
+        m_AsteroidSmallPool = new ObjectPool(m_AsteroidSmallPrefab, asteroidTransform, 5, 10);
+        m_ExplosionPool = new ObjectPool(m_ExplosionPrefab, gameObject.transform, 3, 5);
     }
 
 
-    //void OnEnable()
-    //{
-    //    Debug.Log("OnEnable");
-    //    ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
-    //    ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
-    //    ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
-    //    ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
-    //}
+    void OnEnable()
+    {
+        // Live-compilation calls onEnable when done.
+        if(instance == null)
+            instance = this;
+        else if(instance != this)
+            Destroy(this.gameObject);
+        DontDestroyOnLoad(this.gameObject);
 
-    //void OnDisable()
-    //{
-    //    Debug.Log("OnDisable");
-    //    ObjectPooler.DestroyPool("BulletPool");
-    //    ObjectPooler.DestroyPool("AsteroidBigPool");
-    //    ObjectPooler.DestroyPool("AsteroidSmallPool");
-    //    ObjectPooler.DestroyPool("ExplosionPool");
-    //}
+        Debug.Log("E: " + instance);
+    }
+
+    void OnDisable()
+    {
+        // Live-compilation calls onDisable when starting.
+        Debug.Log("D: " + instance);
+    }
+
 
     // Start is called before the first frame update only if the script instance is enabled.
     // Use this for initialization.
     void Start()
     {
-        // Create object pools for bullets & asteroids.
-        ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
-        ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
-        ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
-        ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
-
         // Spawn the ship.
         Instantiate(m_ShipPrefab);
 
         // Spawn some asteroids.
-        Transform asteroidHolder = new GameObject("AsteroidHolder").transform;
         Poolable asteroid;
+
 
         for(int i = 0; i < m_AsteroidCount; i++)
         {
             if(i < m_AsteroidCount / 2)
-                asteroid = ObjectPooler.Dequeue("AsteroidBigPool");
-            //asteroid = Instantiate(m_AsteroidBigPrefab);
+                asteroid = m_AsteroidBigPool.Pop();
             else
-                asteroid = ObjectPooler.Dequeue("AsteroidSmallPool");
-            //asteroid = Instantiate(m_AsteroidSmallPrefab);
+                asteroid = m_AsteroidSmallPool.Pop();
 
-            asteroid.transform.SetParent(asteroidHolder);
+            //asteroid.transform.SetParent(asteroidTransform);
             asteroid.gameObject.SetActive(true);
         }
     }
@@ -74,7 +84,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame. It is the main workhorse function for frame updates.
     void Update()
     {
-        if(paused) Debug.Log("Game Paused.");
+        if(paused) Debug.Log("Game Paused..");
     }
 
 

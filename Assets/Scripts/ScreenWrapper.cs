@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 // Screenwrap a gameObject OnBecameInvisible() message.
 // Hacky, see comments below. Affected by Scene view too.
