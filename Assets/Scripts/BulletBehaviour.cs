@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class BulletBehaviour : MonoBehaviour
 {
@@ -38,7 +37,7 @@ public class BulletBehaviour : MonoBehaviour
     // Convenience method to be called by Invoke().
     void PoolItem()
     {
-        GameManager.instance.m_BulletPool.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
+        GameManager.instance.m_BulletPool.Push(gameObject.GetComponent("Poolable") as Poolable);
     }
 
 }

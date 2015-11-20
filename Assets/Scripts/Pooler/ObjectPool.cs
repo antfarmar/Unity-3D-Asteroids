@@ -1,33 +1,37 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System;
 
 // A pool that stores objects made from prefabs.
 [Serializable]
-public class ObjectPooler
+public class ObjectPool
 {
     public int m_MaxCount;
     public GameObject m_Prefab;
     public List<Poolable> m_Pool;
 
+    private Transform m_Parent;
+
 
     // Constructor
-    public ObjectPooler(GameObject prefab, int startCount, int maxCount)
+    public ObjectPool(GameObject prefab, Transform parent, int startCount, int maxCount)
     {
         m_Pool = new List<Poolable>(startCount);
         m_Prefab = prefab;
+        m_Parent = parent != null ? parent : new GameObject("ObjectPool").transform;
         m_MaxCount = maxCount;
 
         for(int i = 0; i < startCount; ++i)
-            Enqueue(CreatePoolableObject());
+            Push(CreatePoolableObject());
     }
 
 
-    // Instantiate prefab, make it poolable, set key for dictionary.
+    // Instantiate prefab, make it poolable.
     Poolable CreatePoolableObject()
     {
-        return GameObject.Instantiate(m_Prefab).AddComponent<Poolable>();
+        Poolable obj = GameObject.Instantiate(m_Prefab).AddComponent<Poolable>();
+        obj.transform.SetParent(m_Parent);
+        return obj;
     }
 
 
@@ -53,7 +57,7 @@ public class ObjectPooler
 
 
     // Pool and deactivate an item for reuse, or destroy it if pool is full.
-    public void Enqueue(Poolable obj)
+    public void Push(Poolable obj)
     {
         if(obj == null || obj.isPooled)
             return;
@@ -75,7 +79,7 @@ public class ObjectPooler
 
 
     // Always returns an inactive prefab instance for the client.
-    public Poolable Dequeue()
+    public Poolable Pop()
     {
         // Pool is spent! Create a new object for client.
         if(m_Pool.Count == 0)

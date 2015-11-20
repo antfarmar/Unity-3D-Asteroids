@@ -185,7 +185,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e715fa2fc8492154f96186641f741e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BulletPrefab: {fileID: 175094, guid: c2c7c9743d4d55645b40878bbce4c25e, type: 2}
   m_BulletVelocity: 25
   m_ShootClip: {fileID: 8300000, guid: fb98964f748700e46a6a0df3ad3a9ee8, type: 3}
 --- !u!198 &19862720

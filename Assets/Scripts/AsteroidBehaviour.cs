@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 
 public class AsteroidBehaviour : MonoBehaviour
@@ -43,17 +42,17 @@ public class AsteroidBehaviour : MonoBehaviour
             for(int i = 0; i < 2; i++)
             {
                 //GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
-                Poolable small = GameManager.instance.m_AsteroidSmallPool.Dequeue();
+                Poolable small = GameManager.instance.m_AsteroidSmallPool.Pop();
                 small.transform.position = gameObject.transform.position;
                 small.gameObject.SetActive(true);
             }
 
-            GameManager.instance.m_AsteroidBigPool.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
+            GameManager.instance.m_AsteroidBigPool.Push(gameObject.GetComponent("Poolable") as Poolable);
             SoundManager.instance.sfxSource.pitch = 1;
         }
         else // "AsteroidSmall"
         {
-            GameManager.instance.m_AsteroidSmallPool.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
+            GameManager.instance.m_AsteroidSmallPool.Push(gameObject.GetComponent("Poolable") as Poolable);
             SoundManager.instance.sfxSource.pitch = 2;
         }
 
@@ -62,7 +61,7 @@ public class AsteroidBehaviour : MonoBehaviour
         SoundManager.instance.PlaySingle(m_ExplosionClip);
 
         // Activate an explosion.
-        Poolable explosion = GameManager.instance.m_ExplosionPool.Dequeue();
+        Poolable explosion = GameManager.instance.m_ExplosionPool.Pop();
         explosion.transform.position = transform.position;
         explosion.transform.Rotate(new Vector3(0f, 0f, 360f * Random.value));
         explosion.gameObject.SetActive(true);

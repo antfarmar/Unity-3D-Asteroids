@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ExplosionBehaviour : MonoBehaviour
 {
@@ -24,7 +23,7 @@ public class ExplosionBehaviour : MonoBehaviour
     // Convenience method to be called by Invoke().
     void PoolItem()
     {
-        GameManager.instance.m_ExplosionPool.Enqueue(GetComponent("Poolable") as Poolable);
+        GameManager.instance.m_ExplosionPool.Push(GetComponent("Poolable") as Poolable);
     }
 
 }

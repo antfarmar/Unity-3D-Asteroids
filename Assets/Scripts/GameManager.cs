@@ -7,15 +7,19 @@ public class GameManager : MonoBehaviour
     public GameObject m_ExplosionPrefab;
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
+
     public int m_AsteroidCount = 10;
     private bool paused;
 
-    public ObjectPooler m_BulletPool;
-    public ObjectPooler m_AsteroidBigPool;
-    public ObjectPooler m_AsteroidSmallPool;
-    public ObjectPooler m_ExplosionPool;
+    public ObjectPool m_BulletPool;
+    public ObjectPool m_AsteroidBigPool;
+    public ObjectPool m_AsteroidSmallPool;
+    public ObjectPool m_ExplosionPool;
 
     public static GameManager instance;
+
+    Transform asteroidTransform;
+
 
     void Awake()
     {
@@ -26,10 +30,11 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        m_BulletPool = new ObjectPooler(m_BulletPrefab, 5, 10);
-        m_AsteroidBigPool = new ObjectPooler(m_AsteroidBigPrefab, 5, 10);
-        m_AsteroidSmallPool = new ObjectPooler(m_AsteroidSmallPrefab, 5, 10);
-        m_ExplosionPool = new ObjectPooler(m_ExplosionPrefab, 2, 5);
+        asteroidTransform = new GameObject("Asteroids").transform;
+        m_BulletPool = new ObjectPool(m_BulletPrefab, gameObject.transform, 3, 5);
+        m_AsteroidBigPool = new ObjectPool(m_AsteroidBigPrefab, asteroidTransform, 5, 10);
+        m_AsteroidSmallPool = new ObjectPool(m_AsteroidSmallPrefab, asteroidTransform, 5, 10);
+        m_ExplosionPool = new ObjectPool(m_ExplosionPrefab, gameObject.transform, 3, 5);
     }
 
 
@@ -60,17 +65,17 @@ public class GameManager : MonoBehaviour
         Instantiate(m_ShipPrefab);
 
         // Spawn some asteroids.
-        Transform asteroidHolder = new GameObject("AsteroidHolder").transform;
         Poolable asteroid;
+
 
         for(int i = 0; i < m_AsteroidCount; i++)
         {
             if(i < m_AsteroidCount / 2)
-                asteroid = m_AsteroidBigPool.Dequeue();
+                asteroid = m_AsteroidBigPool.Pop();
             else
-                asteroid = m_AsteroidSmallPool.Dequeue();
+                asteroid = m_AsteroidSmallPool.Pop();
 
-            asteroid.transform.SetParent(asteroidHolder);
+            //asteroid.transform.SetParent(asteroidTransform);
             asteroid.gameObject.SetActive(true);
         }
     }
@@ -79,7 +84,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame. It is the main workhorse function for frame updates.
     void Update()
     {
-        if(paused) Debug.Log("Game Paused.");
+        if(paused) Debug.Log("Game Paused..");
     }
 
 
