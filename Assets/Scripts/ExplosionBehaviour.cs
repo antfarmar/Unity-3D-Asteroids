@@ -9,7 +9,7 @@ public class ExplosionBehaviour : MonoBehaviour
     // Awake is called when the script instance is being loaded.
     void Awake()
     {
-        m_explosionPS = gameObject.GetComponent<ParticleSystem>();
+        m_explosionPS = GetComponent<ParticleSystem>();
     }
 
 
@@ -24,7 +24,7 @@ public class ExplosionBehaviour : MonoBehaviour
     // Convenience method to be called by Invoke().
     void PoolItem()
     {
-        ObjectPooler.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
+        ObjectPooler.Enqueue(GetComponent("Poolable") as Poolable);
     }
 
 }
