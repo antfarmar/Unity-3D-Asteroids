@@ -15,12 +15,14 @@ Experimenting with Unity. Trying to determine best practices.
 
 #### Workflow choices.
 * Overall process
-* IDE (Visual Studio 2015)
-* Source code management/Git
 * Prefab use & referencing (editor vs code)
 * Quick Prototyping vs. Robustness
 * Scene/asset structure
 * Profiling/Testing/Debugging
+* IDE choice (Visual Studio 2015)
+* Source code management(Git + VS-Plug-In)
+* Git: Commit, Sync, Push/Pull, Fork, Branch(Merge/Rebase), Revert
+* GitHub: Repositories, Issues, Wiki, Markdown use
 
 #### Unity quirks.
 * Editor
