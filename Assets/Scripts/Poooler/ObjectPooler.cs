@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System;
 
@@ -98,8 +97,8 @@ public class ObjectPooler : MonoBehaviour
 
         while(pool.list.Count > 0)
         {
-            Poolable obj = pool.list[0];
-            pool.list.RemoveAt(0);
+            Poolable obj = pool.list[pool.list.Count - 1];
+            pool.list.RemoveAt(pool.list.Count - 1);
             GameObject.Destroy(obj.gameObject);
         }
         pools.Remove(pool);
@@ -145,8 +144,8 @@ public class ObjectPooler : MonoBehaviour
         }
 
         // Dequeue an existing object for client.
-        Poolable obj = pool.list[0];
-        pool.list.RemoveAt(0);
+        Poolable obj = pool.list[pool.list.Count - 1];
+        pool.list.RemoveAt(pool.list.Count - 1);
         obj.isPooled = false;
         return obj;
     }
