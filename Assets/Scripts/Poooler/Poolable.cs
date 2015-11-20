@@ -7,6 +7,5 @@ using System;
 [Serializable]
 public class Poolable : MonoBehaviour
 {
-    public string key;      // For dictionary. Maps to a Pool.
     public bool isPooled;   // Flag for checks.
 }

@@ -24,7 +24,7 @@ public class ExplosionBehaviour : MonoBehaviour
     // Convenience method to be called by Invoke().
     void PoolItem()
     {
-        ObjectPooler.Enqueue(GetComponent("Poolable") as Poolable);
+        GameManager.instance.m_ExplosionPool.Enqueue(GetComponent("Poolable") as Poolable);
     }
 
 }

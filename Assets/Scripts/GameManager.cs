@@ -1,54 +1,61 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject m_ShipPrefab;
     public GameObject m_BulletPrefab;
-    public GameObject m_Explosion;
+    public GameObject m_ExplosionPrefab;
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
-    public int m_AsteroidCount = 6;
+    public int m_AsteroidCount = 10;
     private bool paused;
 
-    //List<GameObject> m_AsteroidList = new List<GameObject>();
+    public ObjectPooler m_BulletPool;
+    public ObjectPooler m_AsteroidBigPool;
+    public ObjectPooler m_AsteroidSmallPool;
+    public ObjectPooler m_ExplosionPool;
 
+    public static GameManager instance;
 
     void Awake()
     {
+        if(instance == null)
+            instance = this;
+        else if(instance != this)
+            Destroy(this.gameObject);
 
+        DontDestroyOnLoad(this.gameObject);
+
+        m_BulletPool = new ObjectPooler(m_BulletPrefab, 5, 10);
+        m_AsteroidBigPool = new ObjectPooler(m_AsteroidBigPrefab, 5, 10);
+        m_AsteroidSmallPool = new ObjectPooler(m_AsteroidSmallPrefab, 5, 10);
+        m_ExplosionPool = new ObjectPooler(m_ExplosionPrefab, 2, 5);
     }
 
 
-    //void OnEnable()
-    //{
-    //    Debug.Log("OnEnable");
-    //    ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
-    //    ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
-    //    ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
-    //    ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
-    //}
+    void OnEnable()
+    {
+        // Live-compilation calls onEnable when done.
+        if(instance == null)
+            instance = this;
+        else if(instance != this)
+            Destroy(this.gameObject);
+        DontDestroyOnLoad(this.gameObject);
 
-    //void OnDisable()
-    //{
-    //    Debug.Log("OnDisable");
-    //    ObjectPooler.DestroyPool("BulletPool");
-    //    ObjectPooler.DestroyPool("AsteroidBigPool");
-    //    ObjectPooler.DestroyPool("AsteroidSmallPool");
-    //    ObjectPooler.DestroyPool("ExplosionPool");
-    //}
+        Debug.Log("E: " + instance);
+    }
+
+    void OnDisable()
+    {
+        // Live-compilation calls onDisable when starting.
+        Debug.Log("D: " + instance);
+    }
+
 
     // Start is called before the first frame update only if the script instance is enabled.
     // Use this for initialization.
     void Start()
     {
-        // Create object pools for bullets & asteroids.
-        ObjectPooler.CreatePool("BulletPool", m_BulletPrefab, 5, 10);
-        ObjectPooler.CreatePool("AsteroidBigPool", m_AsteroidBigPrefab, 5, 10);
-        ObjectPooler.CreatePool("AsteroidSmallPool", m_AsteroidSmallPrefab, 10, 20);
-        ObjectPooler.CreatePool("ExplosionPool", m_Explosion, 3, 5);
-
         // Spawn the ship.
         Instantiate(m_ShipPrefab);
 
@@ -59,11 +66,9 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < m_AsteroidCount; i++)
         {
             if(i < m_AsteroidCount / 2)
-                asteroid = ObjectPooler.Dequeue("AsteroidBigPool");
-            //asteroid = Instantiate(m_AsteroidBigPrefab);
+                asteroid = m_AsteroidBigPool.Dequeue();
             else
-                asteroid = ObjectPooler.Dequeue("AsteroidSmallPool");
-            //asteroid = Instantiate(m_AsteroidSmallPrefab);
+                asteroid = m_AsteroidSmallPool.Dequeue();
 
             asteroid.transform.SetParent(asteroidHolder);
             asteroid.gameObject.SetActive(true);

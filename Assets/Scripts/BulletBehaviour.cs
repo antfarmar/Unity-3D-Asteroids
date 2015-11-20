@@ -4,6 +4,7 @@ using System.Collections;
 public class BulletBehaviour : MonoBehaviour
 {
 
+    //public ObjectPooler m_BulletPool;
     public float m_BulletLife;
 
 
@@ -21,8 +22,9 @@ public class BulletBehaviour : MonoBehaviour
     // USAGE: cleanup.
     void OnDisable()
     {
-        ObjectPooler.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
+
     }
+
 
     // We hit something (asteroid). Recycle/deactivate the bullet.
     private void OnTriggerEnter(Collider other)
@@ -36,7 +38,7 @@ public class BulletBehaviour : MonoBehaviour
     // Convenience method to be called by Invoke().
     void PoolItem()
     {
-        ObjectPooler.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
+        GameManager.instance.m_BulletPool.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
     }
 
 }
