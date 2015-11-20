@@ -47,13 +47,13 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         DontDestroyOnLoad(this.gameObject);
 
-        Debug.Log("E: " + instance);
+        Debug.Log("GM E: " + instance);
     }
 
     void OnDisable()
     {
         // Live-compilation calls onDisable when starting.
-        Debug.Log("D: " + instance);
+        Debug.Log("GM D: " + instance);
     }
 
 
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame. It is the main workhorse function for frame updates.
     void Update()
     {
-        if(paused) Debug.Log("Game Paused..");
+        if(paused) Debug.Log("Game Paused.");
     }
 
 

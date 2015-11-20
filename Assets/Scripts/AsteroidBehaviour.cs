@@ -24,6 +24,7 @@ public class AsteroidBehaviour : MonoBehaviour
     {
         m_Rigidbody = GetComponent<Rigidbody>();
         SpawnRandomEdge();
+        SetRandomForces();
     }
 
 
@@ -44,7 +45,9 @@ public class AsteroidBehaviour : MonoBehaviour
                 //GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
                 Poolable small = GameManager.instance.m_AsteroidSmallPool.Pop();
                 small.transform.position = gameObject.transform.position;
+
                 small.gameObject.SetActive(true);
+                //(small.GetComponent("AsteroidBehaviour") as AsteroidBehaviour).SetRandomForces();
             }
 
             GameManager.instance.m_AsteroidBigPool.Push(gameObject.GetComponent("Poolable") as Poolable);
