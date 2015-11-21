@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("GM E1: " + instance);
 
-        // Reassign the lost static reference (wasn't serialized)
+        // Reassign the lost static reference (wasn't serialized on live-recomp)
         instance = this;
 
         Debug.Log("GM E2:  " + instance);
@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour
 
         // Spawn some asteroids.
         Poolable asteroid;
-
 
         for(int i = 0; i < m_AsteroidCount; i++)
         {

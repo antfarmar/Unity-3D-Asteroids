@@ -18,7 +18,7 @@ public class BulletBehaviour : MonoBehaviour
     // Recycle the bullet after each (re)activation when lifetime is over.
     void OnEnable()
     {
-        // Get Poolable component here. It won't have it on Awake!
+        // Get Poolable component here. GObject won't have it on Awake!
         m_Poolable = GetComponent<Poolable>();
         Invoke("PoolItem", m_BulletLife);
     }

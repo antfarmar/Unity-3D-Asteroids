@@ -21,7 +21,7 @@ public class ExplosionBehaviour : MonoBehaviour
         m_explosionPS.Play();
         m_explosionAudio.Play();
 
-        // Get Poolable component here. It won't have it on Awake!
+        // Get Poolable component here. GObject won't have it on Awake!
         m_Poolable = GetComponent<Poolable>();
         Invoke("PoolItem", m_explosionPS.startLifetime);
     }
