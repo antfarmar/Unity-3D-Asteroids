@@ -15,6 +15,7 @@ public class AsteroidBehaviour : MonoBehaviour
     public float m_Force = 2000f;
     public float m_Torque = 1000f;
 
+    private Poolable m_Poolable;
     private Rigidbody m_Rigidbody;
 
 
@@ -30,6 +31,8 @@ public class AsteroidBehaviour : MonoBehaviour
 
     void OnEnable()
     {
+        // Get Poolable component here. It won't have it on Awake!
+        m_Poolable = GetComponent<Poolable>();
         SetRandomForces();
     }
 
@@ -45,23 +48,22 @@ public class AsteroidBehaviour : MonoBehaviour
                 //GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
                 Poolable small = GameManager.instance.m_AsteroidSmallPool.Pop();
                 small.transform.position = gameObject.transform.position;
-
                 small.gameObject.SetActive(true);
                 //(small.GetComponent("AsteroidBehaviour") as AsteroidBehaviour).SetRandomForces();
             }
 
-            GameManager.instance.m_AsteroidBigPool.Push(gameObject.GetComponent("Poolable") as Poolable);
-            SoundManager.instance.sfxSource.pitch = 1;
+            // Recycle this (big) asteroid.
+            GameManager.instance.m_AsteroidBigPool.Push(m_Poolable);
         }
         else // "AsteroidSmall"
         {
-            GameManager.instance.m_AsteroidSmallPool.Push(gameObject.GetComponent("Poolable") as Poolable);
-            SoundManager.instance.sfxSource.pitch = 2;
+            // Recycle this (small) asteroid.
+            GameManager.instance.m_AsteroidSmallPool.Push(m_Poolable);
         }
 
         // Play the explosion sound clip via SM (because object will be destroyed).
         // Could also use  AudioSource.PlayClipAtPoint()
-        SoundManager.instance.PlaySingle(m_ExplosionClip);
+        //SoundManager.instance.PlaySingle(m_ExplosionClip);
 
         // Activate an explosion.
         Poolable explosion = GameManager.instance.m_ExplosionPool.Pop();

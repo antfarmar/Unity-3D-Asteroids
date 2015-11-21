@@ -4,11 +4,14 @@ public class ExplosionBehaviour : MonoBehaviour
 {
 
     private ParticleSystem m_explosionPS;
+    private AudioSource m_explosionAudio;
+    private Poolable m_Poolable;
 
     // Awake is called when the script instance is being loaded.
     void Awake()
     {
         m_explosionPS = GetComponent<ParticleSystem>();
+        m_explosionAudio = GetComponent<AudioSource>();
     }
 
 
@@ -16,6 +19,10 @@ public class ExplosionBehaviour : MonoBehaviour
     void OnEnable()
     {
         m_explosionPS.Play();
+        m_explosionAudio.Play();
+
+        // Get Poolable component here. It won't have it on Awake!
+        m_Poolable = GetComponent<Poolable>();
         Invoke("PoolItem", m_explosionPS.startLifetime);
     }
 
@@ -23,7 +30,7 @@ public class ExplosionBehaviour : MonoBehaviour
     // Convenience method to be called by Invoke().
     void PoolItem()
     {
-        GameManager.instance.m_ExplosionPool.Push(GetComponent("Poolable") as Poolable);
+        GameManager.instance.m_ExplosionPool.Push(m_Poolable);
     }
 
 }

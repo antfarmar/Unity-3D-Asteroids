@@ -6,10 +6,20 @@ public class BulletBehaviour : MonoBehaviour
     //public ObjectPooler m_BulletPool;
     public float m_BulletLife;
 
+    private Poolable m_Poolable;
+
+
+    void Awake()
+    {
+        //m_Poolable = GetComponent<Poolable>();
+    }
+
 
     // Recycle the bullet after each (re)activation when lifetime is over.
     void OnEnable()
     {
+        // Get Poolable component here. It won't have it on Awake!
+        m_Poolable = GetComponent<Poolable>();
         Invoke("PoolItem", m_BulletLife);
     }
 
@@ -37,7 +47,7 @@ public class BulletBehaviour : MonoBehaviour
     // Convenience method to be called by Invoke().
     void PoolItem()
     {
-        GameManager.instance.m_BulletPool.Push(gameObject.GetComponent("Poolable") as Poolable);
+        GameManager.instance.m_BulletPool.Push(m_Poolable);
     }
 
 }

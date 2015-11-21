@@ -6,8 +6,9 @@ public class ShipShooter : MonoBehaviour
     //public GameObject m_BulletPrefab;
     public float m_BulletVelocity;
 
-    //public AudioSource m_ShootingAudio; // Reference to the audio source used to play the shooting audio. NB: different to the movement audio source.
-    public AudioClip m_ShootClip;       // Audio that plays when each shot is fired.
+    // Reference to the audio source used to play the shooting audio.
+    public AudioSource m_ShootingAudio;
+    //public AudioClip m_ShootClip;       // Audio that plays when each shot is fired.
 
 
     //public Transform m_BulletSpawnPoint;
@@ -22,7 +23,7 @@ public class ShipShooter : MonoBehaviour
     // If a GameObject is inactive during start up Awake is not called until it is made active, or a function in any script attached to it is called.
     void Awake()
     {
-
+        m_ShootingAudio = GetComponent<AudioSource>();
     }
 
     // Only called if the Object is active. This function is called just after the object is enabled.
@@ -59,7 +60,6 @@ public class ShipShooter : MonoBehaviour
 
             // Get a bullet and initialize it before activating it.
             Poolable bullet = GameManager.instance.m_BulletPool.Pop();
-            //Debug.Log(bullet); // is null on hot-reload, so is queue.
             Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
             bullet.transform.position = m_BulletSpawnPoint.position;
             bullet.transform.rotation = m_BulletSpawnPoint.rotation;
@@ -68,7 +68,8 @@ public class ShipShooter : MonoBehaviour
 
             // Change the clip to the firing clip and play it.
             //m_ShootingAudio.clip = m_ShootClip;
-            SoundManager.instance.PlaySingle(m_ShootClip);
+            m_ShootingAudio.Play();
+            //SoundManager.instance.PlaySingle(m_ShootClip);
         }
     }
 

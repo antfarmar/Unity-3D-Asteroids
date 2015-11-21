@@ -31,6 +31,7 @@ public class ObjectPool
     {
         Poolable obj = GameObject.Instantiate(m_Prefab).AddComponent<Poolable>();
         obj.transform.SetParent(m_Parent);
+        obj.gameObject.SetActive(false);
         return obj;
     }
 
