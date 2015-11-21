@@ -31,7 +31,7 @@ public class AsteroidBehaviour : MonoBehaviour
 
     void OnEnable()
     {
-        // Get Poolable component here. It won't have it on Awake!
+        // Get Poolable component here. GObject won't have it on Awake!
         m_Poolable = GetComponent<Poolable>();
         SetRandomForces();
     }
