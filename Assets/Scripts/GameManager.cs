@@ -38,21 +38,20 @@ public class GameManager : MonoBehaviour
     }
 
 
+    // Live-compilation calls onEnable when done.
     void OnEnable()
     {
-        // Live-compilation calls onEnable when done.
-        if(instance == null)
-            instance = this;
-        else if(instance != this)
-            Destroy(this.gameObject);
-        DontDestroyOnLoad(this.gameObject);
+        Debug.Log("GM E1: " + instance);
 
-        Debug.Log("GM E: " + instance);
+        // Reassign the lost static reference (wasn't serialized)
+        instance = this;
+
+        Debug.Log("GM E2:  " + instance);
     }
 
+    // Live-compilation calls onDisable when starting.
     void OnDisable()
     {
-        // Live-compilation calls onDisable when starting.
         Debug.Log("GM D: " + instance);
     }
 
@@ -84,7 +83,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame. It is the main workhorse function for frame updates.
     void Update()
     {
-        if(paused) Debug.Log("Game Paused.");
+        if(paused) Debug.Log("Game Paused..");
     }
 
 
