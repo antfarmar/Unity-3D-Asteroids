@@ -119,10 +119,6 @@ MonoBehaviour:
   m_AsteroidSmallPrefab: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7,
     type: 2}
   m_AsteroidCount: 4
-  m_BulletPool:
-    m_MaxCount: 0
-    m_Prefab: {fileID: 0}
-    m_Pool: []
   m_AsteroidBigPool:
     m_MaxCount: 0
     m_Prefab: {fileID: 0}

@@ -257,6 +257,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e715fa2fc8492154f96186641f741e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_BulletPrefab: {fileID: 175094, guid: c2c7c9743d4d55645b40878bbce4c25e, type: 2}
+  m_BulletPool:
+    m_MaxCount: 0
+    m_Prefab: {fileID: 0}
+    m_Pool: []
   m_BulletVelocity: 25
   m_BulletLife: 1
   m_ShootingAudio: {fileID: 8262408}
