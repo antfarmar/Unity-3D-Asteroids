@@ -258,7 +258,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BulletVelocity: 25
-  m_ShootingAudio: {fileID: 0}
+  m_BulletLife: 1
+  m_ShootingAudio: {fileID: 8262408}
 --- !u!198 &19862720
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1400,6 +1401,14 @@ Prefab:
       propertyPath: m_ShootClip
       value: 
       objectReference: {fileID: 8300000, guid: fb98964f748700e46a6a0df3ad3a9ee8, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_BulletLife
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ShootingAudio
+      value: 
+      objectReference: {fileID: 8262408}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 178224}

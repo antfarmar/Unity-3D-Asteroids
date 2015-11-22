@@ -1,26 +1,22 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class ShipShooter : MonoBehaviour
 {
 
     //public GameObject m_BulletPrefab;
     public float m_BulletVelocity;
+    public float m_BulletLife;
 
-    // Reference to the audio source used to play the shooting audio.
     public AudioSource m_ShootingAudio;
-    //public AudioClip m_ShootClip;       // Audio that plays when each shot is fired.
+    //public AudioClip m_ShootClip;       
 
 
-    //public Transform m_BulletSpawnPoint;
     private Transform m_BulletSpawnPoint;
+    private Poolable m_Bullet;
 
 
-
-    // For objects added to the scene, the Awake and OnEnable functions for all scripts will be called before Start, Update, etc are called for any of them.
-    // Cannot be enforced when an object is instantiated during gameplay.
-
-    // This function is always called before any Start functions and also just after a prefab is instantiated.
-    // If a GameObject is inactive during start up Awake is not called until it is made active, or a function in any script attached to it is called.
+    // Get references.
     void Awake()
     {
         m_ShootingAudio = GetComponent<AudioSource>();
@@ -44,6 +40,8 @@ public class ShipShooter : MonoBehaviour
         // This is probably more robust than below (child could change index).
         //m_BulletSpawnPoint = GameObject.FindGameObjectWithTag("BulletSpawnPoint").GetComponent<Transform>();
         m_BulletSpawnPoint = transform.Find("BulletSpawnPoint");
+        m_BulletVelocity = 25f;
+        m_BulletLife = 1f;
 
         //Assigns the transform of the first child of the GameObject this script is attached to.
         //m_BulletSpawnPoint = transform.GetChild(0);
@@ -59,12 +57,15 @@ public class ShipShooter : MonoBehaviour
             //bulletInstance.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up = y-axis)
 
             // Get a bullet and initialize it before activating it.
-            Poolable bullet = GameManager.instance.m_BulletPool.Pop();
-            Rigidbody rigidbody = bullet.GetComponent<Rigidbody>();
-            bullet.transform.position = m_BulletSpawnPoint.position;
-            bullet.transform.rotation = m_BulletSpawnPoint.rotation;
+            m_Bullet = GameManager.instance.m_BulletPool.Pop();
+            Rigidbody rigidbody = m_Bullet.GetComponent<Rigidbody>();
+            m_Bullet.transform.position = m_BulletSpawnPoint.position;
+            m_Bullet.transform.rotation = m_BulletSpawnPoint.rotation;
             rigidbody.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up: y-axis)
-            bullet.gameObject.SetActive(true);
+            m_Bullet.gameObject.SetActive(true);
+
+            //Invoke("Repool", m_BulletLife);
+            StartCoroutine(Repool(m_Bullet, m_BulletLife));
 
             // Change the clip to the firing clip and play it.
             //m_ShootingAudio.clip = m_ShootClip;
@@ -73,6 +74,18 @@ public class ShipShooter : MonoBehaviour
         }
     }
 
+
+    // Coroutine to repool an object after a delay.
+    IEnumerator Repool(Poolable p, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameManager.instance.m_BulletPool.Push(p);
+        //Debug.Log("Pooled");
+    }
+
+} // end class
+
+/*
 
     // FixedUpdate is often called more frequently than Update.
     // It can be called multiple times per frame, if the frame rate is low and it may not be called between frames at all if the frame rate is high.

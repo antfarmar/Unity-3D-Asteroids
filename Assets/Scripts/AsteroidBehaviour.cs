@@ -40,6 +40,9 @@ public class AsteroidBehaviour : MonoBehaviour
     // Called when hit by a bullet trigger collider.
     void OnTriggerEnter(Collider other)
     {
+        // other = Bullet. Inactivate it until it repools itself.
+        other.gameObject.SetActive(false);
+
         if(gameObject.CompareTag("AsteroidBig"))
         {
             // Split the big asteroid into 2 smaller ones.
