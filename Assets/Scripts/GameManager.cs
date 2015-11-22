@@ -41,18 +41,18 @@ public class GameManager : MonoBehaviour
     // Live-compilation calls onEnable when done.
     void OnEnable()
     {
-        Debug.Log("GM E1: " + instance);
+        //Debug.Log("GM E1: " + instance);
 
         // Reassign the lost static reference (wasn't serialized on live-recomp)
         instance = this;
 
-        Debug.Log("GM E2:  " + instance);
+        //Debug.Log("GM E2:  " + instance);
     }
 
     // Live-compilation calls onDisable when starting.
     void OnDisable()
     {
-        Debug.Log("GM D: " + instance);
+        //Debug.Log("GM D: " + instance);
     }
 
 
@@ -86,6 +86,28 @@ public class GameManager : MonoBehaviour
     }
 
 
+    // This function is called after all frame updates for the last frame of the object’s existence.
+    // The object might be destroyed in response to Object.Destroy or at the closure of a scene).
+    void OnDestroy()
+    {
+        //m_BulletPool.EmptyPool();
+        //m_AsteroidBigPool.EmptyPool();
+        //m_AsteroidSmallPool.EmptyPool();
+        //m_ExplosionPool.EmptyPool();
+        Debug.Log("Destroyed.");
+    }
+
+
+    // This is called at the end of the frame where the pause is detected, effectively between the normal frame updates.
+    // One extra frame will be issued after OnApplicationPause is called to allow the game to show graphics that indicate the paused state.
+    void OnApplicationPause(bool pauseStatus)
+    {
+        paused = pauseStatus;
+    }
+
+} // end class
+
+/* 
     // FixedUpdate is often called more frequently than Update.
     // It can be called multiple times per frame, if the frame rate is low and it may not be called between frames at all if the frame rate is high.
     // All physics calculations and updates occur immediately after FixedUpdate.
@@ -107,12 +129,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // This is called at the end of the frame where the pause is detected, effectively between the normal frame updates.
-    // One extra frame will be issued after OnApplicationPause is called to allow the game to show graphics that indicate the paused state.
-    void OnApplicationPause(bool pauseStatus)
-    {
-        paused = pauseStatus;
-    }
+    
 
 
     // WHEN QUITTING
@@ -125,12 +142,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // This function is called after all frame updates for the last frame of the object’s existence.
-    // The object might be destroyed in response to Object.Destroy or at the closure of a scene).
-    void OnDestroy()
-    {
-
-    }
+    
 
 } // end class
 
