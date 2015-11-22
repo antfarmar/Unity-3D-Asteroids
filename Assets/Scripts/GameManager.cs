@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public int m_AsteroidCount = 10;
     private bool paused;
 
-    public ObjectPool m_BulletPool;
+    //public ObjectPool m_BulletPool;
     public ObjectPool m_AsteroidBigPool;
     public ObjectPool m_AsteroidSmallPool;
     public ObjectPool m_ExplosionPool;
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         asteroidTransform = new GameObject("Asteroids").transform;
-        m_BulletPool = new ObjectPool(m_BulletPrefab, gameObject.transform, 3, 5);
+        //m_BulletPool = new ObjectPool(m_BulletPrefab, gameObject.transform, 3, 5);
         m_AsteroidBigPool = new ObjectPool(m_AsteroidBigPrefab, asteroidTransform, 5, 10);
         m_AsteroidSmallPool = new ObjectPool(m_AsteroidSmallPrefab, asteroidTransform, 5, 10);
         m_ExplosionPool = new ObjectPool(m_ExplosionPrefab, gameObject.transform, 3, 5);

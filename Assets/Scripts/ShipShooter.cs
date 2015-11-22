@@ -4,7 +4,8 @@ using UnityEngine;
 public class ShipShooter : MonoBehaviour
 {
 
-    //public GameObject m_BulletPrefab;
+    public GameObject m_BulletPrefab;
+    public ObjectPool m_BulletPool;
     public float m_BulletVelocity;
     public float m_BulletLife;
 
@@ -20,6 +21,7 @@ public class ShipShooter : MonoBehaviour
     void Awake()
     {
         m_ShootingAudio = GetComponent<AudioSource>();
+        m_BulletPool = new ObjectPool(m_BulletPrefab, gameObject.transform, 3, 5);
     }
 
     // Only called if the Object is active. This function is called just after the object is enabled.
@@ -57,7 +59,8 @@ public class ShipShooter : MonoBehaviour
             //bulletInstance.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up = y-axis)
 
             // Get a bullet and initialize it before activating it.
-            m_Bullet = GameManager.instance.m_BulletPool.Pop();
+            //m_Bullet = GameManager.instance.m_BulletPool.Pop();
+            m_Bullet = m_BulletPool.Pop();
             Rigidbody rigidbody = m_Bullet.GetComponent<Rigidbody>();
             m_Bullet.transform.position = m_BulletSpawnPoint.position;
             m_Bullet.transform.rotation = m_BulletSpawnPoint.rotation;
@@ -79,7 +82,8 @@ public class ShipShooter : MonoBehaviour
     IEnumerator Repool(Poolable p, float delay)
     {
         yield return new WaitForSeconds(delay);
-        GameManager.instance.m_BulletPool.Push(p);
+        //GameManager.instance.m_BulletPool.Push(p);
+        m_BulletPool.Push(p);
         //Debug.Log("Pooled");
     }
 
