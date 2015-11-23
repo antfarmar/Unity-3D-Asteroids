@@ -80,13 +80,13 @@ public class ShipShooter : MonoBehaviour
 
 
     // Coroutine to repool an object after a delay.
-    IEnumerator Repool(Poolable p, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        //GameManager.instance.m_BulletPool.Push(p);
-        m_BulletPool.Push(p);
-        //Debug.Log("Pooled");
-    }
+    //IEnumerator Repool(Poolable p, float delay)
+    //{
+    //    yield return new WaitForSeconds(delay);
+    //    //GameManager.instance.m_BulletPool.Push(p);
+    //    m_BulletPool.Push(p);
+    //    //Debug.Log("Pooled");
+    //}
 
 } // end class
 

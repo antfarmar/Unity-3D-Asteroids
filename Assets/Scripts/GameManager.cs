@@ -74,15 +74,8 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(LevelPlay());  // Let the user(s) play the level until a win or game over condition is met, then return back here.
         yield return StartCoroutine(LevelEnd());   // Find out if some user(s) "won" the level or not. Also, do some cleanup.
 
+        //if(asteroidCount == 0) LevelUp();
         StartCoroutine(GameLoop());
-        //if(false)
-        //{                 // Check if game level progression conditions were met.
-        //    Application.LoadLevel(++level); // or Application.LoadLevel(Application.loadedLevel) if using same scene
-        //}
-        //else
-        //{
-        //    StartCoroutine(GameLoop());    // Let the user retry the level by restarting this (non-yielding) coroutine again.
-        //}
     }
 
 
