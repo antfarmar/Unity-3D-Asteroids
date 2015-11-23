@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     // Use this for initialization.
     void Start()
     {
-        // Spawn the ship.
+        // Spawn the ship & deactivate (for now).
         m_Ship = Instantiate(m_ShipPrefab);
         m_Ship.SetActive(false);
         StartCoroutine(GameLoop());
@@ -83,9 +83,9 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("LEVEL STARTING");
 
-        // Disable ship controls.
+        // Disable ship controls (currently ship is inactive in Start, but may change).
         m_Ship.GetComponent<ShipMovement>().enabled = false;
-        m_Ship.GetComponent<ShipShooter>().enabled = false;  // bullet behaviour is in here!
+        m_Ship.GetComponent<ShipShooter>().enabled = false;
 
         // Reset ship position/velocity.
         m_Ship.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
+
         m_Ship.SetActive(true);
         Debug.Log("GO!");
     }
@@ -134,8 +135,10 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("LEVEL ENDING");
 
-        // Repool remaining asteroids.
+        // Repool remaining asteroids if game over.
         // Need a list.
+
+
 
         yield return new WaitForSeconds(1f);
     }
