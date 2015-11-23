@@ -83,7 +83,7 @@ public class AsteroidBehaviour : MonoBehaviour
     {
         // Ship logically.
         collision.gameObject.SetActive(false);
-        SpawnExplosion();
+        SpawnExplosion(); // todo: make custom explosion for ship
     }
 
 

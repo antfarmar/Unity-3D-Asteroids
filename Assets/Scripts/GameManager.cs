@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject m_AsteroidSmallPrefab;
 
     public int m_AsteroidCount = 10;
-    private bool paused;
+    //private bool paused;
 
     //public ObjectPool m_BulletPool;
     public ObjectPool m_AsteroidBigPool;
@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
 
         // Disable ship controls.
         m_Ship.GetComponent<ShipMovement>().enabled = false;
-        m_Ship.GetComponent<ShipShooter>().enabled = false;
+        m_Ship.GetComponent<ShipShooter>().enabled = false;  // bullet behaviour is in here!
 
         // Reset ship position/velocity.
         m_Ship.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -118,6 +118,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         m_Ship.SetActive(true);
+        Debug.Log("GO!");
     }
 
 
@@ -150,7 +151,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame. It is the main workhorse function for frame updates.
     void Update()
     {
-        if(paused) Debug.Log("Game Paused..");
+        //if(paused) Debug.Log("Game Paused..");
     }
 
 
@@ -162,7 +163,7 @@ public class GameManager : MonoBehaviour
         //m_AsteroidBigPool.EmptyPool();
         //m_AsteroidSmallPool.EmptyPool();
         //m_ExplosionPool.EmptyPool();
-        Debug.Log("Destroyed.");
+        //Debug.Log("Destroyed.");
     }
 
 
@@ -170,7 +171,7 @@ public class GameManager : MonoBehaviour
     // One extra frame will be issued after OnApplicationPause is called to allow the game to show graphics that indicate the paused state.
     void OnApplicationPause(bool pauseStatus)
     {
-        paused = pauseStatus;
+        //paused = pauseStatus;
     }
 
 } // end class
