@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     Transform asteroidTransform;
-
+    private GameObject m_Ship;
 
     void Awake()
     {
@@ -61,7 +62,45 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         // Spawn the ship.
-        Instantiate(m_ShipPrefab);
+        m_Ship = Instantiate(m_ShipPrefab);
+        m_Ship.SetActive(false);
+        StartCoroutine(GameLoop());
+    }
+
+
+    private IEnumerator GameLoop()
+    {
+        yield return StartCoroutine(LevelStart()); // Start the level: Initialize, do some fun GUI stuff, ..., yield WaitForSeconds if setup too fast.
+        yield return StartCoroutine(LevelPlay());  // Let the user(s) play the level until a win or game over condition is met, then return back here.
+        yield return StartCoroutine(LevelEnd());   // Find out if some user(s) "won" the level or not. Also, do some cleanup.
+
+        StartCoroutine(GameLoop());
+        //if(false)
+        //{                 // Check if game level progression conditions were met.
+        //    Application.LoadLevel(++level); // or Application.LoadLevel(Application.loadedLevel) if using same scene
+        //}
+        //else
+        //{
+        //    StartCoroutine(GameLoop());    // Let the user retry the level by restarting this (non-yielding) coroutine again.
+        //}
+    }
+
+
+    IEnumerator LevelStart()
+    {
+        Debug.Log("LEVEL STARTING");
+
+        // Disable ship controls.
+        m_Ship.GetComponent<ShipMovement>().enabled = false;
+        m_Ship.GetComponent<ShipShooter>().enabled = false;
+
+        // Reset ship position/velocity.
+        m_Ship.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        m_Ship.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        m_Ship.transform.position = Vector3.zero;
+
+        //m_Ship.SetActive(true);
+
 
         // Spawn some asteroids.
         Poolable asteroid;
@@ -76,6 +115,35 @@ public class GameManager : MonoBehaviour
             //asteroid.transform.SetParent(asteroidTransform);
             asteroid.gameObject.SetActive(true);
         }
+
+        yield return new WaitForSeconds(1f);
+        m_Ship.SetActive(true);
+    }
+
+
+    IEnumerator LevelPlay()
+    {
+        Debug.Log("LEVEL PLAYING");
+
+        // Enable ship controls.
+        m_Ship.GetComponent<ShipMovement>().enabled = true;
+        m_Ship.GetComponent<ShipShooter>().enabled = true;
+
+        while(m_Ship.activeSelf) // && asteroidCount > 0
+        {
+            yield return null;
+        }
+    }
+
+
+    IEnumerator LevelEnd()
+    {
+        Debug.Log("LEVEL ENDING");
+
+        // Repool remaining asteroids.
+        // Need a list.
+
+        yield return new WaitForSeconds(1f);
     }
 
 

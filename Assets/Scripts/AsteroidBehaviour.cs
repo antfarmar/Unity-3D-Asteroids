@@ -69,15 +69,31 @@ public class AsteroidBehaviour : MonoBehaviour
         //SoundManager.instance.PlaySingle(m_ExplosionClip);
 
         // Activate an explosion.
-        Poolable explosion = GameManager.instance.m_ExplosionPool.Pop();
-        explosion.transform.position = transform.position;
-        explosion.transform.Rotate(new Vector3(0f, 0f, 360f * Random.value));
-        explosion.gameObject.SetActive(true);
+        SpawnExplosion();
+        //Poolable explosion = GameManager.instance.m_ExplosionPool.Pop();
+        //explosion.transform.position = transform.position;
+        //explosion.transform.Rotate(new Vector3(0f, 0f, 360f * Random.value));
+        //explosion.gameObject.SetActive(true);
 
     }
     #endregion
 
 
+    void OnCollisionEnter(Collision collision)
+    {
+        // Ship logically.
+        collision.gameObject.SetActive(false);
+        SpawnExplosion();
+    }
+
+
+    void SpawnExplosion()
+    {
+        Poolable explosion = GameManager.instance.m_ExplosionPool.Pop();
+        explosion.transform.position = transform.position;
+        explosion.transform.Rotate(new Vector3(0f, 0f, 360f * Random.value));
+        explosion.gameObject.SetActive(true);
+    }
     ///////////////////////// HELPER METHODS ////////////////////
 
     // Apply random forces.
