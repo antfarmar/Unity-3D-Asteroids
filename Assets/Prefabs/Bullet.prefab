@@ -13,6 +13,7 @@ GameObject:
   - 65: {fileID: 6586552}
   - 54: {fileID: 5415630}
   - 114: {fileID: 11473898}
+  - 114: {fileID: 11498470}
   m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
@@ -101,6 +102,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be9d2b06281f6d4b9b830c1ab0927c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11498470
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 175094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 482a57671b7a94e419bae6deb1858ed9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BulletLife: 1
+  m_ShipShooter: {fileID: 11484812, guid: c1955aaa0bfd5d046a37119e23a74bc1, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -173,6 +187,15 @@ Prefab:
       propertyPath: m_ExplosionClip
       value: 
       objectReference: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_BulletPool.m_Prefab
+      value: 
+      objectReference: {fileID: 178224, guid: c1955aaa0bfd5d046a37119e23a74bc1, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_ShipShooter
+      value: 
+      objectReference: {fileID: 11484812, guid: c1955aaa0bfd5d046a37119e23a74bc1,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 175094}

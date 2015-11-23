@@ -7,7 +7,7 @@ public class ShipShooter : MonoBehaviour
     public GameObject m_BulletPrefab;
     public ObjectPool m_BulletPool;
     public float m_BulletVelocity;
-    public float m_BulletLife;
+    //public float m_BulletLife;
 
 
     //public AudioClip m_ShootClip;       
@@ -21,7 +21,8 @@ public class ShipShooter : MonoBehaviour
     void Awake()
     {
         m_ShootingAudio = GetComponent<AudioSource>();
-        m_BulletPool = new ObjectPool(m_BulletPrefab, gameObject.transform, 3, 5);
+        //m_BulletPool = new ObjectPool(m_BulletPrefab, gameObject.transform, 3, 5);
+        m_BulletPool = new ObjectPool(m_BulletPrefab, null, 3, 5);
     }
 
     // Only called if the Object is active. This function is called just after the object is enabled.
@@ -43,7 +44,7 @@ public class ShipShooter : MonoBehaviour
         //m_BulletSpawnPoint = GameObject.FindGameObjectWithTag("BulletSpawnPoint").GetComponent<Transform>();
         m_BulletSpawnPoint = transform.Find("BulletSpawnPoint");
         m_BulletVelocity = 25f;
-        m_BulletLife = 1f;
+        //m_BulletLife = 1f;
 
         //Assigns the transform of the first child of the GameObject this script is attached to.
         //m_BulletSpawnPoint = transform.GetChild(0);
@@ -68,7 +69,7 @@ public class ShipShooter : MonoBehaviour
             m_Bullet.gameObject.SetActive(true);
 
             //Invoke("Repool", m_BulletLife);
-            StartCoroutine(Repool(m_Bullet, m_BulletLife));
+            //StartCoroutine(Repool(m_Bullet, m_BulletLife));
 
             // Change the clip to the firing clip and play it.
             //m_ShootingAudio.clip = m_ShootClip;

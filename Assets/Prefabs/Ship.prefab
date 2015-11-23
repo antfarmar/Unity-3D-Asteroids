@@ -263,8 +263,6 @@ MonoBehaviour:
     m_Prefab: {fileID: 0}
     m_Pool: []
   m_BulletVelocity: 25
-  m_BulletLife: 1
-  m_ShootingAudio: {fileID: 8262408}
 --- !u!198 &19862720
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1413,7 +1411,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_ShootingAudio
       value: 
-      objectReference: {fileID: 8262408}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 178224}
