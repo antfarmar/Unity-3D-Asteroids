@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("LEVEL ENDING");
 
         // Repool remaining asteroids if game over.
-        // Use pool lists.
+        // Need an active list.
 
 
 
