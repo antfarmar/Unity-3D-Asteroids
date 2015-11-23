@@ -74,8 +74,6 @@ public class AsteroidBehaviour : MonoBehaviour
         explosion.transform.Rotate(new Vector3(0f, 0f, 360f * Random.value));
         explosion.gameObject.SetActive(true);
 
-        // Recycle & deactivate this asteroid.
-        //GameManager.instance.m_AsteroidBigPool.Enqueue(gameObject.GetComponent("Poolable") as Poolable);
     }
     #endregion
 

@@ -9,10 +9,10 @@ public class ShipShooter : MonoBehaviour
     public float m_BulletVelocity;
     public float m_BulletLife;
 
-    public AudioSource m_ShootingAudio;
+
     //public AudioClip m_ShootClip;       
 
-
+    private AudioSource m_ShootingAudio;
     private Transform m_BulletSpawnPoint;
     private Poolable m_Bullet;
 
