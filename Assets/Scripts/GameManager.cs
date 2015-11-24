@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,10 +18,13 @@ public class GameManager : MonoBehaviour
     public ObjectPool m_AsteroidSmallPool;
     public ObjectPool m_ExplosionPool;
 
+    public Text m_UIText;
+
     public static GameManager instance;
 
     private Transform m_AsteroidTransform;
     private GameObject m_Ship;
+    private int m_Level;
 
     void Awake()
     {
@@ -83,6 +87,8 @@ public class GameManager : MonoBehaviour
     IEnumerator LevelStart()
     {
         Debug.Log("LEVEL STARTING");
+        m_Level++;
+        m_UIText.text = "level " + m_Level;
 
         // Disable ship controls (currently ship is inactive in Start, but may change).
         m_Ship.GetComponent<ShipMovement>().enabled = false;
@@ -124,11 +130,13 @@ public class GameManager : MonoBehaviour
     IEnumerator LevelPlay()
     {
         Debug.Log("LEVEL PLAYING");
+        m_UIText.text = string.Empty;
 
         // Enable ship controls.
         m_Ship.GetComponent<ShipMovement>().enabled = true;
         m_Ship.GetComponent<ShipShooter>().enabled = true;
 
+        // No health system yet. Ship just deactivated on collision.
         while(m_Ship.activeSelf) // && asteroidCount > 0
         {
             yield return null;
@@ -139,6 +147,9 @@ public class GameManager : MonoBehaviour
     IEnumerator LevelEnd()
     {
         Debug.Log("LEVEL ENDING");
+        m_UIText.text = "GAME OVER";
+
+        yield return new WaitForSeconds(1f);
 
         // Repool remaining asteroids if game over.
         // Need an active list. All children of Asteroid transform!
@@ -158,15 +169,15 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(1f);
+
     }
 
 
     // Update is called once per frame. It is the main workhorse function for frame updates.
-    void Update()
-    {
-        //if(paused) Debug.Log("Game Paused..");
-    }
+    //void Update()
+    //{
+    //    //if(paused) Debug.Log("Game Paused..");
+    //}
 
 
     // This function is called after all frame updates for the last frame of the object’s existence.

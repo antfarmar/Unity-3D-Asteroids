@@ -95,41 +95,6 @@ public class ShipMovement : MonoBehaviour
     }
 
 
-    // LateUpdate is called once per frame, after Update has finished.
-    // Any calculations that are performed in Update will have completed when LateUpdate begins.
-    // A common use for LateUpdate would be a following third-person camera.
-    // If you make your character move and turn inside Update, you can perform all camera movement and rotation calculations in LateUpdate.
-    // This will ensure that the character has moved completely before the camera tracks its position.
-    void LateUpdate()
-    {
-
-    }
-
-    // This is called at the end of the frame where the pause is detected, effectively between the normal frame updates.
-    // One extra frame will be issued after OnApplicationPause is called to allow the game to show graphics that indicate the paused state.
-    void OnApplicationPause()
-    {
-
-    }
-
-
-    // WHEN QUITTING
-    // These functions get called on all the active objects in your scene:
-
-    // This function is called on all game objects before the application is quit.
-    // In the editor it is called when the user stops playmode. In the web player it is called when the web view is closed.
-    void OnApplicationQuit()
-    {
-
-    }
-
-    // This function is called after all frame updates for the last frame of the object’s existence.
-    // The object might be destroyed in response to Object.Destroy or at the closure of a scene).
-    void OnDestroy()
-    {
-
-    }
-
 } // end class
 
 /*
