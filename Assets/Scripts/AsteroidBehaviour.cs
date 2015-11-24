@@ -24,8 +24,9 @@ public class AsteroidBehaviour : MonoBehaviour
     void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
-        //SpawnRandomEdge();
-        //SetRandomForces();
+
+        // Add some small scale variation
+        transform.localScale *= Random.Range(1f, 1.5f);
     }
 
 
@@ -133,7 +134,5 @@ public class AsteroidBehaviour : MonoBehaviour
 
         transform.position = spawnPosition;
 
-        // Add some small scale variation
-        //transform.localScale *= Random.Range(1f, 2f);
     }
 }

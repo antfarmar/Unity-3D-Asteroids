@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
 
-    public int m_AsteroidCount = 10;
+    public int m_AsteroidCount = 2;
     //private bool paused;
 
     //public ObjectPool m_BulletPool;
@@ -22,9 +22,11 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    private Transform m_AsteroidTransform;
+    private Transform m_AsteroidParent;
     private GameObject m_Ship;
-    private int m_Level;
+    private int m_Level = 1;
+    private bool m_AllAsteroidsShot;
+
 
     void Awake()
     {
@@ -36,10 +38,10 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         // Make/get references.
-        m_AsteroidTransform = new GameObject("Asteroids").transform;
+        m_AsteroidParent = new GameObject("Asteroids").transform;
         //m_BulletPool = new ObjectPool(m_BulletPrefab, gameObject.transform, 3, 5);
-        m_AsteroidBigPool = new ObjectPool(m_AsteroidBigPrefab, m_AsteroidTransform, 5, 10);
-        m_AsteroidSmallPool = new ObjectPool(m_AsteroidSmallPrefab, m_AsteroidTransform, 5, 10);
+        m_AsteroidBigPool = new ObjectPool(m_AsteroidBigPrefab, m_AsteroidParent, 5, 10);
+        m_AsteroidSmallPool = new ObjectPool(m_AsteroidSmallPrefab, m_AsteroidParent, 5, 10);
         m_ExplosionPool = new ObjectPool(m_ExplosionPrefab, gameObject.transform, 3, 5);
     }
 
@@ -69,6 +71,8 @@ public class GameManager : MonoBehaviour
         // Spawn the ship & deactivate (for now).
         m_Ship = Instantiate(m_ShipPrefab);
         m_Ship.SetActive(false);
+        m_Level = 1;
+
         StartCoroutine(GameLoop());
     }
 
@@ -79,7 +83,21 @@ public class GameManager : MonoBehaviour
         yield return StartCoroutine(LevelPlay());  // Let the user(s) play the level until a win or game over condition is met, then return back here.
         yield return StartCoroutine(LevelEnd());   // Find out if some user(s) "won" the level or not. Also, do some cleanup.
 
-        //if(asteroidCount == 0) LevelUp();
+        if(m_AllAsteroidsShot)
+        {
+            m_UIText.text = "Level Cleared!";
+            m_Level++;
+            m_AsteroidCount += m_Level;
+        }
+        else
+        {
+            m_UIText.text = "GAME OVER";
+            m_Level = 1;
+            m_AsteroidCount = 2;
+
+        }
+
+        yield return new WaitForSeconds(2f);
         StartCoroutine(GameLoop());
     }
 
@@ -87,8 +105,10 @@ public class GameManager : MonoBehaviour
     IEnumerator LevelStart()
     {
         Debug.Log("LEVEL STARTING");
-        m_Level++;
-        m_UIText.text = "level " + m_Level;
+        m_UIText.text = "Level " + m_Level;
+
+        m_AllAsteroidsShot = false;
+        //m_AsteroidCount *= m_Level;
 
         // Disable ship controls (currently ship is inactive in Start, but may change).
         m_Ship.GetComponent<ShipMovement>().enabled = false;
@@ -104,7 +124,6 @@ public class GameManager : MonoBehaviour
 
         // Spawn some asteroids.
         Poolable asteroid;
-
         for(int i = 0; i < m_AsteroidCount; i++)
         {
             if(i < m_AsteroidCount / 2)
@@ -117,7 +136,6 @@ public class GameManager : MonoBehaviour
             asteroid.gameObject.SetActive(true);
             behaviour.SpawnRandomEdge();
             behaviour.SetRandomForces();
-
         }
 
         yield return new WaitForSeconds(1f);
@@ -137,8 +155,9 @@ public class GameManager : MonoBehaviour
         m_Ship.GetComponent<ShipShooter>().enabled = true;
 
         // No health system yet. Ship just deactivated on collision.
-        while(m_Ship.activeSelf) // && asteroidCount > 0
+        while(m_Ship.activeSelf && !m_AllAsteroidsShot) // && asteroidCount > 0
         {
+            m_AllAsteroidsShot = !AnyActiveAsteroid();
             yield return null;
         }
     }
@@ -147,16 +166,15 @@ public class GameManager : MonoBehaviour
     IEnumerator LevelEnd()
     {
         Debug.Log("LEVEL ENDING");
-        m_UIText.text = "GAME OVER";
 
         yield return new WaitForSeconds(1f);
 
         // Repool remaining asteroids if game over.
-        // Need an active list. All children of Asteroid transform!
-        int count = m_AsteroidTransform.childCount;
+        // Need an active list: All children of Asteroid transform!
+        int count = m_AsteroidParent.childCount;
         for(int i = 0; i < count; i++)
         {
-            GameObject obj = m_AsteroidTransform.GetChild(i).gameObject;
+            GameObject obj = m_AsteroidParent.GetChild(i).gameObject;
             Poolable poolable = obj.GetComponent<Poolable>();
 
             if(obj.CompareTag("AsteroidBig"))
@@ -171,6 +189,22 @@ public class GameManager : MonoBehaviour
 
 
     }
+
+
+    bool AnyActiveAsteroid()
+    {
+        int count = m_AsteroidParent.childCount;
+        for(int i = 0; i < count; i++)
+        {
+            GameObject obj = m_AsteroidParent.GetChild(i).gameObject;
+            if(obj.activeSelf)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
     // Update is called once per frame. It is the main workhorse function for frame updates.
@@ -200,6 +234,9 @@ public class GameManager : MonoBehaviour
     }
 
 } // end class
+
+
+
 
 /* 
     // FixedUpdate is often called more frequently than Update.

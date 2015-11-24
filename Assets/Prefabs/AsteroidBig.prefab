@@ -103,9 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ExplosionClip: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
-  m_SmallAsteroidPrefab: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7,
-    type: 2}
-  m_Force: 2000
+  m_Force: 3000
   m_Torque: 1000
 --- !u!114 &11492270
 MonoBehaviour:
@@ -179,6 +177,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Interpolate
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Force
+      value: 3000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
