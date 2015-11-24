@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
 
-    Transform asteroidTransform;
+    private Transform m_AsteroidTransform;
     private GameObject m_Ship;
 
     void Awake()
@@ -31,10 +31,11 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(this.gameObject);
 
-        asteroidTransform = new GameObject("Asteroids").transform;
+        // Make/get references.
+        m_AsteroidTransform = new GameObject("Asteroids").transform;
         //m_BulletPool = new ObjectPool(m_BulletPrefab, gameObject.transform, 3, 5);
-        m_AsteroidBigPool = new ObjectPool(m_AsteroidBigPrefab, asteroidTransform, 5, 10);
-        m_AsteroidSmallPool = new ObjectPool(m_AsteroidSmallPrefab, asteroidTransform, 5, 10);
+        m_AsteroidBigPool = new ObjectPool(m_AsteroidBigPrefab, m_AsteroidTransform, 5, 10);
+        m_AsteroidSmallPool = new ObjectPool(m_AsteroidSmallPrefab, m_AsteroidTransform, 5, 10);
         m_ExplosionPool = new ObjectPool(m_ExplosionPrefab, gameObject.transform, 3, 5);
     }
 
@@ -106,7 +107,11 @@ public class GameManager : MonoBehaviour
                 asteroid = m_AsteroidSmallPool.Pop();
 
             //asteroid.transform.SetParent(asteroidTransform);
+            AsteroidBehaviour behaviour = asteroid.GetComponent<AsteroidBehaviour>();
             asteroid.gameObject.SetActive(true);
+            behaviour.SpawnRandomEdge();
+            behaviour.SetRandomForces();
+
         }
 
         yield return new WaitForSeconds(1f);
@@ -136,9 +141,22 @@ public class GameManager : MonoBehaviour
         Debug.Log("LEVEL ENDING");
 
         // Repool remaining asteroids if game over.
-        // Need an active list.
+        // Need an active list. All children of Asteroid transform!
+        int count = m_AsteroidTransform.childCount;
+        for(int i = 0; i < count; i++)
+        {
+            GameObject obj = m_AsteroidTransform.GetChild(i).gameObject;
+            Poolable poolable = obj.GetComponent<Poolable>();
 
-
+            if(obj.CompareTag("AsteroidBig"))
+            {
+                m_AsteroidBigPool.Push(poolable);
+            }
+            else
+            {
+                m_AsteroidSmallPool.Push(poolable);
+            }
+        }
 
         yield return new WaitForSeconds(1f);
     }

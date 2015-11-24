@@ -24,16 +24,16 @@ public class AsteroidBehaviour : MonoBehaviour
     void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
-        SpawnRandomEdge();
-        SetRandomForces();
+        //SpawnRandomEdge();
+        //SetRandomForces();
     }
 
 
     void OnEnable()
     {
-        // Get Poolable component here. GObject won't have it on Awake!
+        // Get Poolable component here. GObject won't have it on Awake! (change?)
         m_Poolable = GetComponent<Poolable>();
-        SetRandomForces();
+        //SetRandomForces();
     }
 
 
@@ -50,9 +50,11 @@ public class AsteroidBehaviour : MonoBehaviour
             {
                 //GameObject a1 = Instantiate(m_SmallAsteroidPrefab);
                 Poolable small = GameManager.instance.m_AsteroidSmallPool.Pop();
+                AsteroidBehaviour behaviour = small.GetComponent<AsteroidBehaviour>();
                 small.transform.position = gameObject.transform.position;
                 small.gameObject.SetActive(true);
-                //(small.GetComponent("AsteroidBehaviour") as AsteroidBehaviour).SetRandomForces();
+                behaviour.SetRandomForces();
+
             }
 
             // Recycle this (big) asteroid.
@@ -97,7 +99,7 @@ public class AsteroidBehaviour : MonoBehaviour
     ///////////////////////// HELPER METHODS ////////////////////
 
     // Apply random forces.
-    void SetRandomForces()
+    public void SetRandomForces()
     {
         //Vector3 randomForce = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f);
         //Vector3 randomTorque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f));
@@ -116,14 +118,15 @@ public class AsteroidBehaviour : MonoBehaviour
 
 
     // Calculate a random spawn point along the screen edge.
-    void SpawnRandomEdge()
+    public void SpawnRandomEdge()
     {
         Vector3 randomPosition = new Vector3(Random.value, Random.value, 0f);
 
+        // Restrict to an edge on x or y axis.
         if(Random.value < 0.5f) // coin flip
-            randomPosition.x = Random.value < 0.5f ? 0.1f : 0.9f;
+            randomPosition.x = Random.value < 0.5f ? 0.2f : 0.8f;
         else
-            randomPosition.y = Random.value < 0.5f ? 0.1f : 0.9f;
+            randomPosition.y = Random.value < 0.5f ? 0.2f : 0.8f;
 
         Vector3 spawnPosition = Camera.main.ViewportToWorldPoint(randomPosition);
         spawnPosition.z = 0f;
@@ -131,6 +134,6 @@ public class AsteroidBehaviour : MonoBehaviour
         transform.position = spawnPosition;
 
         // Add some small scale variation
-        transform.localScale *= Random.Range(1f, 2f);
+        //transform.localScale *= Random.Range(1f, 2f);
     }
 }
