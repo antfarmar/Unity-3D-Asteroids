@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +26,8 @@ public class GameManager : MonoBehaviour
     private Transform m_AsteroidParent;
     private GameObject m_Ship;
     private int m_Level = 1;
-    private bool m_AllAsteroidsShot;
+    private bool m_AllAsteroidsShot = false;
+    private bool m_GameOver = true;
 
 
     void Awake()
@@ -79,9 +81,15 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator GameLoop()
     {
+        if(m_GameOver)
+        {
+            yield return StartCoroutine(TitleScreen());
+        }
+
         yield return StartCoroutine(LevelStart()); // Start the level: Initialize, do some fun GUI stuff, ..., yield WaitForSeconds if setup too fast.
         yield return StartCoroutine(LevelPlay());  // Let the user(s) play the level until a win or game over condition is met, then return back here.
         yield return StartCoroutine(LevelEnd());   // Find out if some user(s) "won" the level or not. Also, do some cleanup.
+
 
         if(m_AllAsteroidsShot)
         {
@@ -94,11 +102,25 @@ public class GameManager : MonoBehaviour
             m_UIText.text = "GAME OVER";
             m_Level = 1;
             m_AsteroidCount = 2;
-
+            m_GameOver = true;
         }
 
         yield return new WaitForSeconds(2f);
         StartCoroutine(GameLoop());
+    }
+
+
+    IEnumerator TitleScreen()
+    {
+        m_UIText.text = "ASTEROIDS";
+
+        while(!Input.anyKeyDown)
+        {
+            yield return null;
+        }
+
+        m_GameOver = false;
+        yield return new WaitForSeconds(1f);
     }
 
 
@@ -119,8 +141,6 @@ public class GameManager : MonoBehaviour
         m_Ship.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         m_Ship.transform.position = Vector3.zero;
 
-        //m_Ship.SetActive(true);
-
 
         // Spawn some asteroids.
         Poolable asteroid;
@@ -139,9 +159,6 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-
-        m_Ship.SetActive(true);
-        Debug.Log("GO!");
     }
 
 
@@ -151,6 +168,7 @@ public class GameManager : MonoBehaviour
         m_UIText.text = string.Empty;
 
         // Enable ship controls.
+        m_Ship.SetActive(true);
         m_Ship.GetComponent<ShipMovement>().enabled = true;
         m_Ship.GetComponent<ShipShooter>().enabled = true;
 
