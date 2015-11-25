@@ -122,7 +122,6 @@ public class GameManager : MonoBehaviour
 
 
         // Spawn some asteroids.
-        m_AllAsteroidsShot = false;
         Poolable asteroid;
         for(int i = 0; i < m_AsteroidCount; i++)
         {
@@ -151,7 +150,9 @@ public class GameManager : MonoBehaviour
         m_Ship.GetComponent<ShipMovement>().enabled = true;
         m_Ship.GetComponent<ShipShooter>().enabled = true;
 
+
         // No health system yet. Ship just deactivated on collision.
+        m_AllAsteroidsShot = false;
         while(m_Ship.activeSelf && !m_AllAsteroidsShot)
         {
             m_AllAsteroidsShot = !AnyActiveAsteroid();
