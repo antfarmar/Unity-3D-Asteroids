@@ -114,7 +114,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BulletLife: 1
-  m_ShipShooter: {fileID: 11484812, guid: c1955aaa0bfd5d046a37119e23a74bc1, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

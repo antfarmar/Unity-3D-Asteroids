@@ -8,6 +8,8 @@ TagManager:
   - AsteroidSmall
   - BulletSpawnPoint
   - Asteroid
+  - BulletSpawn
+  - Ship
   layers:
   - Default
   - TransparentFX

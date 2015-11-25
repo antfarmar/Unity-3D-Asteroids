@@ -42,9 +42,9 @@ public class GameManager : MonoBehaviour
         // Make/get references.
         m_AsteroidParent = new GameObject("Asteroids").transform;
         //m_BulletPool = new ObjectPool(m_BulletPrefab, gameObject.transform, 3, 5);
-        m_AsteroidBigPool = new ObjectPool(m_AsteroidBigPrefab, m_AsteroidParent, 5, 10);
-        m_AsteroidSmallPool = new ObjectPool(m_AsteroidSmallPrefab, m_AsteroidParent, 5, 10);
-        m_ExplosionPool = new ObjectPool(m_ExplosionPrefab, gameObject.transform, 3, 5);
+        m_AsteroidBigPool = new ObjectPool(m_AsteroidBigPrefab, m_AsteroidParent, 10, 20);
+        m_AsteroidSmallPool = new ObjectPool(m_AsteroidSmallPrefab, m_AsteroidParent, 20, 30);
+        m_ExplosionPool = new ObjectPool(m_ExplosionPrefab, gameObject.transform, 5, 5);
     }
 
 
@@ -113,14 +113,16 @@ public class GameManager : MonoBehaviour
     IEnumerator TitleScreen()
     {
         m_UIText.text = "ASTEROIDS";
+        PopAllAsteroids();
 
         while(!Input.anyKeyDown)
         {
             yield return null;
         }
 
+        PushAllAsteroids();
         m_GameOver = false;
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(1f);
     }
 
 
@@ -173,7 +175,7 @@ public class GameManager : MonoBehaviour
         m_Ship.GetComponent<ShipShooter>().enabled = true;
 
         // No health system yet. Ship just deactivated on collision.
-        while(m_Ship.activeSelf && !m_AllAsteroidsShot) // && asteroidCount > 0
+        while(m_Ship.activeSelf && !m_AllAsteroidsShot)
         {
             m_AllAsteroidsShot = !AnyActiveAsteroid();
             yield return null;
@@ -189,6 +191,34 @@ public class GameManager : MonoBehaviour
 
         // Repool remaining asteroids if game over.
         // Need an active list: All children of Asteroid transform!
+        //PushAllAsteroids();
+    }
+
+
+    // Pop all asteroids out of their pools. (also sets position/forces)
+    void PopAllAsteroids()
+    {
+        int count = m_AsteroidParent.childCount;
+        for(int i = 0; i < count; i++)
+        {
+            GameObject asteroid = m_AsteroidParent.GetChild(i).gameObject;
+
+            if(asteroid.CompareTag("AsteroidBig"))
+                m_AsteroidBigPool.Pop();
+            else
+                m_AsteroidSmallPool.Pop();
+
+            AsteroidBehaviour behaviour = asteroid.GetComponent<AsteroidBehaviour>();
+            asteroid.SetActive(true);
+            behaviour.SpawnRandomEdge();
+            behaviour.SetRandomForces();
+        }
+    }
+
+
+    // Push all asteroids back into their pools. (Deactivates)
+    void PushAllAsteroids()
+    {
         int count = m_AsteroidParent.childCount;
         for(int i = 0; i < count; i++)
         {
@@ -196,16 +226,10 @@ public class GameManager : MonoBehaviour
             Poolable poolable = obj.GetComponent<Poolable>();
 
             if(obj.CompareTag("AsteroidBig"))
-            {
                 m_AsteroidBigPool.Push(poolable);
-            }
             else
-            {
                 m_AsteroidSmallPool.Push(poolable);
-            }
         }
-
-
     }
 
 
@@ -224,160 +248,4 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-    // Update is called once per frame. It is the main workhorse function for frame updates.
-    //void Update()
-    //{
-    //    //if(paused) Debug.Log("Game Paused..");
-    //}
-
-
-    // This function is called after all frame updates for the last frame of the object’s existence.
-    // The object might be destroyed in response to Object.Destroy or at the closure of a scene).
-    void OnDestroy()
-    {
-        //m_BulletPool.EmptyPool();
-        //m_AsteroidBigPool.EmptyPool();
-        //m_AsteroidSmallPool.EmptyPool();
-        //m_ExplosionPool.EmptyPool();
-        //Debug.Log("Destroyed.");
-    }
-
-
-    // This is called at the end of the frame where the pause is detected, effectively between the normal frame updates.
-    // One extra frame will be issued after OnApplicationPause is called to allow the game to show graphics that indicate the paused state.
-    void OnApplicationPause(bool pauseStatus)
-    {
-        //paused = pauseStatus;
-    }
-
 } // end class
-
-
-
-
-/* 
-    // FixedUpdate is often called more frequently than Update.
-    // It can be called multiple times per frame, if the frame rate is low and it may not be called between frames at all if the frame rate is high.
-    // All physics calculations and updates occur immediately after FixedUpdate.
-    // When applying movement calculations inside FixedUpdate, you do not need to multiply your values by Time.deltaTime.
-    // This is because FixedUpdate is called on a reliable timer, independent of the frame rate.
-    void FixedUpdate()
-    {
-
-    }
-
-
-    // LateUpdate is called once per frame, after Update has finished.
-    // Any calculations that are performed in Update will have completed when LateUpdate begins.
-    // A common use for LateUpdate would be a following third-person camera.
-    // If you make your character move and turn inside Update, you can perform all camera movement and rotation calculations in LateUpdate.
-    // This will ensure that the character has moved completely before the camera tracks its position.
-    void LateUpdate()
-    {
-
-    }
-
-    
-
-
-    // WHEN QUITTING
-    // These functions get called on all the active objects in your scene:
-
-    // This function is called on all game objects before the application is quit.
-    // In the editor it is called when the user stops playmode. In the web player it is called when the web view is closed.
-    void OnApplicationQuit()
-    {
-
-    }
-
-    
-
-} // end class
-
-/*
-/// DEBUG ///////////////////////////////////////////////////////////////////
-Debug.Log()         // Logs message to the Unity Console.
-Debug.Assert()	    // Assert the condition.
-Debug.DrawLine()    // Draws a line between specified start and end points.
-Debug.DrawRay()     // Draws a line from start to start + dir in world coordinates.
-Debug.Break()       // Pauses the editor.
-
-
-/// GIZMOS.XXX
-Implement OnDrawGizmos if you want to draw gizmos that are also pickable and always drawn.
-This allows you to quickly pick important objects in your scene.
-Note that OnDrawGizmos will use a mouse position that is relative to the Scene View.
-This function does not get called if the component is collapsed in the inspector. Use OnDrawGizmosSelected to draw gizmos when the game object is selected.
-
-OnDrawGizmos() { }
-OnDrawGizmosSelected() { }
-
-GIZMO STATIC FUNCTIONS
-DrawCube	Draw a solid box with center and size.
-DrawFrustum	Draw a camera frustum using the currently set Gizmos.matrix for it's location and rotation.
-DrawGUITexture	Draw a texture in the scene.
-DrawIcon	Draw an icon at a position in the scene view.
-DrawLine	Draws a line starting at from towards to.
-DrawMesh	Draws a mesh.
-DrawRay	Draws a ray starting at from to from + direction.
-DrawSphere	Draws a solid sphere with center and radius.
-DrawWireCube	Draw a wireframe box with center and size.
-DrawWireMesh	Draws a wireframe mesh.
-DrawWireSphere	Draws a wireframe sphere with center and radius.
-
-
-/// INPUT ///////////////////////////////////////////////////////////////////
-
-/// MOUSE
-Called every frame while the mouse is over the GUIElement or Collider.
-These functions are not called on objects that belong to Ignore Raycast layer.
-These functions are called on Colliders marked as Trigger if and only if Physics.queriesHitTriggers is true.
-OnMouseXXX can be a co-routine, simply use the yield statement in the function. This event is sent to all scripts attached to the Collider or GUIElement.
-
-void OnMouseEnter() { }         // called when the mouse enters the GUIElement or Collider.
-void OnMouseOver() { }          // called every frame while the mouse is over the GUIElement or Collider.
-void OnMouseDrag() { }          // called when the user has clicked on a GUIElement or Collider and is still holding down the mouse.
-void OnMouseExit() { }          // called when the mouse is not any longer over the GUIElement or Collider.
-void OnMouseDown() { }          // called when the user has pressed the mouse button while over the GUIElement or Collider.
-void OnMouseUp() { }            // called when the user has released the mouse button
-void OnMouseUpAsButton() { }    // called when the mouse is released over the SAME GUIElement or Collider as it was pressed.
-   
-   
-/// PHYSICS     ///////////////////////////////////////////////////////////////////
- OnCollisionEnter is passed the Collision class and not a Collider.
- The Collision class contains information about contact points, impact velocity etc.
- If you don't use collisionInfo in the function, leave out the collisionInfo parameter as this avoids unnecessary calculations.
- Collision events are only sent if one of the colliders also has a non-kinematic rigidbody attached.
- Collision events will be sent to disabled MonoBehaviours, to allow enabling Behaviours in response to collisions.
- 
-void OnTriggerXXX() { }         // Enter|Exit|Stay
-void OnCollisionXXX() { }
-
-
-/// COROUTINES ///////////////////////////////////////////////////////////////////
-
-Normal coroutine updates are run after the Update function returns. A coroutine is a function that can suspend its execution (yield) until the given YieldInstruction finishes. Different uses of Coroutines:
-
-yield                       The coroutine will continue after all Update functions have been called on the next frame.
-yield WaitForSeconds        Continue after a specified time delay, after all Update functions have been called for the frame
-yield WaitForFixedUpdate    Continue after all FixedUpdate has been called on all scripts
-yield WaitForEndOfFrame     Continue after all FixedUpdate has been called on all scripts
-yield WWW                   Continue after a WWW download has completed.
-yield StartCoroutine        Chains the coroutine, and will wait for the MyFunc coroutine to complete first.
-
-
-/// RENDERING ///////////////////////////////////////////////////////////////////
-
-OnPreCull: Called before the camera culls the scene. Culling determines which objects are visible to the camera. OnPreCull is called just before culling takes place.
-OnBecameVisible/OnBecameInvisible: Called when an object becomes visible/invisible to any camera.
-OnWillRenderObject: Called once for each camera if the object is visible.
-OnPreRender: Called before the camera starts rendering the scene.
-OnRenderObject: Called after all regular scene rendering is done. You can use GL class or Graphics.DrawMeshNow to draw custom geometry at this point.
-OnPostRender: Called after a camera finishes rendering the scene.
-OnRenderImage: Called after scene rendering is complete to allow postprocessing of the screen image.
-OnGUI: Called multiple times per frame in response to GUI events. The Layout and Repaint events are processed first, followed by a Layout and keyboard/mouse event for each input event.
-OnDrawGizmos: Used for drawing Gizmos in the scene view for visualisation purposes.
-
-*/
-

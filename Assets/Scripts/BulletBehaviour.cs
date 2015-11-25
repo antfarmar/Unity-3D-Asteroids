@@ -5,7 +5,20 @@ public class BulletBehaviour : MonoBehaviour
 {
 
     public float m_BulletLife = 1f;
-    public ShipShooter m_ShipShooter;
+    private ShipShooter m_ShipShooter;
+
+
+    // Awake is called:
+    // exactly once in the lifetime of the script (like Start).
+    // upon GO activation or if a fn in any script attached to it is called.
+    // even if the script is disabled
+    // before any Start functions 
+    // after all GO's are initialized
+    // USAGE: initialize any references, variables, or game state before the game starts.
+    void Awake()
+    {
+        m_ShipShooter = FindObjectOfType<ShipShooter>(); // meh, there aren't many objects in the scene.
+    }
 
 
     // OnEnable is called:
@@ -33,15 +46,6 @@ public class BulletBehaviour : MonoBehaviour
     // USAGE: cleanup.
     //void OnDisable() {}
 
-
-    // Awake is called:
-    // exactly once in the lifetime of the script (like Start).
-    // upon GO activation or if a fn in any script attached to it is called.
-    // even if the script is disabled
-    // before any Start functions 
-    // after all GO's are initialized
-    // USAGE: initialize any references, variables, or game state before the game starts.
-    //void Awake() {}
 
 
     // Start is called:
