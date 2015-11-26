@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Screenwrap a gameObject OnBecameInvisible() message.
 // Hacky, see comments below. Affected by Scene view too.
 public class ScreenWrapper : MonoBehaviour
 {
+    [SerializeField]
+    [HideInInspector]    
+    public UnityEvent beforeWrap;
 
     bool IsVisible = true;
 
@@ -39,21 +43,32 @@ public class ScreenWrapper : MonoBehaviour
 
     void ScreenWrap()
     {
-        Vector3 viewportPosition = Vector3.zero;
-        viewportPosition = Camera.main.WorldToViewportPoint(transform.position);
+        Vector3 viewport = GetViewportPosition();
+        bool wrapX = viewport.x < 0 || viewport.x > 1;
+        bool wrapY = viewport.y < 0 || viewport.y > 1;
 
-        Vector3 newPosition = transform.position;
+        if (wrapX || wrapY)
+        {
+            // Some components have a dependency on transform.position for effects.
+            // To avoid maintaining code regarding specific components here, events 
+            // delegate responsibility to components who impose the dependency.
+            beforeWrap.Invoke();
+            transform.position = NegateXY(transform.position, wrapX, wrapY);
+        }
+    }
 
-        if(viewportPosition.x < 0 || viewportPosition.x > 1)
-            newPosition.x = -newPosition.x;
+    Vector3 GetViewportPosition()
+    {
+        return Camera.main.WorldToViewportPoint(transform.position);
+    }
 
-        if(viewportPosition.y < 0 || viewportPosition.y > 1)
-            newPosition.y = -newPosition.y;
-
-        // Deactivate the gameObject temporarily when we wrap/teleport.
-        // Prevents funky behaviour. (eg. particle systems based on distance emission)
-        //gameObject.SetActive(false);
-        transform.position = newPosition;
-        //gameObject.SetActive(true);
+    static Vector3 NegateXY(Vector3 vector, bool negateX, bool negateY)
+    {
+        return new Vector3
+        {
+            x = negateX ? -vector.x : vector.x,
+            y = negateY ? -vector.y : vector.y,
+            z = vector.z
+        };
     }
 }
