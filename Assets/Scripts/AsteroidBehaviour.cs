@@ -121,7 +121,6 @@ public class AsteroidBehaviour : MonoBehaviour
 
     public void SpawnRandomPosition()
     {
-
         int mask = LayerMask.GetMask("ShipSpawnSphere");
         Vector3 spawnPosition;
         bool hit = false;
@@ -133,11 +132,10 @@ public class AsteroidBehaviour : MonoBehaviour
             hit = Physics.CheckSphere(spawnPosition, 5f, mask);
         } while(hit);
 
-
         spawnPosition.z = 0f;
         transform.position = spawnPosition;
-
     }
+
 
     // Calculate a random spawn point along the screen edge.
     //public void SpawnRandomEdge()
