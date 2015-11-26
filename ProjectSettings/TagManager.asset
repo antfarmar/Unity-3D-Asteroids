@@ -8,7 +8,6 @@ TagManager:
   - AsteroidSmall
   - BulletSpawnPoint
   - Asteroid
-  - BulletSpawn
   - Ship
   layers:
   - Default
@@ -22,7 +21,7 @@ TagManager:
   - Asteroid
   - Ship
   - Bullet
-  - 
+  - ShipSpawnSphere
   - 
   - 
   - 

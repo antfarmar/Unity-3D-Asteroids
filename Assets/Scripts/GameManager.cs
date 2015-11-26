@@ -67,8 +67,9 @@ public class GameManager : MonoBehaviour
     // Use this for initialization.
     void Start()
     {
-        // Spawn the ship & deactivate (for now).
+        // Spawn the ship & deactivate.
         m_Ship = Instantiate(m_ShipPrefab);
+        m_Ship.transform.position = Vector3.zero;
         m_Ship.SetActive(false);
         m_Level = 1;
 
@@ -77,14 +78,13 @@ public class GameManager : MonoBehaviour
     }
 
 
+    // The main game loop.
     private IEnumerator GameLoop()
     {
         if(m_GameOver) yield return StartCoroutine(ShowTitleScreen());
-
-        yield return StartCoroutine(LevelStart()); // Start the level: Initialize, do some fun GUI stuff, ..., yield WaitForSeconds if setup too fast.
-        yield return StartCoroutine(LevelPlay());  // Let the user(s) play the level until a win or game over condition is met, then return back here.
-        yield return StartCoroutine(LevelEnd());   // Find out if some user(s) "won" the level or not. Also, do some cleanup.
-
+        yield return StartCoroutine(LevelStart());
+        yield return StartCoroutine(LevelPlay());
+        yield return StartCoroutine(LevelEnd());
         yield return new WaitForSeconds(2f);
         StartCoroutine(GameLoop());
     }
@@ -102,23 +102,26 @@ public class GameManager : MonoBehaviour
         m_GameOver = false;
 
         PushAllAsteroids();
+
         //yield return new WaitForSeconds(1f);
     }
 
 
+    // Spawn asteroids for this level.
     IEnumerator LevelStart()
     {
         Debug.Log("LEVEL STARTING");
         m_UIText.text = "Level " + m_Level;
 
         // Disable ship controls (currently ship is inactive in Start, but may change).
-        m_Ship.GetComponent<ShipMovement>().enabled = false;
-        m_Ship.GetComponent<ShipShooter>().enabled = false;
+        m_Ship.SetActive(true);
+        //m_Ship.GetComponent<ShipMovement>().enabled = false;
+        //m_Ship.GetComponent<ShipShooter>().enabled = false;
 
         // Reset ship position/velocity.
-        m_Ship.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        m_Ship.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        m_Ship.transform.position = Vector3.zero;
+        //m_Ship.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //m_Ship.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        //m_Ship.transform.position = Vector3.zero;
 
 
         // Spawn some asteroids.
@@ -132,7 +135,7 @@ public class GameManager : MonoBehaviour
 
             AsteroidBehaviour behaviour = asteroid.GetComponent<AsteroidBehaviour>();
             asteroid.gameObject.SetActive(true);
-            behaviour.SpawnRandomEdge();
+            behaviour.SpawnRandomPosition();
             behaviour.SetRandomForces();
         }
 
@@ -177,6 +180,8 @@ public class GameManager : MonoBehaviour
             m_Level = 1;
             m_AsteroidCount = 2;
             m_GameOver = true;
+            m_Ship.transform.position = Vector3.zero;
+            m_Ship.GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
 
         yield return new WaitForSeconds(1f);
@@ -198,7 +203,7 @@ public class GameManager : MonoBehaviour
 
             AsteroidBehaviour behaviour = asteroid.GetComponent<AsteroidBehaviour>();
             asteroid.SetActive(true);
-            behaviour.SpawnRandomEdge();
+            behaviour.SpawnRandomPosition();
             behaviour.SetRandomForces();
         }
     }

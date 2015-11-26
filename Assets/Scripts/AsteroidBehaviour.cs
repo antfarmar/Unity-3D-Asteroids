@@ -118,21 +118,42 @@ public class AsteroidBehaviour : MonoBehaviour
     }
 
 
-    // Calculate a random spawn point along the screen edge.
-    public void SpawnRandomEdge()
+
+    public void SpawnRandomPosition()
     {
-        Vector3 randomPosition = new Vector3(Random.value, Random.value, 0f);
 
-        // Restrict to an edge on x or y axis.
-        if(Random.value < 0.5f) // coin flip
-            randomPosition.x = Random.value < 0.5f ? 0.2f : 0.8f;
-        else
-            randomPosition.y = Random.value < 0.5f ? 0.2f : 0.8f;
+        int mask = LayerMask.GetMask("ShipSpawnSphere");
+        Vector3 spawnPosition;
+        bool hit = false;
 
-        Vector3 spawnPosition = Camera.main.ViewportToWorldPoint(randomPosition);
+        do
+        {
+            Vector3 randomPosition = new Vector3(Random.value, Random.value, 0f);
+            spawnPosition = Camera.main.ViewportToWorldPoint(randomPosition);
+            hit = Physics.CheckSphere(spawnPosition, 5f, mask);
+        } while(hit);
+
+
         spawnPosition.z = 0f;
-
         transform.position = spawnPosition;
 
     }
+
+    // Calculate a random spawn point along the screen edge.
+    //public void SpawnRandomEdge()
+    //{
+    //    Vector3 randomPosition = new Vector3(Random.value, Random.value, 0f);
+
+    //    // Restrict to an edge on x or y axis.
+    //    if(Random.value < 0.5f) // coin flip
+    //        randomPosition.x = Random.value < 0.5f ? 0.2f : 0.8f;
+    //    else
+    //        randomPosition.y = Random.value < 0.5f ? 0.2f : 0.8f;
+
+    //    Vector3 spawnPosition = Camera.main.ViewportToWorldPoint(randomPosition);
+    //    spawnPosition.z = 0f;
+
+    //    transform.position = spawnPosition;
+
+    //}
 }
