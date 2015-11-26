@@ -44,8 +44,8 @@ public class ShipMovement : MonoBehaviour
     // Update is called once per frame. It is the main workhorse function for frame updates.
     void Update()
     {
-        m_TurnInputValue = Input.GetAxis("Horizontal");
-        m_MovementInputValue = Input.GetAxis("Vertical");
+        m_TurnInputValue = ShipInput.GetTurnAxis();
+        m_MovementInputValue = ShipInput.GetForwardThrust();
 
         // Freeze z-position (Rigidbody already does this though)
         Vector3 pos = transform.position;
@@ -70,9 +70,6 @@ public class ShipMovement : MonoBehaviour
 
     private void Move()
     {
-        // No backwards movement for you!
-        if(m_MovementInputValue <= 0) return;
-
         // Create a vector in the direction the ship is facing.
         // Magnitude based on the input, speed and the time between frames.
         Vector3 thrustForce = transform.up * m_MovementInputValue * m_Thrust * Time.deltaTime;
