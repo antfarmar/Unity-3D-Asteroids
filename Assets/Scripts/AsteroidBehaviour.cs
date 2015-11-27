@@ -3,6 +3,8 @@
 
 public class AsteroidBehaviour : MonoBehaviour
 {
+    const int smallAsteroidScore = 25;
+    const int largeAsteroidScore = 100;
 
     //public GameObject m_AsteroidBigPrefab;
     //public GameObject m_AsteroidSmallPrefab;
@@ -46,6 +48,7 @@ public class AsteroidBehaviour : MonoBehaviour
 
         if(gameObject.CompareTag("AsteroidBig"))
         {
+            Score.Earn(largeAsteroidScore);
             // Split the big asteroid into 2 smaller ones.
             for(int i = 0; i < 2; i++)
             {
@@ -63,6 +66,7 @@ public class AsteroidBehaviour : MonoBehaviour
         }
         else // "AsteroidSmall"
         {
+            Score.Earn(smallAsteroidScore);
             // Recycle this (small) asteroid.
             GameManager.instance.m_AsteroidSmallPool.Push(m_Poolable);
         }
