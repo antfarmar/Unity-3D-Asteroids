@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ShowTitleScreen()
     {
         PopAllAsteroids();
-        m_UIText.text = "ASTEROIDS";
+        m_UIText.text = "A S T E R O I D S";
 
         while(!Input.anyKeyDown) yield return null;
 
