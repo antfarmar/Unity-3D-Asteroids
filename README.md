@@ -3,7 +3,7 @@
 
 Experimenting with Unity. Trying to determine best practices.
 
-<p style="text-align:center;"><img src="AsteroidsScreenshot.jpg"></p>
+![Title Screenshot](AsteroidsScreenshot.JPG)
 
 #### Design choices.
 * Software Patterns: Composition, Singletons, Pooling, ...
