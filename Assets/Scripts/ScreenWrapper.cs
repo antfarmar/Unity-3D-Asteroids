@@ -2,20 +2,17 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-// Screenwrap a gameObject OnBecameInvisible() message.
-// Hacky, see comments below. Affected by Scene view too.
 public class ScreenWrapper : MonoBehaviour
 {
     [SerializeField]
-    [HideInInspector]    
+    [HideInInspector]
     public UnityEvent beforeWrap;
 
     bool IsVisible = true;
 
-
     void Update()
     {
-        if(IsVisible)
+        if (IsVisible)
             return;
         else
         {
@@ -24,14 +21,10 @@ public class ScreenWrapper : MonoBehaviour
         }
     }
 
-
-    // Note that object is considered visible when it needs to be rendered in the scene.
-    // It might not be actually visible by any camera, but still need to be rendered for shadows for example.
-    // Also, when running in the editor, the scene view cameras will also cause this function to be called.
     IEnumerator OnBecameInvisible()
     {
         IsVisible = false;
-        yield return new WaitForSeconds(1f); // give object time to wrap before another call?
+        yield return new WaitForSeconds(1f);
     }
 
 
@@ -39,7 +32,6 @@ public class ScreenWrapper : MonoBehaviour
     {
         IsVisible = true;
     }
-
 
     void ScreenWrap()
     {
@@ -49,9 +41,6 @@ public class ScreenWrapper : MonoBehaviour
 
         if (wrapX || wrapY)
         {
-            // Some components have a dependency on transform.position for effects.
-            // To avoid maintaining code regarding specific components here, events 
-            // delegate responsibility to components who impose the dependency.
             beforeWrap.Invoke();
             transform.position = NegateXY(transform.position, wrapX, wrapY);
         }

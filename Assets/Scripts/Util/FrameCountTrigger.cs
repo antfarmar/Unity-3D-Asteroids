@@ -8,7 +8,7 @@ public class FrameCountTrigger
     int scheduledFrame;
 
     const int UNSCHEDULED_FRAME = -1;
-    
+
     FrameCountTrigger() { }
 
     public static FrameCountTrigger Unscheduled()
@@ -54,10 +54,6 @@ public class FrameCountTrigger
         scheduledFrame = Time.frameCount + framesAheadInTime;
     }
 
-    /// <summary>
-    /// <para /> Unschedules trigger, if trigger is due. 
-    /// <para /> Return true, if unscheduled.
-    /// </summary>
     public bool TryUnschedule()
     {
         if (IsTriggerDue)
@@ -68,11 +64,6 @@ public class FrameCountTrigger
         return false;
     }
 
-    /// <summary>
-    /// <para /> Unschedules trigger, if trigger was scheduled.
-    /// <para /> TryUnscheduleEarly will unschedule the frame, ignoring current frame.
-    /// <para /> Return true, if unscheduled.
-    /// </summary>
     public bool TryUnscheduleEarly()
     {
         if (IsScheduled)

@@ -15,6 +15,6 @@ public static class ShipInput
     public static float GetForwardThrust()
     {
         float axis = Input.GetAxis("Vertical");
-        return Mathf.Clamp01(axis); // No backpedal
+        return Mathf.Clamp01(axis);
     }
 }

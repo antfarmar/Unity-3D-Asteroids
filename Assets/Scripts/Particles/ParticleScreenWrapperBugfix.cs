@@ -1,9 +1,5 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// <para/> Disables particle emission, until next frame.
-/// <para/> Listens to ScreenWrapper.beforeWrap in parent game object to fix particle wrapping bugs. 
-/// </summary>
 [RequireComponent(typeof(ParticleSystem))]
 sealed class ParticleScreenWrapperBugfix : MonoBehaviour
 {
@@ -20,7 +16,7 @@ sealed class ParticleScreenWrapperBugfix : MonoBehaviour
     FrameCountTrigger trigger = FrameCountTrigger.Unscheduled();
 
     void OnEnable()
-    { 
+    {
         var wrapper = GetComponentInParent<ScreenWrapper>();
         if (wrapper)
             wrapper.beforeWrap.AddListener(DisableEmissionUntilNextFrame_Bugfix_Hack);
