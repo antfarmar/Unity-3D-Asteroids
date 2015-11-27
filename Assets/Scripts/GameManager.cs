@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ShowTitleScreen()
     {
         PopAllAsteroids();
+
         m_UIText.text = "A S T E R O I D S";
 
         while(!Input.anyKeyDown) yield return null;
@@ -124,6 +125,9 @@ public class GameManager : MonoBehaviour
         //m_Ship.transform.position = Vector3.zero;
 
 
+        yield return new WaitForSeconds(2f);
+
+
         // Spawn some asteroids.
         Poolable asteroid;
         for(int i = 0; i < m_AsteroidCount; i++)
@@ -138,8 +142,6 @@ public class GameManager : MonoBehaviour
             behaviour.SpawnRandomPosition();
             behaviour.SetRandomForces();
         }
-
-        yield return new WaitForSeconds(1f);
     }
 
 
