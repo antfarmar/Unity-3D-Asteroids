@@ -1,9 +1,12 @@
 # Unity-3D-Asteroids
-### ***My simple Asteroids clone.***
+#### ***My simple Asteroids clone.***
+
 Experimenting with Unity. Trying to determine best practices.
 
+<p style="text-align:center;"><img src="AsteroidsScreenshot.jpg"></p>
+
 #### Design choices.
-* Software Patterns: Composition, Singletons, ...
+* Software Patterns: Composition, Singletons, Pooling, ...
 * Architecture/Frameworks: MVC, IoC+DI, Messaging, ...
 * Composition vs. OOP
 * MonoBehaviour + Extensions
@@ -23,6 +26,7 @@ Experimenting with Unity. Trying to determine best practices.
 * Source code management(Git + VS-Plug-In)
 * Git: Commit, Sync, Push/Pull, Fork, Branch(Merge/Rebase), Revert
 * GitHub: Repositories, Issues, Wiki, Markdown use
+* Blender Exporting
 
 #### Unity quirks.
 * Editor
