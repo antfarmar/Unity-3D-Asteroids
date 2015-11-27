@@ -41,6 +41,7 @@ GameObject:
   - 4: {fileID: 483300}
   - 198: {fileID: 19862720}
   - 199: {fileID: 19911248}
+  - 114: {fileID: 11433406}
   m_Layer: 0
   m_Name: Thruster
   m_TagString: Untagged
@@ -262,6 +263,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be9d2b06281f6d4b9b830c1ab0927c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beforeWrap:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+--- !u!114 &11433406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 144792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6afa95e58fac6a48be38d16eb0b31fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles: {fileID: 0}
+  storedEmissionValue: 0
+  trigger:
+    scheduledFrame: -1
 --- !u!114 &11484372
 MonoBehaviour:
   m_ObjectHideFlags: 1
