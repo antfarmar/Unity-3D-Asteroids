@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    const int levelClearedBonusScore = 100;
+
     public GameObject m_ShipPrefab;
     public GameObject m_BulletPrefab;
     public GameObject m_ExplosionPrefab;
@@ -175,6 +177,10 @@ public class GameManager : MonoBehaviour
             m_UIText.text = "Level Cleared!";
             m_Level++;
             m_AsteroidCount += m_Level; // level progression
+            int endOfLevelBonus = m_Level * levelClearedBonusScore;
+            yield return new WaitForSeconds(1f);
+            Score.Earn(endOfLevelBonus);
+            yield return new WaitForSeconds(1f);
         }
         else // ship collided & deactivated
         {
@@ -184,9 +190,12 @@ public class GameManager : MonoBehaviour
             m_GameOver = true;
             m_Ship.transform.position = Vector3.zero;
             m_Ship.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            yield return new WaitForSeconds(1f);
+            Score.Tally();
+            yield return new WaitForSeconds(1f);
+            Score.Reset();
         }
 
-        yield return new WaitForSeconds(1f);
     }
 
 
