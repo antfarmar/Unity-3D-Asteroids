@@ -3,7 +3,7 @@
 
 ![Title Screenshot](AsteroidsScreenshot.JPG)
 
-Experimenting with Unity. Trying to determine best practices.
+:ant::ant::ant: Experimenting with Unity. Trying to determine best practices. :ant::ant::ant:
 
 #### Design choices
 * Software Patterns: Composition, Singletons, Pooling, ...
