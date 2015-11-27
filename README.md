@@ -1,11 +1,11 @@
 # Unity-3D-Asteroids
-#### ***My simple Asteroids clone.***
-
-Experimenting with Unity. Trying to determine best practices.
+#### ***A simple Asteroids game clone***
 
 ![Title Screenshot](AsteroidsScreenshot.JPG)
 
-#### Design choices.
+Experimenting with Unity. Trying to determine best practices.
+
+#### Design choices
 * Software Patterns: Composition, Singletons, Pooling, ...
 * Architecture/Frameworks: MVC, IoC+DI, Messaging, ...
 * Composition vs. OOP
@@ -16,7 +16,7 @@ Experimenting with Unity. Trying to determine best practices.
 * Coroutines
 * Optimizations
 
-#### Workflow choices.
+#### Workflow choices
 * Overall process
 * Prefab use & referencing (editor vs code)
 * Quick Prototyping vs. Robustness
@@ -28,14 +28,14 @@ Experimenting with Unity. Trying to determine best practices.
 * GitHub: Repositories, Issues, Wiki, Markdown use
 * Blender Exporting
 
-#### Unity quirks.
+#### Unity quirks
 * Editor
 * Interface
 * Hacks/Tricks
 
-#### [Check the Wiki for discussions.](https://github.com/antfarmar/Unity-3D-Asteroids/wiki)
+#### [Check the Wiki for discussions](https://github.com/antfarmar/Unity-3D-Asteroids/wiki)
 * Interesting things learned about Unity
 * Software Engineering lessons learned
 * Game design & development lessons learned
   
-#### [Check Issues for interesting issues encountered.](https://github.com/antfarmar/Unity-3D-Asteroids/issues)
+#### [Check Issues for interesting issues encountered](https://github.com/antfarmar/Unity-3D-Asteroids/issues)
