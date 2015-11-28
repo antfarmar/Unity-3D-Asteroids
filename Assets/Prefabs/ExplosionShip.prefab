@@ -9,11 +9,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 416046}
   - 114: {fileID: 11484724}
+  - 82: {fileID: 8263120}
   - 198: {fileID: 19831888}
   - 199: {fileID: 19952746}
-  - 82: {fileID: 8263120}
   m_Layer: 0
-  m_Name: Explosion
+  m_Name: ExplosionShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,12 +125,12 @@ ParticleSystem:
   randomSeed: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   moveWithTransform: 1
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: 1
+      scalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -145,7 +145,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .750000179
+          value: .5
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -293,16 +293,11 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 3
     startRotation:
-      scalar: 0
+      scalar: 6.28318501
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-        - time: 1
           value: 1
           inSlope: 0
           outSlope: 0
@@ -317,14 +312,9 @@ ParticleSystem:
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - time: 1
-          value: 0
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-      minMaxState: 0
+      minMaxState: 3
     gravityModifier: 0
     inheritVelocity: 0
     maxNumParticles: 1000
@@ -332,7 +322,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 10
-    radius: 2
+    radius: .00999999978
     angle: 25
     length: 5
     boxX: 1
@@ -341,7 +331,7 @@ ParticleSystem:
     arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
-    randomDirection: 0
+    randomDirection: 1
   EmissionModule:
     enabled: 1
     m_Type: 0
@@ -430,7 +420,7 @@ ParticleSystem:
   RotationModule:
     enabled: 0
     curve:
-      scalar: .785398126
+      scalar: 12.56637
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -468,10 +458,10 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 4284734719
+          rgba: 4278255601
         key1:
           serializedVersion: 2
-          rgba: 21869
+          rgba: 255
         key2:
           serializedVersion: 2
           rgba: 0
@@ -963,7 +953,7 @@ ParticleSystem:
   RotationBySpeedModule:
     enabled: 0
     curve:
-      scalar: .785398185
+      scalar: 1.74532926
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1131,7 +1121,7 @@ ParticleSystemRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7f2ac4290f815e741a45b25771f72aa9, type: 2}
+  - {fileID: 2100000, guid: e5df376f6864ae54a9e7adc58786ebca, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1186,7 +1176,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ShapeModule.radius
@@ -1199,7 +1189,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 7f2ac4290f815e741a45b25771f72aa9, type: 2}
+      objectReference: {fileID: 2100000, guid: e5df376f6864ae54a9e7adc58786ebca, type: 2}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.atime0
       value: 49151

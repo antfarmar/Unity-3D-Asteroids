@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4447694d941b2674aa4af87367121375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ShipExplosion: {fileID: 19831888, guid: a9b7b722d4d98494e86263b57d24d7e0, type: 2}
   m_ExplosionClip: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
   m_Force: 3000
   m_Torque: 1000
@@ -182,6 +183,11 @@ Prefab:
       propertyPath: m_Force
       value: 3000
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ShipExplosion
+      value: 
+      objectReference: {fileID: 19831888, guid: a9b7b722d4d98494e86263b57d24d7e0,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186268}

@@ -9,6 +9,7 @@ public class AsteroidBehaviour : MonoBehaviour
     //public ObjectPooler m_AsteroidBigPool;
     //public ObjectPooler m_AsteroidSmallPool;
 
+    public ParticleSystem m_ShipExplosionPS;
     public AudioClip m_ExplosionClip;
 
 
@@ -82,17 +83,21 @@ public class AsteroidBehaviour : MonoBehaviour
     #endregion
 
 
+    // Ship is currently not a trigger.
     void OnCollisionEnter(Collision collision)
     {
         // Ship logically.
         collision.gameObject.SetActive(false);
-        SpawnExplosion(); // todo: make custom explosion for ship
+        //SpawnExplosion(); // todo: make custom explosion for ship
+        GameObject shipExplosion =
+            Instantiate(m_ShipExplosionPS.gameObject, collision.transform.position, collision.transform.rotation) as GameObject;
+        Destroy(shipExplosion, m_ShipExplosionPS.startLifetime);
     }
 
 
     void SpawnExplosion()
     {
-        Poolable explosion = GameManager.instance.m_ExplosionPool.Pop();
+        Poolable explosion = GameManager.instance.m_AsteroidExplosionPool.Pop();
         explosion.transform.position = transform.position;
         explosion.transform.Rotate(new Vector3(0f, 0f, 360f * Random.value));
         explosion.gameObject.SetActive(true);

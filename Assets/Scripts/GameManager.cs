@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject m_ShipPrefab;
     public GameObject m_BulletPrefab;
-    public GameObject m_ExplosionPrefab;
+    public GameObject m_AsteroidExplosionPrefab;
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
 
@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     //public ObjectPool m_BulletPool;
     public ObjectPool m_AsteroidBigPool;
     public ObjectPool m_AsteroidSmallPool;
-    public ObjectPool m_ExplosionPool;
+    public ObjectPool m_AsteroidExplosionPool;
 
     public Text m_UIText;
 
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
         //m_BulletPool = new ObjectPool(m_BulletPrefab, gameObject.transform, 3, 5);
         m_AsteroidBigPool = new ObjectPool(m_AsteroidBigPrefab, m_AsteroidParent, 10, 20);
         m_AsteroidSmallPool = new ObjectPool(m_AsteroidSmallPrefab, m_AsteroidParent, 10, 30);
-        m_ExplosionPool = new ObjectPool(m_ExplosionPrefab, gameObject.transform, 5, 5);
+        m_AsteroidExplosionPool = new ObjectPool(m_AsteroidExplosionPrefab, gameObject.transform, 5, 5);
     }
 
 
@@ -104,6 +104,7 @@ public class GameManager : MonoBehaviour
 
         PushAllAsteroids();
 
+        GC.Collect(); // clean garbage before starting game.
         //yield return new WaitForSeconds(1f);
     }
 
