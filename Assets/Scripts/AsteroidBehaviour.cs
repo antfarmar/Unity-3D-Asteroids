@@ -102,9 +102,12 @@ public class AsteroidBehaviour : MonoBehaviour
         explosion.transform.Rotate(new Vector3(0f, 0f, 360f * Random.value));
         explosion.gameObject.SetActive(true);
     }
-    ///////////////////////// HELPER METHODS ////////////////////
 
-    // Apply random forces.
+
+    ///////////////////////// HELPER METHODS (make static?) ////////////////////
+
+
+    // Apply random forces to the asteroid.
     public void SetRandomForces()
     {
         //Vector3 randomForce = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0f);
@@ -123,7 +126,7 @@ public class AsteroidBehaviour : MonoBehaviour
     }
 
 
-
+    // Spawn anywhere except on the ship's sphere collider.
     public void SpawnRandomPosition()
     {
         int mask = LayerMask.GetMask("ShipSpawnSphere");
