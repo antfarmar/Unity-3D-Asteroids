@@ -84,15 +84,15 @@ public class AsteroidBehaviour : MonoBehaviour
 
 
     // Ship is currently not a trigger.
-    void OnCollisionEnter(Collision collision)
-    {
-        // Ship logically.
-        collision.gameObject.SetActive(false);
-        //SpawnExplosion(); // todo: make custom explosion for ship
-        GameObject shipExplosion =
-            Instantiate(m_ShipExplosionPS.gameObject, collision.transform.position, collision.transform.rotation) as GameObject;
-        Destroy(shipExplosion, m_ShipExplosionPS.startLifetime);
-    }
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    // Ship logically.
+    //    collision.gameObject.SetActive(false);
+    //    //SpawnExplosion(); // todo: make custom explosion for ship
+    //    GameObject shipExplosion =
+    //        Instantiate(m_ShipExplosionPS.gameObject, collision.transform.position, collision.transform.rotation) as GameObject;
+    //    Destroy(shipExplosion, m_ShipExplosionPS.startLifetime);
+    //}
 
 
     void SpawnExplosion()

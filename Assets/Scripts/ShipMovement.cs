@@ -5,6 +5,7 @@ public class ShipMovement : MonoBehaviour
 {
     public float m_Thrust = 1000f;               // Thrust force.
     public float m_Torque = 200f;                 // To turn the ship on z-axis.
+    public ParticleSystem m_ShipExplosionPS;
 
     private Rigidbody m_Rigidbody;              // Reference used to move the ship.
     private float m_MovementInputValue;         // The current value of the movement input.
@@ -89,9 +90,15 @@ public class ShipMovement : MonoBehaviour
     }
 
 
-    void OnCollisionEnter(Collision coll)
+    // Ship hit an asteroid.
+    // Spawn an explosion & deactivate the ship.
+    void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log(coll.collider.name);
+        GameObject shipExplosion =
+            Instantiate(m_ShipExplosionPS.gameObject, transform.position, transform.rotation) as GameObject;
+        Destroy(shipExplosion, m_ShipExplosionPS.startLifetime);
+
+        gameObject.SetActive(false);
     }
 
 
