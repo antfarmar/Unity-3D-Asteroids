@@ -17,6 +17,6 @@ public class BulletBehaviour : MonoBehaviour
 
     void Repool()
     {
-        m_ShipShooter.m_BulletPool.Push(GetComponent<Poolable>());
+        m_ShipShooter.m_BulletPool.Recycle(GetComponent<Poolable>());
     }
 }

@@ -11,33 +11,51 @@ public class GameManager : MonoBehaviour
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
     public int m_AsteroidCount = 2;
-    public ObjectPool m_AsteroidBigPool;
-    public ObjectPool m_AsteroidSmallPool;
-    public ObjectPool m_ExplosionPool;
     public Text m_UIText;
-    public static GameManager instance;
+    static GameManager instance;
 
-    Transform m_AsteroidParent;
+    ObjectPool bigAsteroidPool;
+    ObjectPool smallAsteroidPool;
+    ObjectPool explosionPool;
+
     GameObject m_Ship;
-    int m_Level = 1;
+    int level = 1;
     bool m_AllAsteroidsShot = false;
-    bool m_GameOver = true;
+    bool showTitleScreen = true;
 
-    const int levelClearedBonusScore = 100;
+    public static void SpawnSmallAsteroid(Vector3 position)
+    {
+        Poolable p = instance.smallAsteroidPool.GetRecyclable();
+        AsteroidBehaviour asteroid = p.GetComponent<AsteroidBehaviour>();
+        asteroid.SpawnAt(position);
+    }
+
+    public static void SpawnExplosion(Vector3 position)
+    {
+        Poolable explosion = instance.explosionPool.GetRecyclable();
+        explosion.transform.position = position;
+        explosion.transform.Rotate(new Vector3(0f, 0f, 360f * UnityEngine.Random.value));
+    }
 
     void Awake()
     {
         if (instance == null)
+        {
             instance = this;
-        else if (instance != this)
+            DontDestroyOnLoad(gameObject);
+            AwakeContinued();
+        }
+        else
+        {
             Destroy(gameObject);
+        }
+    }
 
-        DontDestroyOnLoad(gameObject);
-
-        m_AsteroidParent = new GameObject("Asteroids").transform;
-        m_AsteroidBigPool = new ObjectPool(m_AsteroidBigPrefab, m_AsteroidParent, 10, 20);
-        m_AsteroidSmallPool = new ObjectPool(m_AsteroidSmallPrefab, m_AsteroidParent, 10, 30);
-        m_ExplosionPool = new ObjectPool(m_ExplosionPrefab, gameObject.transform, 5, 5);
+    void AwakeContinued()
+    {
+        bigAsteroidPool = ObjectPool.Build(m_AsteroidBigPrefab, 10, 20);
+        smallAsteroidPool = ObjectPool.Build(m_AsteroidSmallPrefab, 10, 30);
+        explosionPool = ObjectPool.Build(m_ExplosionPrefab, 5, 5);
     }
 
     void OnEnable()
@@ -51,7 +69,7 @@ public class GameManager : MonoBehaviour
         m_Ship = Instantiate(m_ShipPrefab);
         m_Ship.transform.position = Vector3.zero;
         m_Ship.SetActive(false);
-        m_Level = 1;
+        level = 1;
 
         GC.Collect();
         StartCoroutine(GameLoop());
@@ -60,46 +78,42 @@ public class GameManager : MonoBehaviour
     // The main game loop.
     IEnumerator GameLoop()
     {
-        if (m_GameOver) yield return StartCoroutine(ShowTitleScreen());
-        yield return StartCoroutine(LevelStart());
-        yield return StartCoroutine(LevelPlay());
-        yield return StartCoroutine(LevelEnd());
-        yield return new WaitForSeconds(2f);
-        StartCoroutine(GameLoop());
+        var delay = new WaitForSeconds(2f);
+        while (true)
+        {
+            if (showTitleScreen)
+                yield return StartCoroutine(ShowTitleScreen());
+            yield return StartCoroutine(LevelStart());
+            yield return StartCoroutine(LevelPlay());
+            yield return StartCoroutine(LevelEnd());
+            yield return delay;
+        }
     }
 
     // Display a title screen with all asteroids active.
     // Wait for any key pressed to start the game.
     IEnumerator ShowTitleScreen()
     {
-        PopAllAsteroids();
+        showTitleScreen = false;
         m_UIText.text = "A S T E R O I D S";
+        SpawnBackgroundAsteroids();
         while (!Input.anyKeyDown) yield return null;
-        m_GameOver = false;
-        PushAllAsteroids();
+        RemoveBackgroundAsteroids();
     }
-
 
     // Spawn asteroids for this level.
     IEnumerator LevelStart()
     {
-        Debug.Log("LEVEL STARTING");
-        m_UIText.text = "Level " + m_Level;
+        m_UIText.text = "Level " + level;
         m_Ship.SetActive(true);
         yield return new WaitForSeconds(2f);
 
-        Poolable asteroid;
         for (int i = 0; i < m_AsteroidCount; i++)
         {
-            if (i < m_AsteroidCount / 2)
-                asteroid = m_AsteroidBigPool.Pop();
-            else
-                asteroid = m_AsteroidSmallPool.Pop();
-
+            var pool = m_AsteroidCount % 2 == 0 ? bigAsteroidPool : smallAsteroidPool;
+            var asteroid = pool.GetRecyclable();
             AsteroidBehaviour behaviour = asteroid.GetComponent<AsteroidBehaviour>();
-            asteroid.gameObject.SetActive(true);
-            behaviour.SpawnRandomPosition();
-            behaviour.SetRandomForces();
+            behaviour.SpawnAt(FindAsteroidSpawnPoint());
         }
     }
 
@@ -129,19 +143,18 @@ public class GameManager : MonoBehaviour
         if (m_AllAsteroidsShot)
         {
             m_UIText.text = "Level Cleared!";
-            m_Level++;
-            m_AsteroidCount += m_Level; // level progression
-            int endOfLevelBonus = m_Level * levelClearedBonusScore;
+            level++;
+            m_AsteroidCount += level; // level progression
             yield return new WaitForSeconds(1f);
-            Score.Earn(endOfLevelBonus);
+            Score.LevelCleared(level);
             yield return new WaitForSeconds(1f);
         }
         else // ship collided & deactivated
         {
             m_UIText.text = "GAME OVER";
-            m_Level = 1;
+            level = 1;
             m_AsteroidCount = 2;
-            m_GameOver = true;
+            showTitleScreen = true;
             m_Ship.transform.position = Vector3.zero;
             m_Ship.GetComponent<Rigidbody>().velocity = Vector3.zero;
             yield return new WaitForSeconds(1f);
@@ -152,50 +165,49 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void PopAllAsteroids()
+    void SpawnBackgroundAsteroids()
     {
-        int count = m_AsteroidParent.childCount;
-        for (int i = 0; i < count; i++)
+        SpawnAllAsteroids(bigAsteroidPool);
+        SpawnAllAsteroids(smallAsteroidPool);
+    }
+
+    static void SpawnAllAsteroids(ObjectPool pool)
+    {
+        while (!pool.IsEmpty)
         {
-            GameObject asteroid = m_AsteroidParent.GetChild(i).gameObject;
-
-            if (asteroid.CompareTag("AsteroidBig"))
-                m_AsteroidBigPool.Pop();
-            else
-                m_AsteroidSmallPool.Pop();
-
+            var asteroid = pool.GetRecyclable();
             AsteroidBehaviour behaviour = asteroid.GetComponent<AsteroidBehaviour>();
-            asteroid.SetActive(true);
-            behaviour.SpawnRandomPosition();
-            behaviour.SetRandomForces();
+            behaviour.SpawnAt(FindAsteroidSpawnPoint());
         }
     }
 
-    void PushAllAsteroids()
+    static Vector3 FindAsteroidSpawnPoint()
     {
-        int count = m_AsteroidParent.childCount;
-        for (int i = 0; i < count; i++)
+        int mask = LayerMask.GetMask("ShipSpawnSphere");
+        Vector3 spawnPosition;
+        bool hit = false;
+        do
         {
-            GameObject asteroid = m_AsteroidParent.GetChild(i).gameObject;
-            Poolable poolable = asteroid.GetComponent<Poolable>();
-
-            if (asteroid.CompareTag("AsteroidBig"))
-                m_AsteroidBigPool.Push(poolable);
-            else
-                m_AsteroidSmallPool.Push(poolable);
-        }
+            spawnPosition = Viewport.GetRandomWorldPositionXY();
+            hit = Physics.CheckSphere(spawnPosition, 5f, mask);
+        } while (hit);
+        return spawnPosition;
     }
 
-    bool AnyActiveAsteroid()
+    static void RemoveBackgroundAsteroids()
     {
-        int count = m_AsteroidParent.childCount;
-        for (int i = 0; i < count; i++)
-        {
-            GameObject asteroid = m_AsteroidParent.GetChild(i).gameObject;
-            if (asteroid.activeSelf)
-                return true;
-        }
-        return false;
+        foreach (var asteroid in GetAllAsteroids())
+            asteroid.RemoveFromGame();
+    }
+
+    static AsteroidBehaviour[] GetAllAsteroids()
+    {
+        return FindObjectsOfType<AsteroidBehaviour>();
+    }
+
+    static bool AnyActiveAsteroid()
+    {
+        return GetAllAsteroids().Length > 0;
     }
 }
 

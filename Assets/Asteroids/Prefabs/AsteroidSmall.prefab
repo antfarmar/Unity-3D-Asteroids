@@ -102,9 +102,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4447694d941b2674aa4af87367121375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ExplosionClip: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
-  m_Force: 5000
-  m_Torque: 2000
+  destructionScore: 25
+  initialForce: 5000
+  initialTorque: 2000
+  uniformScale:
+    minScale: .5
+    maxScale: .75
 --- !u!114 &11492270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,6 +119,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be9d2b06281f6d4b9b830c1ab0927c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beforeWrap:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -201,6 +209,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Mass
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: uniformScale.minScale
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: uniformScale.maxScale
+      value: .75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

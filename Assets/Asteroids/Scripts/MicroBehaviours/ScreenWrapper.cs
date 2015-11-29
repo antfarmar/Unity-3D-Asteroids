@@ -12,21 +12,17 @@ public class ScreenWrapper : MonoBehaviour
 
     void Update()
     {
-        if (IsVisible)
-            return;
-        else
+        if (!IsVisible)
         {
-            ScreenWrap();
             IsVisible = true;
+            ScreenWrap();
         }
     }
 
-    IEnumerator OnBecameInvisible()
+    void OnBecameInvisible()
     {
         IsVisible = false;
-        yield return new WaitForSeconds(1f);
     }
-
 
     void OnBecameVisible()
     {
@@ -36,13 +32,13 @@ public class ScreenWrapper : MonoBehaviour
     void ScreenWrap()
     {
         Vector3 viewport = GetViewportPosition();
-        bool wrapX = viewport.x < 0 || viewport.x > 1;
-        bool wrapY = viewport.y < 0 || viewport.y > 1;
+        bool isHorizontallyOutOfView = viewport.x < 0 || viewport.x > 1;
+        bool isVerticallyOutOfView = viewport.y < 0 || viewport.y > 1;
 
-        if (wrapX || wrapY)
+        if (isHorizontallyOutOfView || isVerticallyOutOfView)
         {
             beforeWrap.Invoke();
-            transform.position = NegateXY(transform.position, wrapX, wrapY);
+            transform.position = NegateXY(transform.position, isHorizontallyOutOfView, isVerticallyOutOfView);
         }
     }
 

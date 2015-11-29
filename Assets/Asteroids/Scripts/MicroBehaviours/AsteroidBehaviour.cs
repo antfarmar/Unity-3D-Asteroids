@@ -1,97 +1,70 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
-public class AsteroidBehaviour : MonoBehaviour
+public class AsteroidBehaviour : GameBehaviour
 {
-    public AudioClip m_ExplosionClip;
-    public float m_Force = 2000f;
-    public float m_Torque = 1000f;
+    [SerializeField]
+    [Range(25, 500)]
+    protected int destructionScore = 25;
 
-    Poolable m_Poolable;
-    Rigidbody m_Rigidbody;
+    [SerializeField]
+    [FormerlySerializedAs("m_Force")]
+    float initialForce = 2000f;
 
-    const int smallAsteroidScore = 25;
-    const int largeAsteroidScore = 100;
+    [SerializeField]
+    [FormerlySerializedAs("m_Torque")]
+    float initialTorque = 1000f;
 
-    void Awake()
+    [SerializeField]
+    UniformRandomVector3 uniformScale;
+
+    #region Spawning
+    public virtual void SpawnAt(Vector3 position)
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
-        transform.localScale *= Random.Range(1f, 1.5f);
+        transform.position = position;
+        ApplySpawnVariance();
     }
 
-    void OnEnable()
+    protected virtual void ApplySpawnVariance()
     {
-        m_Poolable = GetComponent<Poolable>();
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        other.gameObject.SetActive(false);
-
-        if (gameObject.CompareTag("AsteroidBig"))
+        transform.localScale = uniformScale.Randomize();
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        if (rigidbody)
         {
-            Score.Earn(largeAsteroidScore);
-            // Split the big asteroid into 2 smaller ones.
-            for (int i = 0; i < 2; i++)
-            {
-                Poolable small = GameManager.instance.m_AsteroidSmallPool.Pop();
-                AsteroidBehaviour behaviour = small.GetComponent<AsteroidBehaviour>();
-                small.transform.position = gameObject.transform.position;
-                small.gameObject.SetActive(true);
-                behaviour.SetRandomForces();
-
-            }
-            GameManager.instance.m_AsteroidBigPool.Push(m_Poolable);
+            RigidbodyExt.SetRandomForce(rigidbody, initialForce);
+            RigidbodyExt.SetRandomTorque(rigidbody, initialTorque);
         }
-        else // "AsteroidSmall"
-        {
-            Score.Earn(smallAsteroidScore);
-            GameManager.instance.m_AsteroidSmallPool.Push(m_Poolable);
-        }
-
-        SpawnExplosion();
     }
+    #endregion
 
-    void OnCollisionEnter(Collision collision)
+    #region Hit by ship
+    protected virtual void OnCollisionEnter(Collision shipCollision)
     {
-        collision.gameObject.SetActive(false);
-        SpawnExplosion();
+        HitByShip(shipCollision.gameObject);
     }
 
-
-    void SpawnExplosion()
+    protected void HitByShip(GameObject ship)
     {
-        Poolable explosion = GameManager.instance.m_ExplosionPool.Pop();
-        explosion.transform.position = transform.position;
-        explosion.transform.Rotate(new Vector3(0f, 0f, 360f * Random.value));
-        explosion.gameObject.SetActive(true);
+        Kill(ship);
     }
+    #endregion
 
-    public void SetRandomForces()
+    #region Hit by Bullet
+    protected virtual void OnTriggerEnter(Collider bulletCollider)
     {
-        Vector3 randomTorque = m_Torque * Random.insideUnitSphere;
-        Vector3 randomForce = m_Force * Random.insideUnitSphere;
-
-        m_Rigidbody.velocity = Vector3.zero;
-        m_Rigidbody.AddForce(randomForce);
-
-        m_Rigidbody.angularVelocity = Vector3.zero;
-        m_Rigidbody.AddTorque(randomTorque);
+        HitByBullet(bulletCollider.gameObject);
     }
 
-    public void SpawnRandomPosition()
+    protected void HitByBullet(GameObject bullet)
     {
-        int mask = LayerMask.GetMask("ShipSpawnSphere");
-        Vector3 spawnPosition;
-        bool hit = false;
-
-        do
-        {
-            Vector3 randomPosition = new Vector3(Random.value, Random.value, 0f);
-            spawnPosition = Camera.main.ViewportToWorldPoint(randomPosition);
-            hit = Physics.CheckSphere(spawnPosition, 5f, mask);
-        } while (hit);
-
-        spawnPosition.z = 0f;
-        transform.position = spawnPosition;
+        Kill(bullet);
+        Score(destructionScore);
+        Shatter();
+        RemoveFromGame();
     }
+
+    protected virtual void Shatter()
+    {
+    }
+    #endregion
 }

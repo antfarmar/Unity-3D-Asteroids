@@ -10,11 +10,10 @@ public class ShipShooter : MonoBehaviour
     Transform m_BulletSpawnPoint;
     Poolable m_Bullet;
 
-
     void Awake()
     {
         m_ShootingAudio = GetComponent<AudioSource>();
-        m_BulletPool = new ObjectPool(m_BulletPrefab, GameManager.instance.transform, 10, 10);
+        m_BulletPool = ObjectPool.Build(m_BulletPrefab, 10, 10);
     }
 
     void Start()
@@ -27,11 +26,11 @@ public class ShipShooter : MonoBehaviour
     {
         if (ShipInput.IsShooting())
         {
-            m_Bullet = m_BulletPool.Pop();
+            m_Bullet = m_BulletPool.GetRecyclable();
             Rigidbody rigidbody = m_Bullet.GetComponent<Rigidbody>();
             m_Bullet.transform.position = m_BulletSpawnPoint.position;
             m_Bullet.transform.rotation = m_BulletSpawnPoint.rotation;
-            rigidbody.velocity = m_BulletVelocity * m_BulletSpawnPoint.up; //(up: y-axis)
+            rigidbody.velocity = m_BulletVelocity * m_BulletSpawnPoint.up;
             m_Bullet.gameObject.SetActive(true);
             m_ShootingAudio.Play();
         }

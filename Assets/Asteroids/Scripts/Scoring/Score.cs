@@ -34,4 +34,9 @@ public static class Score
         if (onEarn != null)
             onEarn(points);
     }
+
+    public static void LevelCleared(int level)
+    {
+        Earn(level * 100);
+    }
 }
