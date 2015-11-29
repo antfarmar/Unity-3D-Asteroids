@@ -1,22 +1,20 @@
 ﻿using UnityEngine;
 
-public class BulletBehaviour : MonoBehaviour
+public class BulletBehaviour : GameBehaviour
 {
     public float m_BulletLife = 1f;
-    ShipShooter m_ShipShooter;
 
-    void Awake()
+    public virtual void Fired(Vector3 position, Quaternion rotation, Vector3 velocity)
     {
-        m_ShipShooter = FindObjectOfType<ShipShooter>();
+        transform.position = position;
+        transform.rotation = rotation;
+
+        Rigidbody rigidbody = GetComponent<Rigidbody>();
+        rigidbody.velocity = velocity;
     }
 
     void OnEnable()
     {
-        Invoke("Repool", m_BulletLife);
-    }
-
-    void Repool()
-    {
-        m_ShipShooter.m_BulletPool.Recycle(GetComponent<Poolable>());
+        InvokeRemoveFromGame(m_BulletLife);
     }
 }

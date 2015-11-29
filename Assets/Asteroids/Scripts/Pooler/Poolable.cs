@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System;
 
 [Serializable]
 [ExecuteInEditMode]
-public sealed class Poolable : Parkable
+public sealed class Poolable : Parkable, Recyclable
 {
     [SerializeField]
     [HideInInspector]
@@ -14,9 +15,10 @@ public sealed class Poolable : Parkable
     void Awake()
     {
         InstantiationGuard();
+        ExecuteEvents.Execute<PoolableAware>(gameObject, null, (script, ignored) => script.PoolableAwoke(this));
     }
 
-    private void InstantiationGuard()
+    void InstantiationGuard()
     {
         if (!scriptBuiltInstance)
         {
@@ -36,16 +38,6 @@ public sealed class Poolable : Parkable
         gameObject.hideFlags = HideFlags.HideInHierarchy;
     }
 
-    public override void Unpark()
-    {
-        gameObject.SetActive(true);
-    }
-
-    public override void Park()
-    {
-        gameObject.SetActive(false);
-    }
-
     public void Recycle()
     {
         pool.Recycle(this);
@@ -60,8 +52,25 @@ public sealed class Poolable : Parkable
     }
 }
 
+public interface PoolableAware : IEventSystemHandler
+{
+    void PoolableAwoke(Poolable p);
+}
+
+public interface Recyclable
+{
+    void Recycle();
+}
+
 public abstract class Parkable : MonoBehaviour
 {
-    abstract public void Park();
-    abstract public void Unpark();
+    public virtual void Park()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public virtual void Unpark()
+    {
+        gameObject.SetActive(true);
+    }
 }

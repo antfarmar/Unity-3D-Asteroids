@@ -196,8 +196,10 @@ namespace InspectorEditable.Score
         [SerializeField]
         AudioSource source;
 
+#pragma warning disable 0649
         [SerializeField]
         AudioClip optionalClip;
+#pragma warning restore 0649
 
         [SerializeField]
         bool forceNoLoop = true;
