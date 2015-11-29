@@ -40,7 +40,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: cc1ab585df4320746bd8fe94abc7a865, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 2
@@ -141,7 +141,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 3
     startSpeed:
-      scalar: 10
+      scalar: 20
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -156,7 +156,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .100000001
+          value: .0500000007
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -273,13 +273,13 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .5
+          value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
-      minMaxState: 3
+      minMaxState: 0
     startRotation:
       scalar: 6.28318501
       maxCurve:
@@ -476,7 +476,7 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 49151
+        atime0: 32768
         atime1: 65535
         atime2: 0
         atime3: 0
@@ -1180,11 +1180,11 @@ Prefab:
       objectReference: {fileID: 2100000, guid: e5df376f6864ae54a9e7adc58786ebca, type: 2}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.atime0
-      value: 49151
+      value: 32768
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSize.minCurve.m_Curve.Array.data[0].value
-      value: .5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSize.scalar
@@ -1204,7 +1204,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSpeed.minCurve.m_Curve.Array.data[0].value
-      value: .100000001
+      value: .0500000007
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.ctime1
@@ -1216,7 +1216,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.key1.rgba
-      value: 21869
+      value: 255
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: OutputAudioMixerGroup
@@ -1226,7 +1226,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
+      objectReference: {fileID: 8300000, guid: cc1ab585df4320746bd8fe94abc7a865, type: 3}
     - target: {fileID: 0}
       propertyPath: m_PlayOnAwake
       value: 1
@@ -1234,6 +1234,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Pitch
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startSize.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
