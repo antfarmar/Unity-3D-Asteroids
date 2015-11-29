@@ -138,10 +138,14 @@ public class GameManager : MonoBehaviour
             else
                 asteroid = m_AsteroidSmallPool.Pop();
 
-            AsteroidBehaviour behaviour = asteroid.GetComponent<AsteroidBehaviour>();
+            //AsteroidBehaviour behaviour = asteroid.GetComponent<AsteroidBehaviour>();
+            //asteroid.gameObject.SetActive(true);
+            //behaviour.SpawnRandomPosition();
+            //behaviour.SetRandomForces();
+
             asteroid.gameObject.SetActive(true);
-            behaviour.SpawnRandomPosition();
-            behaviour.SetRandomForces();
+            AsteroidBaseBehaviour.SpawnRandomPosition(asteroid.gameObject);
+            AsteroidBaseBehaviour.SetRandomForces(asteroid.gameObject);
         }
     }
 
@@ -204,10 +208,10 @@ public class GameManager : MonoBehaviour
             else
                 m_AsteroidSmallPool.Pop();
 
-            AsteroidBehaviour behaviour = asteroid.GetComponent<AsteroidBehaviour>();
+            //AsteroidBehaviour behaviour = asteroid.GetComponent<AsteroidBehaviour>();
             asteroid.SetActive(true);
-            behaviour.SpawnRandomPosition();
-            behaviour.SetRandomForces();
+            AsteroidBaseBehaviour.SpawnRandomPosition(asteroid);
+            AsteroidBaseBehaviour.SetRandomForces(asteroid);
         }
     }
 

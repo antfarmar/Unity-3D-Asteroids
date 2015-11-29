@@ -9,9 +9,7 @@ public class AsteroidBehaviour : MonoBehaviour
     //public ObjectPooler m_AsteroidBigPool;
     //public ObjectPooler m_AsteroidSmallPool;
 
-    public ParticleSystem m_ShipExplosionPS;
     public AudioClip m_ExplosionClip;
-
 
     public float m_Force = 2000f;
     public float m_Torque = 1000f;
@@ -83,7 +81,7 @@ public class AsteroidBehaviour : MonoBehaviour
     #endregion
 
 
-    // Ship is currently not a trigger.
+    // Handle by ShipMovement script now.
     //void OnCollisionEnter(Collision collision)
     //{
     //    // Ship logically.

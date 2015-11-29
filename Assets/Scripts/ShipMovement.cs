@@ -63,7 +63,7 @@ public class ShipMovement : MonoBehaviour
     // This is because FixedUpdate is called on a reliable timer, independent of the frame rate.
     void FixedUpdate()
     {
-        // Adjust the Rigidbody position and orientation in FixedUpdate (physics).
+        // Adjust the Rigidbody position and orientation in FixedUpdate (for physics).
         Move();
         Turn();
     }
@@ -91,8 +91,8 @@ public class ShipMovement : MonoBehaviour
 
 
     // Ship hit an asteroid.
-    // Spawn an explosion & deactivate the ship.
-    void OnCollisionEnter(Collision collision)
+    // Spawn an explosion & deactivate the ship for a Game Over signal.
+    void OnCollisionEnter() //(Collision collision) don't need collision info.
     {
         GameObject shipExplosion =
             Instantiate(m_ShipExplosionPS.gameObject, transform.position, transform.rotation) as GameObject;
