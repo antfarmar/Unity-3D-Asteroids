@@ -1,6 +1,8 @@
 # Unity-3D-Asteroids
 #### ***A simple Asteroids game clone***
 
+[![Join the chat at https://gitter.im/devmelon/Unity-3D-Asteroids](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/devmelon/Unity-3D-Asteroids?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![Title Screenshot](AsteroidsScreenshot.JPG)
 
 :ant::ant::ant: Experimenting with Unity. Trying to determine best practices. :ant::ant::ant:
