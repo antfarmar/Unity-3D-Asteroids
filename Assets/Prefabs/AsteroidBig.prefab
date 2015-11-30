@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeeee7e66c3a4a942a3d266f7c760bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ScoreValue: 50
   m_Force: 3000
   m_Torque: 1000
 --- !u!114 &11492270
@@ -194,6 +195,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Torque
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Score
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ScoreValue
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
