@@ -3,6 +3,7 @@
 
 public abstract class AsteroidBaseBehaviour : MonoBehaviour
 {
+    public int m_ScoreValue;
 
     public float m_Force;   // = 2000f;
     public float m_Torque;  // = 1000f;
@@ -30,6 +31,7 @@ public abstract class AsteroidBaseBehaviour : MonoBehaviour
     void OnTriggerEnter(Collider otherCollider)
     {
         HandleTriggerEnter(otherCollider);
+        GameManager.instance.m_Score += m_ScoreValue;
     }
 
     #endregion

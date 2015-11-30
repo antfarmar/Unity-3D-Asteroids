@@ -20,6 +20,11 @@ public class GameManager : MonoBehaviour
     public ObjectPool m_AsteroidExplosionPool;
 
     public Text m_UIText;
+    public Text m_UIScore;
+
+    [HideInInspector]
+    public int m_Score;
+    const string m_scoreformat = "{0:000000}";
 
     public static GameManager instance;
 
@@ -28,6 +33,9 @@ public class GameManager : MonoBehaviour
     private int m_Level = 1;
     private bool m_AllAsteroidsShot = false;
     private bool m_GameOver = true;
+
+
+
 
 
     void Awake()
@@ -94,19 +102,18 @@ public class GameManager : MonoBehaviour
     // Wait for any key pressed to start the game.
     IEnumerator ShowTitleScreen()
     {
-        PopAllAsteroids();
-
         m_UIText.text = "A S T E R O I D S";
 
+        PopAllAsteroids();
         while(!Input.anyKeyDown) yield return null;
-
-        m_GameOver = false;
-
         PushAllAsteroids();
 
-        GC.Collect(); // clean garbage before starting game.
+        m_GameOver = false;
+        m_Score = 0;
+
         //yield return new WaitForSeconds(1f);
     }
+
 
 
     // Spawn asteroids for this level.
@@ -114,6 +121,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("LEVEL STARTING");
         m_UIText.text = "Level " + m_Level;
+        m_UIScore.text = "Score: " + String.Format(m_scoreformat, m_Score);
 
         // Disable ship controls (currently ship is inactive in Start, but may change).
         m_Ship.SetActive(true);
@@ -125,7 +133,7 @@ public class GameManager : MonoBehaviour
         //m_Ship.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         //m_Ship.transform.position = Vector3.zero;
 
-
+        GC.Collect(); // clean garbage before starting level (from score string).
         yield return new WaitForSeconds(2f);
 
 
@@ -165,8 +173,14 @@ public class GameManager : MonoBehaviour
         m_AllAsteroidsShot = false;
         while(m_Ship.activeSelf && !m_AllAsteroidsShot)
         {
+            //m_UIScore.text = ScoreToString();
+            m_UIScore.text = "Score: " + String.Format(m_scoreformat, m_Score);
+
             m_AllAsteroidsShot = !AnyActiveAsteroid();
-            yield return null;
+
+            //yield return null;
+            yield return new WaitForSeconds(0.1f); // yield a bit here?
+            //Debug.Log(m_Score);
         }
     }
 
@@ -248,5 +262,12 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+
+
+    private string ScoreToString()
+    {
+        //return "Score: " + m_Score.ToString(m_scoreformat);
+        return "Score: " + String.Format(m_scoreformat, m_Score);
+    }
 
 } // end class

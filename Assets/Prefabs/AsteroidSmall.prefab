@@ -102,6 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c539362a1da34c4785239d0277b7865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ScoreValue: 100
   m_Force: 5000
   m_Torque: 2000
 --- !u!114 &11492270
@@ -211,6 +212,14 @@ Prefab:
       value: 
       objectReference: {fileID: 19831888, guid: a9b7b722d4d98494e86263b57d24d7e0,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Score
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_ScoreValue
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186268}
