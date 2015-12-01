@@ -1,12 +1,12 @@
-# Unity-3D-Asteroids
-#### ***A simple Asteroids game clone***
+# Unity 3D Asteroids
+#### _A simple Asteroids game clone_
 
 ![Title Screenshot](AsteroidsScreenshot.JPG)
 
 :ant: Experimenting with Unity. Trying to determine best practices. :ant:
 
 #### Design choices
-* Software Patterns: Composition, Singletons, Pooling, ...
+* Software Patterns: Composition, Singletons, Pooling, Game Loop,...
 * Architecture/Frameworks: MVC, IoC+DI, Messaging, ...
 * Composition vs. OOP
 * MonoBehaviour + Extensions
