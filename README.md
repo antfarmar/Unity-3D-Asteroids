@@ -5,30 +5,32 @@
 
 :ant: Experimenting with Unity. Trying to determine best practices. :ant:
 
-#### Design choices
-* Software Patterns: Composition, Singletons, Pooling, Game Loop,...
-* Architecture/Frameworks: MVC, IoC+DI, Messaging, ...
-* Composition vs. OOP
+#### Design Choices
+* Software Patterns: OOP, Composition, Singletons, Object Pooling, Observer, [Game Patterns](http://gameprogrammingpatterns.com/contents.html)
+* Architecture/Frameworks: God Objects, MVC, IoC+DI, Messaging, Events, ...
+* Composition vs. OOP 
 * MonoBehaviour + Extensions
 * Serialization
 * Idioms
-* Events: Delegates vs. UnityEvents
+* Events: C# Delegate Events vs. UnityEvents
 * Coroutines
 * Optimizations
 
-#### Workflow choices
-* Overall process
+#### Workflow Choices
+* Overall process. [Take your pick.](https://en.wikipedia.org/wiki/List_of_software_development_philosophies)
+* You have [chosen](https://www.youtube.com/watch?v=ac9Z6CN14Gs) [Cowboy coding.](https://en.wikipedia.org/wiki/Cowboy_coding)
+* May I suggest a [Methodology?](https://en.wikipedia.org/wiki/Software_development_process)
 * Prefab use & referencing (editor vs code)
 * Quick Prototyping vs. Robustness
 * Scene/asset structure
 * Profiling/Testing/Debugging
-* IDE choice (Visual Studio 2015)
-* Source code management(Git + VS-Plug-In)
+* IDE choice [(Visual Studio 2015 Community)](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx)
+* Source code management(Git + GitHub + [GitHub VS2015 Extension](https://visualstudio.github.com/))
 * Git: Commit, Sync, Push/Pull, Fork, Branch(Merge/Rebase), Revert
-* GitHub: Repositories, Issues, Wiki, Markdown use
+* GitHub: Repositories, Issues, Wiki, Markdown, Collaboration
 * Blender Exporting
 
-#### Unity quirks
+#### Unity Quirks
 * Editor
 * Interface
 * Hacks/Tricks
