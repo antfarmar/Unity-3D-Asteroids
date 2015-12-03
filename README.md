@@ -1,5 +1,5 @@
 # Unity 3D Asteroids
-#### _A simple Asteroids game clone in 3D. Stuck on a 2D plane._
+#### _A simple Asteroids game clone in 3D. Stuck on a 2D plane. So 2.5D?_
 
 ![Title Screenshot](AsteroidsScreenshot.JPG)
 
