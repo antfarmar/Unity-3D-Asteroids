@@ -6,9 +6,10 @@
 :ant: Experimenting with Unity. Trying to determine best practices. :ant:
 
 #### Design Choices
-* Software Patterns: OOP, Composition, Singletons, Object Pooling, Observer, [Game Patterns](http://gameprogrammingpatterns.com/contents.html)
 * Architecture/Frameworks: God Objects, MVC, IoC+DI, Messaging, Events, ...
-* Composition vs. OOP 
+* Software Patterns: OOP, Composition, Singletons, Object Pooling, Observer, ...
+* [Game Programming Patterns](http://gameprogrammingpatterns.com/contents.html)
+* Composition vs. OOP : Interfaces + Inheritance vs. Object Composition via Components
 * MonoBehaviour + Extensions
 * Serialization
 * Idioms
@@ -20,9 +21,9 @@
 * Overall process. [Take your pick.](https://en.wikipedia.org/wiki/List_of_software_development_philosophies)
 * You have [chosen](https://www.youtube.com/watch?v=ac9Z6CN14Gs) [Cowboy coding.](https://en.wikipedia.org/wiki/Cowboy_coding)
 * May I suggest a [Methodology?](https://en.wikipedia.org/wiki/Software_development_process)
-* Prefab use & referencing (editor vs code)
+* Prefab use & referencing (editor vs. code)
 * Quick Prototyping vs. Robustness
-* Scene/asset structure
+* Scene/Asset structure
 * Profiling/Testing/Debugging
 * IDE choice [(Visual Studio 2015 Community)](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx)
 * Source code management(Git + GitHub + [GitHub VS2015 Extension](https://visualstudio.github.com/))
@@ -31,7 +32,7 @@
 * Blender Exporting
 
 #### Unity Quirks
-* Editor
+* Editor/Customization
 * Interface
 * Hacks/Tricks
 
