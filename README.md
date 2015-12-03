@@ -12,7 +12,7 @@
 * Composition vs. OOP : Interfaces + Inheritance vs. Object Composition via Components
 * MonoBehaviour + Extensions
 * Serialization
-* Idioms
+* Idioms: One vs. Many
 * Events: C# Delegate Events vs. UnityEvents
 * Coroutines
 * Optimizations
