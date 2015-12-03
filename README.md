@@ -18,8 +18,8 @@
 * Optimizations
 
 #### Workflow Choices
-* [Overall process](https://en.wikipedia.org/wiki/List_of_software_development_philosophies)
-* [Now choose a club](https://www.youtube.com/watch?v=ac9Z6CN14Gs)
+* Overall process: [The clubs.](https://en.wikipedia.org/wiki/List_of_software_development_philosophies)
+* [Now choose a club...](https://www.youtube.com/watch?v=ac9Z6CN14Gs)
 * You have chosen [Cowboy coding.](https://en.wikipedia.org/wiki/Cowboy_coding)
 * May I suggest a [Methodology?](https://en.wikipedia.org/wiki/Software_development_process)
 * Prefab use & referencing (editor vs. code)
