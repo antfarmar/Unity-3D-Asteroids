@@ -1,12 +1,13 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class GameBehaviour : MonoBehaviour
+public class GameBehaviour : MonoBehaviour, PoolableAware, Recyclable
 {
     Poolable poolable;
 
-    protected virtual void Awake()
+    void PoolableAware.PoolableAwoke(Poolable p)
     {
-        poolable = GetComponent<Poolable>();
+        poolable = p;
     }
 
     public void RemoveFromGame()
@@ -14,22 +15,46 @@ public class GameBehaviour : MonoBehaviour
         if (poolable)
             poolable.Recycle();
         else
-            Destroy(gameObject);
+            RequestDestruction();
     }
 
-    public static void Kill(GameObject victim)
+    protected virtual void RequestDestruction()
+    {
+        RequestDefaultDestruction(gameObject);
+    }
+
+    public void InvokeRemoveFromGame(float time)
+    {
+        Invoke("RemoveFromGame", time);
+    }
+
+    public static void KillWithExplosion(GameObject victim)
     {
         Spawn.Explosion(victim.transform.position);
+        RemoveFromGame(victim);
+    }
 
-        GameBehaviour victimBehaviour = victim.GetComponent<GameBehaviour>();
-        if (victimBehaviour)
-            victimBehaviour.RemoveFromGame();
+    public static void RemoveFromGame(GameObject victim)
+    {
+        GameBehaviour handler = victim.GetComponent<GameBehaviour>();
+        if (handler)
+            handler.RemoveFromGame();
         else
-            victim.SetActive(false);
+            RequestDefaultDestruction(victim);
     }
 
     protected void Score(int score)
     {
         global::Score.Earn(score);
+    }
+
+    static void RequestDefaultDestruction(GameObject gameObject)
+    {
+        Destroy(gameObject);
+    }
+
+    void Recyclable.Recycle()
+    {
+        RemoveFromGame();
     }
 }

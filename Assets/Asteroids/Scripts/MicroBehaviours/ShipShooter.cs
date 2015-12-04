@@ -1,38 +1,44 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ShipShooter : MonoBehaviour
 {
-    public GameObject m_BulletPrefab;
-    public ObjectPool m_BulletPool;
-    public float m_BulletVelocity;
+    [FormerlySerializedAs("m_BulletPrefab")]
+    public GameObject bulletPrefab;
+    [FormerlySerializedAs("m_BulletPool")]
+    public ObjectPool bulletPool;
 
-    AudioSource m_ShootingAudio;
-    Transform m_BulletSpawnPoint;
-    Poolable m_Bullet;
+    AudioSource shootAudio;
+    Transform nozzle;
+
+    public void Shoot()
+    {
+        FireBullet(velocity: 25);
+        shootAudio.Play();
+    }
 
     void Awake()
     {
-        m_ShootingAudio = GetComponent<AudioSource>();
-        m_BulletPool = ObjectPool.Build(m_BulletPrefab, 10, 10);
-    }
-
-    void Start()
-    {
-        m_BulletSpawnPoint = transform.Find("BulletSpawnPoint");
-        m_BulletVelocity = 25f;
+        shootAudio = GetComponent<AudioSource>();
+        bulletPool = ObjectPool.Build(bulletPrefab, initialClones: 10, initialCapacity: 10);
+        nozzle = transform.Find("BulletSpawnPoint");
     }
 
     void Update()
     {
         if (ShipInput.IsShooting())
-        {
-            m_Bullet = m_BulletPool.GetRecyclable();
-            Rigidbody rigidbody = m_Bullet.GetComponent<Rigidbody>();
-            m_Bullet.transform.position = m_BulletSpawnPoint.position;
-            m_Bullet.transform.rotation = m_BulletSpawnPoint.rotation;
-            rigidbody.velocity = m_BulletVelocity * m_BulletSpawnPoint.up;
-            m_Bullet.gameObject.SetActive(true);
-            m_ShootingAudio.Play();
-        }
+            Shoot();
+    }
+
+    void FireBullet(float velocity)
+    {
+        // Note: This is a 2D game. "up" is treated as "forward" in 2D. 
+        Vector3 forward = nozzle.up;
+        Bullet().Fired(nozzle.position, nozzle.rotation, forward * velocity);
+    }
+
+    BulletBehaviour Bullet()
+    {
+        return bulletPool.GetRecyclable<BulletBehaviour>();
     }
 }

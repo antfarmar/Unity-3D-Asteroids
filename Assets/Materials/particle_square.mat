@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: particle_circle
-  m_Shader: {fileID: 201, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: particle_square
+  m_Shader: {fileID: 202, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: 3000
@@ -19,7 +19,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: a89b42ae13ba5d1429125289833dcf08, type: 3}
+          m_Texture: {fileID: 2800000, guid: d8ef548aade87c54d9fc2be17ce637b2, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -130,7 +130,7 @@ Material:
       data:
         first:
           name: _InvFade
-        second: 1.5
+        second: .00999999978
     m_Colors:
       data:
         first:
@@ -143,8 +143,8 @@ Material:
       data:
         first:
           name: _TintColor
-        second: {r: .5, g: .5, b: .5, a: 1}
+        second: {r: 1, g: 1, b: 1, a: .501960814}
       data:
         first:
           name: _EmisColor
-        second: {r: 1, g: 1, b: 1, a: .658999979}
+        second: {r: .200000003, g: .200000003, b: .200000003, a: 0}

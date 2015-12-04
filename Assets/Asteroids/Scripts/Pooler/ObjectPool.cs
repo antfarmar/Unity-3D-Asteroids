@@ -19,6 +19,11 @@ public class ObjectPool : ScriptableObject
         parking.Park(p);
     }
 
+    public T GetRecyclable<T>() where T : Recyclable
+    {
+        return GetRecyclable().GetComponent<T>();
+    }
+
     public Poolable GetRecyclable()
     {
         if (parking.IsEmpty)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 public class AsteroidBehaviour : GameBehaviour
@@ -15,8 +16,23 @@ public class AsteroidBehaviour : GameBehaviour
     [FormerlySerializedAs("m_Torque")]
     float initialTorque = 1000f;
 
+#pragma warning disable 0649
     [SerializeField]
     UniformRandomVector3 uniformScale;
+#pragma warning restore 0649
+
+    static int activeCount;
+    public static bool Any { get { return activeCount > 0; } }
+
+    protected virtual void OnEnable()
+    {
+        ++activeCount;
+    }
+
+    protected virtual void OnDisable()
+    {
+        --activeCount;
+    }
 
     #region Spawning
     public virtual void SpawnAt(Vector3 position)
@@ -45,7 +61,7 @@ public class AsteroidBehaviour : GameBehaviour
 
     protected void HitByShip(GameObject ship)
     {
-        Kill(ship);
+        KillWithExplosion(victim: ship);
     }
     #endregion
 
@@ -57,7 +73,7 @@ public class AsteroidBehaviour : GameBehaviour
 
     protected void HitByBullet(GameObject bullet)
     {
-        Kill(bullet);
+        KillWithExplosion(victim: bullet);
         Score(destructionScore);
         Shatter();
         RemoveFromGame();
@@ -65,6 +81,19 @@ public class AsteroidBehaviour : GameBehaviour
 
     protected virtual void Shatter()
     {
+    }
+
+    public static Vector3 FindSuitableSpawnLocation()
+    {
+        int mask = LayerMask.GetMask("ShipSpawnSphere");
+        Vector3 spawnPosition;
+        bool hit = false;
+        do
+        {
+            spawnPosition = Viewport.GetRandomWorldPositionXY();
+            hit = Physics.CheckSphere(spawnPosition, 5f, mask);
+        } while (hit);
+        return spawnPosition;
     }
     #endregion
 }

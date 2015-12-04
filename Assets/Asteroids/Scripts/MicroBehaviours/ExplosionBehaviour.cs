@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ExplosionBehaviour : MonoBehaviour
+public class ExplosionBehaviour : GameBehaviour
 {
     ParticleSystem m_explosionPS;
     AudioSource m_explosionAudio;
@@ -15,14 +15,6 @@ public class ExplosionBehaviour : MonoBehaviour
     {
         m_explosionPS.Play();
         m_explosionAudio.Play();
-
-        Invoke("PoolItem", m_explosionPS.startLifetime);
-    }
-
-    void PoolItem()
-    {
-        var poolable = GetComponent<Poolable>();
-        if (poolable)
-            poolable.Recycle();        
+        InvokeRemoveFromGame(m_explosionPS.startLifetime);
     }
 }
