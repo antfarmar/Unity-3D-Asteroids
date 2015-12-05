@@ -3,7 +3,7 @@
 
 ![Title Screenshot](AsteroidsScreenshot.JPG)
 
-:ant: Experimenting with Unity. Trying to determine best practices. :ant:
+:ant: Learning & Experimenting with Unity. Trying to determine best practices. :ant:
 
 #### Design Choices
 * Architecture/Frameworks: God Objects, MVC, IoC+DI, Messaging, Events, ...
