@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject m_ShipPrefab;
     public GameObject m_ExplosionPrefab;
+    public GameObject m_ShipExplosionPrefab;
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
     public Text m_UIText;
@@ -36,6 +37,11 @@ public class GameManager : MonoBehaviour
         Poolable explosion = instance.explosionPool.GetRecyclable();
         explosion.transform.position = position;
         explosion.transform.Rotate(new Vector3(0f, 0f, UnityEngine.Random.Range(0, 360)));
+    }
+
+    public static void SpawnShipExplosion(GameObject ship)
+    {
+        Instantiate(instance.m_ShipExplosionPrefab, ship.transform.position, ship.transform.rotation);
     }
 
     void Awake()

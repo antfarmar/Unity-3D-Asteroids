@@ -204,6 +204,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ShipPrefab: {fileID: 178224, guid: c1955aaa0bfd5d046a37119e23a74bc1, type: 2}
   m_ExplosionPrefab: {fileID: 148916, guid: 1de3524cebe15314eafe374b33b9d40e, type: 2}
+  m_ShipExplosionPrefab: {fileID: 148916, guid: 62955dd5c19945c49bb900d6e91cb021,
+    type: 2}
   m_AsteroidBigPrefab: {fileID: 186268, guid: 0cc2b6c448b0759409599f21e66ce41e, type: 2}
   m_AsteroidSmallPrefab: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7,
     type: 2}
@@ -436,6 +438,10 @@ Prefab:
     - target: {fileID: 192296, guid: f4991757dbab0ca4199f5f52fce926ae, type: 2}
       propertyPath: m_Name
       value: Score Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8222392, guid: f4991757dbab0ca4199f5f52fce926ae, type: 2}
+      propertyPath: m_Volume
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f4991757dbab0ca4199f5f52fce926ae, type: 2}

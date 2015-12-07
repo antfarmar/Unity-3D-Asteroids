@@ -40,10 +40,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: cc1ab585df4320746bd8fe94abc7a865, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f465b280ab627e140a357861eab7ed2b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 2
+  m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -1226,14 +1226,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: cc1ab585df4320746bd8fe94abc7a865, type: 3}
+      objectReference: {fileID: 8300000, guid: f465b280ab627e140a357861eab7ed2b, type: 3}
     - target: {fileID: 0}
       propertyPath: m_PlayOnAwake
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Pitch
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSize.minMaxState
