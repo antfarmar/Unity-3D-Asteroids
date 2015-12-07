@@ -28,6 +28,11 @@ public class GameBehaviour : MonoBehaviour, PoolableAware, Recyclable
         Invoke("RemoveFromGame", time);
     }
 
+    protected virtual void OnDisable()
+    {
+        CancelInvoke("RemoveFromGame");
+    }
+
     public static void KillWithExplosion(GameObject victim)
     {
         Spawn.Explosion(victim.transform.position);
