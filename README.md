@@ -1,3 +1,5 @@
+[![Join the chat at https://gitter.im/antfarmar/Unity-3D-Asteroids](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/antfarmar/Unity-3D-Asteroids?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 # Unity 3D Asteroids
 #### _A simple Asteroids game clone in 3D. Stuck on a 2D plane. So 2.5D?_
 
@@ -43,3 +45,5 @@
 * Game design & development lessons learned
   
 #### [Check Issues for interesting issues encountered](https://github.com/antfarmar/Unity-3D-Asteroids/issues)
+
+##### Chat Room: [![Join the chat at https://gitter.im/antfarmar/Unity-3D-Asteroids](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/antfarmar/Unity-3D-Asteroids?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
