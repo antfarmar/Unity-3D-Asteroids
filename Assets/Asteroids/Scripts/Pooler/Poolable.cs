@@ -1,10 +1,76 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System;
 
-
-// Extends MonoBehaviour, so it's a Component. Makes an owner poolable.
 [Serializable]
-public class Poolable : MonoBehaviour
+[ExecuteInEditMode]
+public sealed class Poolable : Parkable, Recyclable
 {
-    public bool isPooled;   // Flag for checks.
+    [SerializeField]
+    [HideInInspector]
+    ObjectPool pool;
+
+    static bool scriptBuiltInstance;
+
+    void Awake()
+    {
+        InstantiationGuard();
+        ExecuteEvents.Execute<PoolableAware>(gameObject, null, (script, ignored) => script.PoolableAwoke(this));
+    }
+
+    void InstantiationGuard()
+    {
+        if (!scriptBuiltInstance)
+        {
+            DestroyImmediate(this, true);
+            throw new InvalidOperationException("Can only be created with AddPoolableComponent");
+        }
+        scriptBuiltInstance = false;
+    }
+
+    void OnEnable()
+    {
+        gameObject.hideFlags = 0;
+    }
+
+    void OnDisable()
+    {
+        gameObject.hideFlags = HideFlags.HideInHierarchy;
+    }
+
+    public void Recycle()
+    {
+        pool.Recycle(this);
+    }
+
+    public static Poolable AddPoolableComponent(GameObject newInstance, ObjectPool pool)
+    {
+        scriptBuiltInstance = true;
+        var instance = newInstance.AddComponent<Poolable>();
+        instance.pool = pool;
+        return instance;
+    }
+}
+
+public interface PoolableAware : IEventSystemHandler
+{
+    void PoolableAwoke(Poolable p);
+}
+
+public interface Recyclable
+{
+    void Recycle();
+}
+
+public abstract class Parkable : MonoBehaviour
+{
+    public virtual void Park()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public virtual void Unpark()
+    {
+        gameObject.SetActive(true);
+    }
 }

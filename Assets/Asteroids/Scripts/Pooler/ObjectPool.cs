@@ -2,97 +2,106 @@
 using System.Collections.Generic;
 using System;
 
-// A pool that stores objects made from prefabs.
-[Serializable]
-public class ObjectPool
+public class ObjectPool : ScriptableObject
 {
-    public int m_MaxCount;
-    public GameObject m_Prefab;
-    public List<Poolable> m_Pool;
+    [SerializeField]
+    [HideInInspector]
+    GameObject prefab;
 
-    private Transform m_Parent;
+    [SerializeField]
+    [HideInInspector]
+    ParkingStorage parking;
 
+    public bool IsEmpty { get { return parking.IsEmpty; } }
 
-    // Constructor
-    public ObjectPool(GameObject prefab, Transform parent, int startCount, int maxCount)
+    public void Recycle(Poolable p)
     {
-        m_Pool = new List<Poolable>(startCount);
-        m_Prefab = prefab;
-        m_Parent = parent != null ? parent : new GameObject("ObjectPool").transform;
-        m_MaxCount = maxCount;
-
-        for(int i = 0; i < startCount; ++i)
-            Push(CreatePoolableObject());
+        parking.Park(p);
     }
 
-
-    // Instantiate prefab, make it poolable.
-    Poolable CreatePoolableObject()
+    public T GetRecyclable<T>() where T : Recyclable
     {
-        Poolable obj = GameObject.Instantiate(m_Prefab).AddComponent<Poolable>();
-        obj.transform.SetParent(m_Parent);
-        obj.gameObject.SetActive(false);
-        return obj;
+        return GetRecyclable().GetComponent<T>();
     }
 
-
-
-    // Set an upper-limit on pool growth.
-    public void SetMaxCount(int maxCount)
+    public Poolable GetRecyclable()
     {
-        m_MaxCount = maxCount;
+        if (parking.IsEmpty)
+            return Clone();
+        return (Poolable)parking.Unpark();
     }
 
-
-
-    // Removes an entire pool from use and destroys all of its objects.
-    public void EmptyPool()
+    public static ObjectPool Build(GameObject prefab, int initialClones, int initialCapacity)
     {
-        while(m_Pool.Count > 0)
-        {
-            GameObject obj = m_Pool[m_Pool.Count - 1].gameObject;
-            GameObject.Destroy(obj.gameObject);
-            m_Pool.RemoveAt(m_Pool.Count - 1);
-        }
+        ObjectPool pool = CreateInstance<ObjectPool>();
+        pool.Initialize(prefab, initialClones, initialCapacity);
+        return pool;
     }
 
-
-    // Pool and deactivate an item for reuse, or destroy it if pool is full.
-    public void Push(Poolable obj)
+    void Initialize(GameObject prefab, int initialClones, int capacity)
     {
-        if(obj == null || obj.isPooled)
-            return;
-
-
-        // Pool is full! Destroy the object.
-        if(m_Pool.Count >= m_MaxCount)
-        {
-            GameObject.Destroy(obj.gameObject);
-            return;
-        }
-
-        // Pool the object for reuse.
-        m_Pool.Add(obj);
-        obj.isPooled = true;
-        //obj.transform.SetParent(Instance.transform);
-        obj.gameObject.SetActive(false);
+        this.prefab = prefab;
+        parking = ParkingStorage.InfiniteSpace(capacity);
+        ParkInitialClones(initialClones);
     }
 
-
-    // Always returns an inactive prefab instance for the client.
-    public Poolable Pop()
+    void ParkInitialClones(int initialClones)
     {
-        // Pool is spent! Create a new object for client.
-        if(m_Pool.Count == 0)
-        {
-            return CreatePoolableObject();
-        }
-
-        // Dequeue an existing object for client.
-        Poolable obj = m_Pool[m_Pool.Count - 1];
-        m_Pool.RemoveAt(m_Pool.Count - 1);
-        obj.isPooled = false;
-        return obj;
+        for (int i = 0; i < initialClones; ++i)
+            parking.Park(Clone());
     }
 
+    Poolable Clone()
+    {
+        GameObject clone = Instantiate(prefab);
+        var p = Poolable.AddPoolableComponent(clone, this);
+        return p;
+    }
+}
+
+[Serializable]
+public class ParkingStorage
+{
+    [SerializeField]
+    [HideInInspector]
+    List<Parkable> fauxStack;
+
+    ParkingStorage()
+    {
+    }
+
+    public static ParkingStorage InfiniteSpace(int capacity)
+    {
+        var p = new ParkingStorage();
+        p.fauxStack = new List<Parkable>(capacity);
+        return p;
+    }
+
+    public bool IsEmpty { get { return fauxStack.Count == 0; } }
+
+    public void Park(Parkable p)
+    {
+        PushFauxStack(p);
+        p.Park();
+    }
+
+    public Parkable Unpark()
+    {
+        Parkable p = PopFauxStack();
+        p.Unpark();
+        return p;
+    }
+
+    void PushFauxStack(Parkable p)
+    {
+        fauxStack.Add(p);
+    }
+
+    Parkable PopFauxStack()
+    {
+        var lastIndex = fauxStack.Count - 1;
+        Parkable p = fauxStack[lastIndex];
+        fauxStack.RemoveAt(lastIndex);
+        return p;
+    }
 }
