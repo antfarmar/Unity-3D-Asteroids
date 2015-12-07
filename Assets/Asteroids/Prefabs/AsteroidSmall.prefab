@@ -102,9 +102,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c539362a1da34c4785239d0277b7865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:Assets/Asteroids/Prefabs/AsteroidSmall.prefab
   m_ScoreValue: 100
   m_Force: 5000
   m_Torque: 2000
+=======
+  destructionScore: 25
+  initialForce: 5000
+  initialTorque: 2000
+  uniformScale:
+    minScale: .5
+    maxScale: .75
+>>>>>>> refs/heads/pr/27:Assets/Asteroids/Prefabs/AsteroidSmall.prefab
 --- !u!114 &11492270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,6 +125,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be9d2b06281f6d4b9b830c1ab0927c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beforeWrap:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -203,6 +217,7 @@ Prefab:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
+<<<<<<< HEAD:Assets/Asteroids/Prefabs/AsteroidSmall.prefab
       propertyPath: m_ShipExplosion
       value: 
       objectReference: {fileID: 19831888, guid: a9b7b722d4d98494e86263b57d24d7e0,
@@ -219,6 +234,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_ScoreValue
       value: 100
+=======
+      propertyPath: uniformScale.minScale
+      value: .5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: uniformScale.maxScale
+      value: .75
+>>>>>>> refs/heads/pr/27:Assets/Asteroids/Prefabs/AsteroidSmall.prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

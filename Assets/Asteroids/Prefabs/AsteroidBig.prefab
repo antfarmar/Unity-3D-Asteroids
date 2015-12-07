@@ -99,12 +99,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 186268}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD:Assets/Asteroids/Prefabs/AsteroidBig.prefab
   m_Script: {fileID: 11500000, guid: aeeee7e66c3a4a942a3d266f7c760bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_ScoreValue: 50
   m_Force: 3000
   m_Torque: 1000
+=======
+  m_Script: {fileID: 11500000, guid: 5a99ddb8c8b89ff49be32ae82f875969, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destructionScore: 100
+  initialForce: 2000
+  initialTorque: 1000
+  uniformScale:
+    minScale: 1
+    maxScale: 1.5
+  fragments: 3
+>>>>>>> refs/heads/pr/27:Assets/Asteroids/Prefabs/AsteroidBig.prefab
 --- !u!114 &11492270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -116,6 +129,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6be9d2b06281f6d4b9b830c1ab0927c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  beforeWrap:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -183,6 +201,7 @@ Prefab:
       value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 0}
+<<<<<<< HEAD:Assets/Asteroids/Prefabs/AsteroidBig.prefab
       propertyPath: m_ShipExplosion
       value: 
       objectReference: {fileID: 19831888, guid: a9b7b722d4d98494e86263b57d24d7e0,
@@ -207,6 +226,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Enabled
       value: 0
+=======
+      propertyPath: fragments
+      value: 3
+>>>>>>> refs/heads/pr/27:Assets/Asteroids/Prefabs/AsteroidBig.prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
