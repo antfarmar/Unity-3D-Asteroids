@@ -29,9 +29,10 @@ public class AsteroidBehaviour : GameBehaviour
         ++activeCount;
     }
 
-    protected virtual void OnDisable()
+    protected override void OnDisable()
     {
         --activeCount;
+        base.OnDisable();
     }
 
     #region Spawning
