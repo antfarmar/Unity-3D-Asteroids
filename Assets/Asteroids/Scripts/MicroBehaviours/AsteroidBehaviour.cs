@@ -62,9 +62,9 @@ public class AsteroidBehaviour : GameBehaviour
 
     protected void HitByShip(GameObject ship)
     {
-        //KillWithExplosion(victim: ship);
-        GameManager.SpawnShipExplosion(ship);
-        RemoveFromGame(ship);
+        KillWithExplosion(victim: ship);
+        //GameManager.SpawnShipExplosion(ship);
+        //RemoveFromGame(ship);
     }
     #endregion
 

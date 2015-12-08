@@ -32,16 +32,17 @@ public class GameManager : MonoBehaviour
         asteroid.SpawnAt(position);
     }
 
-    public static void SpawnExplosion(Vector3 position)
+    public static void SpawnAsteroidExplosion(Vector3 position)
     {
         Poolable explosion = instance.explosionPool.GetRecyclable();
         explosion.transform.position = position;
         explosion.transform.Rotate(new Vector3(0f, 0f, UnityEngine.Random.Range(0, 360)));
     }
 
-    public static void SpawnShipExplosion(GameObject ship)
+    public static void SpawnShipExplosion(Vector3 position)
     {
-        Instantiate(instance.m_ShipExplosionPrefab, ship.transform.position, ship.transform.rotation);
+        var rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0, 360));
+        Instantiate(instance.m_ShipExplosionPrefab, position, rotation);
     }
 
     void Awake()

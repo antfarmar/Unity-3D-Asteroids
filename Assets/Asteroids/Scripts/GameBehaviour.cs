@@ -35,7 +35,11 @@ public class GameBehaviour : MonoBehaviour, PoolableAware, Recyclable
 
     public static void KillWithExplosion(GameObject victim)
     {
-        Spawn.Explosion(victim.transform.position);
+        if (victim.tag == "Ship")
+            Spawn.ShipExplosion(victim.transform.position);
+        else
+            Spawn.AsteroidExplosion(victim.transform.position);
+
         RemoveFromGame(victim);
     }
 
