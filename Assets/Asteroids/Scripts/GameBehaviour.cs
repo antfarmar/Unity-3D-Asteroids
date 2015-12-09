@@ -10,6 +10,11 @@ public class GameBehaviour : MonoBehaviour, PoolableAware, Recyclable
         poolable = p;
     }
 
+    protected virtual void OnDisable()
+    {
+        CancelInvoke("RemoveFromGame");
+    }
+
     public void RemoveFromGame()
     {
         if (poolable)
@@ -26,11 +31,6 @@ public class GameBehaviour : MonoBehaviour, PoolableAware, Recyclable
     public void InvokeRemoveFromGame(float time)
     {
         Invoke("RemoveFromGame", time);
-    }
-
-    protected virtual void OnDisable()
-    {
-        CancelInvoke("RemoveFromGame");
     }
 
     public static void KillWithExplosion(GameObject victim)
