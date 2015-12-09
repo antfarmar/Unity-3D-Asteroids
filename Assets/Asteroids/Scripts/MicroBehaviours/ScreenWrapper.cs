@@ -67,7 +67,8 @@ public class ScreenWrapper : MonoBehaviour
         }
 
 
-        if (!newPosition.Equals(transform.position))
+        bool didWrap = !newPosition.Equals(transform.position);
+        if (didWrap)
         {
             beforeWrap.Invoke();
             transform.position = newPosition;
