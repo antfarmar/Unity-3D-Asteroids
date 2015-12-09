@@ -8,17 +8,15 @@ public class ScreenWrapper : MonoBehaviour
     [HideInInspector]
     public UnityEvent beforeWrap;
 
-    public float wrapTimeout = 0.5f;
-
     Renderer objectRenderer;
     Bounds objectBounds;
     Rect worldRect;
 
-    Color sceneViewDisplayColor = new Color(1.0f, 0.0f, 1.0f, 0.5f);
-    bool debug = true;
-
     bool allowedToWrapHorizontally = true;
     bool allowedToWrapVertically = true;
+    bool debug = true;
+
+    float wrapTimeout = 0.5f;
 
     void OnEnable()
     {
@@ -38,7 +36,7 @@ public class ScreenWrapper : MonoBehaviour
         // Compute world rect bounds. Only need to do this if screen size changes? How to check?
         Vector2 worldMin = GetWorldPointFromViewport(new Vector3(0f, 0f, 0f));
         Vector2 worldMax = GetWorldPointFromViewport(new Vector3(1f, 1f, 0f));
-        Debug.DrawLine(worldMin, worldMax, sceneViewDisplayColor);
+        Debug.DrawLine(worldMin, worldMax, new Color(1.0f, 0.0f, 1.0f, 0.5f));
 
         worldRect = Rect.MinMaxRect(worldMin.x, worldMin.y, worldMax.x, worldMax.y); //worldRect = new Rect(tl.x, tl.y, br.x * 2, tl.y * 2);
         objectBounds = objectRenderer.bounds;
@@ -92,6 +90,8 @@ public class ScreenWrapper : MonoBehaviour
         Vector3 upperLeft = new Vector3(objectBounds.min.x, objectBounds.max.y, 0);
         Vector3 lowerRight = new Vector3(objectBounds.max.x, objectBounds.min.y, 0);
         Vector3 upperRight = new Vector3(objectBounds.max.x, objectBounds.max.y, 0);
+
+        Color sceneViewDisplayColor = new Color(1.0f, 0.0f, 1.0f, 0.5f);
         Debug.DrawLine(lowerLeft, upperLeft, sceneViewDisplayColor);
         Debug.DrawLine(upperLeft, upperRight, sceneViewDisplayColor);
         Debug.DrawLine(upperRight, lowerRight, sceneViewDisplayColor);
