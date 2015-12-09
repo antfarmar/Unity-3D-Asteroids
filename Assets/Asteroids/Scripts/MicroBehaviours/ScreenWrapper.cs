@@ -8,92 +8,82 @@ public class ScreenWrapper : MonoBehaviour
     [HideInInspector]
     public UnityEvent beforeWrap;
 
-    public float wrapTimeout = 0.5f;
-
     Renderer objectRenderer;
     Bounds objectBounds;
     Rect worldRect;
 
-    Color sceneViewDisplayColor = new Color(1.0f, 0.0f, 1.0f, 0.5f);
-    bool debug = true;
-
     bool allowedToWrapHorizontally = true;
     bool allowedToWrapVertically = true;
+    bool debug = true;
 
-    void Start()
+    float wrapTimeout = 0.5f;
+
+    void OnEnable()
     {
         objectRenderer = GetComponent<Renderer>();
+        allowedToWrapHorizontally = true;
+        allowedToWrapVertically = true;
     }
 
     void Update()
     {
         if (debug) DrawObjectBoundsInSceneView();
+        ScreenWrap();
+    }
 
-        // Compute world rect boundds.
-        // Only need to do this if screen size changes? How to check?
-        Vector2 worldMin = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, 0f));
-        Vector2 worldMax = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, 0f));
-        Debug.DrawLine(worldMin, worldMax, sceneViewDisplayColor);
+    void ScreenWrap()
+    {
+        // Compute world rect bounds. Only need to do this if screen size changes? How to check?
+        Vector2 worldMin = GetWorldPointFromViewport(new Vector3(0f, 0f, 0f));
+        Vector2 worldMax = GetWorldPointFromViewport(new Vector3(1f, 1f, 0f));
+        Debug.DrawLine(worldMin, worldMax, new Color(1.0f, 0.0f, 1.0f, 0.5f));
 
-        //worldRect = new Rect(tl.x, tl.y, br.x * 2, tl.y * 2);
-        worldRect = Rect.MinMaxRect(worldMin.x, worldMin.y, worldMax.x, worldMax.y);
+        worldRect = Rect.MinMaxRect(worldMin.x, worldMin.y, worldMax.x, worldMax.y); //worldRect = new Rect(tl.x, tl.y, br.x * 2, tl.y * 2);
         objectBounds = objectRenderer.bounds;
 
         Vector3 newPosition = transform.position;
 
-        bool wrapRightToLeft = objectBounds.min.x > worldRect.xMax;
-        bool wrapLeftToRight = objectBounds.max.x < worldRect.xMin;
-        bool wrapTopToBottom = objectBounds.min.y > worldRect.yMax;
-        bool wrapBottomToTop = objectBounds.max.y < worldRect.yMin;
+        bool isOutOfBoundsRight = objectBounds.min.x > worldRect.xMax;
+        bool isOutOfBoundsLeft = objectBounds.max.x < worldRect.xMin;
+        bool isOutOfBoundsTop = objectBounds.min.y > worldRect.yMax;
+        bool isOutOfBoundsBottom = objectBounds.max.y < worldRect.yMin;
 
-        // Check horizontally out-of-view.
+        bool needToWrapHorizontally = isOutOfBoundsRight || isOutOfBoundsLeft;
+        bool needToWrapVertically = isOutOfBoundsTop || isOutOfBoundsBottom;
 
-        if (allowedToWrapHorizontally)
+        if (needToWrapHorizontally && allowedToWrapHorizontally)
         {
-            if (wrapRightToLeft)
-            {
-                newPosition.x = worldRect.xMin - objectBounds.extents.x;
-                allowedToWrapHorizontally = false;
-            }
-            else if (wrapLeftToRight)
-            {
-                newPosition.x = worldRect.xMax + objectBounds.extents.x;
-                allowedToWrapHorizontally = false;
-            }
-
-            if (!allowedToWrapHorizontally)
-                Invoke("AllowHorizontalWrap", wrapTimeout);
+            newPosition.x = isOutOfBoundsRight ? WrapRightToLeft() : WrapLeftToRight();
+            allowedToWrapHorizontally = false;
+            Invoke("ReAllowHorizontalWrap", wrapTimeout);
         }
 
-        // Check vertically out-of-view.
-        if (allowedToWrapVertically)
-        {
-            if (wrapTopToBottom)
-            {
-                newPosition.y = worldRect.yMin - objectBounds.extents.y;
-                allowedToWrapVertically = false;
-            }
-            else if (wrapBottomToTop)
-            {
-                newPosition.y = worldRect.yMax + objectBounds.extents.y;
-                allowedToWrapVertically = false;
-            }
 
-            if (!allowedToWrapVertically)
-                Invoke("AllowVerticalWrap", wrapTimeout);
+        if (needToWrapVertically && allowedToWrapVertically)
+        {
+            newPosition.y = isOutOfBoundsTop ? WrapTopToBottom() : WrapBottomToTop();
+            allowedToWrapVertically = false;
+            Invoke("ReAllowVerticalWrap", wrapTimeout);
         }
 
-        // if position actually changed...should go here.
-        if (!newPosition.Equals(transform.position))
+
+        bool didWrap = !newPosition.Equals(transform.position);
+        if (didWrap)
         {
             beforeWrap.Invoke();
             transform.position = newPosition;
         }
-
     }
 
-    void AllowHorizontalWrap() { allowedToWrapHorizontally = true; }
-    void AllowVerticalWrap() { allowedToWrapVertically = true; }
+    float WrapRightToLeft() { return worldRect.xMin - objectBounds.extents.x; }
+    float WrapLeftToRight() { return worldRect.xMax + objectBounds.extents.x; }
+    float WrapTopToBottom() { return worldRect.yMin - objectBounds.extents.y; }
+    float WrapBottomToTop() { return worldRect.yMax + objectBounds.extents.y; }
+
+    void ReAllowHorizontalWrap() { allowedToWrapHorizontally = true; }
+    void ReAllowVerticalWrap() { allowedToWrapVertically = true; }
+
+    Vector2 GetWorldPointFromViewport(Vector3 viewportPoint) { return Camera.main.ViewportToWorldPoint(viewportPoint); }
 
     void DrawObjectBoundsInSceneView()
     {
@@ -102,6 +92,7 @@ public class ScreenWrapper : MonoBehaviour
         Vector3 lowerRight = new Vector3(objectBounds.max.x, objectBounds.min.y, 0);
         Vector3 upperRight = new Vector3(objectBounds.max.x, objectBounds.max.y, 0);
 
+        Color sceneViewDisplayColor = new Color(1.0f, 0.0f, 1.0f, 0.5f);
         Debug.DrawLine(lowerLeft, upperLeft, sceneViewDisplayColor);
         Debug.DrawLine(upperLeft, upperRight, sceneViewDisplayColor);
         Debug.DrawLine(upperRight, lowerRight, sceneViewDisplayColor);
@@ -109,68 +100,3 @@ public class ScreenWrapper : MonoBehaviour
     }
 
 }
-
-
-/* PREVIOUS IMPLEMENTATION
-
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Events;
-
-public class ScreenWrapper : MonoBehaviour
-{
-    [SerializeField]
-    [HideInInspector]
-    public UnityEvent beforeWrap;
-
-    bool IsVisible = true;
-
-    void Update()
-    {
-        if (!IsVisible)
-        {
-            IsVisible = true;
-            ScreenWrap();
-        }
-    }
-
-    void OnBecameInvisible()
-    {
-        IsVisible = false;
-    }
-
-    void OnBecameVisible()
-    {
-        IsVisible = true;
-    }
-
-    void ScreenWrap()
-    {
-        Vector3 viewport = GetViewportPosition();
-        bool isHorizontallyOutOfView = viewport.x < 0 || viewport.x > 1;
-        bool isVerticallyOutOfView = viewport.y < 0 || viewport.y > 1;
-
-        if (isHorizontallyOutOfView || isVerticallyOutOfView)
-        {
-            beforeWrap.Invoke();
-            transform.position = NegateXY(transform.position, isHorizontallyOutOfView, isVerticallyOutOfView);
-        }
-    }
-
-    Vector3 GetViewportPosition()
-    {
-        return Camera.main.WorldToViewportPoint(transform.position);
-    }
-
-    static Vector3 NegateXY(Vector3 vector, bool negateX, bool negateY)
-    {
-        return new Vector3
-        {
-            x = negateX ? -vector.x : vector.x,
-            y = negateY ? -vector.y : vector.y,
-            z = vector.z
-        };
-    }
-}
-
-*/

@@ -90,11 +90,12 @@ public class AsteroidBehaviour : GameBehaviour
     {
         int mask = LayerMask.GetMask("ShipSpawnSphere");
         Vector3 spawnPosition;
+        float collisionSphereRadius = 5f;
         bool hit = false;
         do
         {
             spawnPosition = Viewport.GetRandomWorldPositionXY();
-            hit = Physics.CheckSphere(spawnPosition, 5f, mask);
+            hit = Physics.CheckSphere(spawnPosition, collisionSphereRadius, mask);
         } while (hit);
         return spawnPosition;
     }

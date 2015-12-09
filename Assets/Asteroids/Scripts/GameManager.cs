@@ -26,24 +26,6 @@ public class GameManager : MonoBehaviour
     int numAsteroidsForLevel = 2;
     bool requestTitleScreen = true;
 
-    public static void SpawnSmallAsteroid(Vector3 position)
-    {
-        AsteroidBehaviour asteroid = instance.smallAsteroidPool.GetRecyclable<AsteroidBehaviour>();
-        asteroid.SpawnAt(position);
-    }
-
-    public static void SpawnAsteroidExplosion(Vector3 position)
-    {
-        Poolable explosion = instance.explosionPool.GetRecyclable();
-        explosion.transform.position = position;
-        explosion.transform.Rotate(new Vector3(0f, 0f, UnityEngine.Random.Range(0, 360)));
-    }
-
-    public static void SpawnShipExplosion(Vector3 position)
-    {
-        var rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0, 360));
-        Instantiate(instance.m_ShipExplosionPrefab, position, rotation);
-    }
 
     void Awake()
     {
@@ -53,6 +35,19 @@ public class GameManager : MonoBehaviour
         explosionPool = ObjectPool.Build(m_ExplosionPrefab, 5, 5);
         announce = GameAnnouncer.AnnounceTo(Announcer.TextComponent(m_UIText), Announcer.Log(this));
         wallpaper = AsteroidWallpaper.New(bigAsteroidPool, smallAsteroidPool);
+    }
+
+    void Start()
+    {
+        ship = Ship.Spawn(m_ShipPrefab);
+        ship.RemoveFromGame();
+        GC.Collect();
+        StartCoroutine(GameLoop());
+    }
+
+    void OnEnable()
+    {
+        instance = this;
     }
 
     void SingletonInstanceGuard()
@@ -67,19 +62,6 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             throw new SingletonException("Only one instance is allowed");
         }
-    }
-
-    void OnEnable()
-    {
-        instance = this;
-    }
-
-    void Start()
-    {
-        ship = Ship.Spawn(m_ShipPrefab);
-        ship.RemoveFromGame();
-        GC.Collect();
-        StartCoroutine(GameLoop());
     }
 
     IEnumerator GameLoop()
@@ -164,6 +146,25 @@ public class GameManager : MonoBehaviour
             var asteroid = bigOrSmall.GetRecyclable<AsteroidBehaviour>();
             asteroid.SpawnAt(AsteroidBehaviour.FindSuitableSpawnLocation());
         }
+    }
+
+    public static void SpawnSmallAsteroid(Vector3 position)
+    {
+        AsteroidBehaviour asteroid = instance.smallAsteroidPool.GetRecyclable<AsteroidBehaviour>();
+        asteroid.SpawnAt(position);
+    }
+
+    public static void SpawnAsteroidExplosion(Vector3 position)
+    {
+        Poolable explosion = instance.explosionPool.GetRecyclable();
+        explosion.transform.position = position;
+        explosion.transform.Rotate(new Vector3(0f, 0f, UnityEngine.Random.Range(0, 360)));
+    }
+
+    public static void SpawnShipExplosion(Vector3 position)
+    {
+        var rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0, 360));
+        Instantiate(instance.m_ShipExplosionPrefab, position, rotation);
     }
 
     void RemoveRemainingAsteroids()
