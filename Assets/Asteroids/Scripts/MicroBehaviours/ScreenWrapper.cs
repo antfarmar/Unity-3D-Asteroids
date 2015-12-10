@@ -27,8 +27,7 @@ public class ScreenWrapper : MonoBehaviour
         objectRenderer = GetComponent<Renderer>();
         allowedToWrapHorizontally = true;
         allowedToWrapVertically = true;
-        screenWidth = Screen.width;
-        screenHeight = Screen.height;
+        SetCurrentScreenSize();
         ComputeWorldRectSize();
     }
 
@@ -39,8 +38,7 @@ public class ScreenWrapper : MonoBehaviour
         if (ScreenSizeChanged())
         {
             ComputeWorldRectSize();
-            screenWidth = Screen.width;
-            screenHeight = Screen.height;
+            SetCurrentScreenSize();
         }
 
         ScreenWrap();
@@ -103,6 +101,7 @@ public class ScreenWrapper : MonoBehaviour
     Vector2 GetWorldPointFromViewport(Vector3 viewportPoint) { return Camera.main.ViewportToWorldPoint(viewportPoint); }
 
     bool ScreenSizeChanged() { return (screenWidth != Screen.width || screenHeight != Screen.height); }
+    void SetCurrentScreenSize() { screenWidth = Screen.width; screenHeight = Screen.height; }
 
     void DrawObjectBoundsInSceneView()
     {
