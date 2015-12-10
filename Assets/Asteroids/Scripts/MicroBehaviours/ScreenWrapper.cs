@@ -8,6 +8,7 @@ public class ScreenWrapper : MonoBehaviour
     [HideInInspector]
     public UnityEvent beforeWrap;
 
+    Resolution res;
     Renderer objectRenderer;
     Bounds objectBounds;
     Rect worldRect;
@@ -18,27 +19,43 @@ public class ScreenWrapper : MonoBehaviour
 
     float wrapTimeout = 0.5f;
 
+    int screenWidth;
+    int screenHeight;
+
     void OnEnable()
     {
         objectRenderer = GetComponent<Renderer>();
         allowedToWrapHorizontally = true;
         allowedToWrapVertically = true;
+        screenWidth = Screen.width;
+        screenHeight = Screen.height;
+        ComputeWorldRectSize();
     }
 
     void Update()
     {
         if (debug) DrawObjectBoundsInSceneView();
+
+        if (ScreenSizeChanged())
+        {
+            ComputeWorldRectSize();
+            screenWidth = Screen.width;
+            screenHeight = Screen.height;
+        }
+
         ScreenWrap();
+    }
+
+    void ComputeWorldRectSize()
+    {
+        Vector2 worldMin = GetWorldPointFromViewport(new Vector3(0f, 0f, 0f));
+        Vector2 worldMax = GetWorldPointFromViewport(new Vector3(1f, 1f, 0f));
+        //worldRect = new Rect(tl.x, tl.y, br.x * 2, tl.y * 2);
+        worldRect = Rect.MinMaxRect(worldMin.x, worldMin.y, worldMax.x, worldMax.y);
     }
 
     void ScreenWrap()
     {
-        // Compute world rect bounds. Only need to do this if screen size changes? How to check?
-        Vector2 worldMin = GetWorldPointFromViewport(new Vector3(0f, 0f, 0f));
-        Vector2 worldMax = GetWorldPointFromViewport(new Vector3(1f, 1f, 0f));
-        Debug.DrawLine(worldMin, worldMax, new Color(1.0f, 0.0f, 1.0f, 0.5f));
-
-        worldRect = Rect.MinMaxRect(worldMin.x, worldMin.y, worldMax.x, worldMax.y); //worldRect = new Rect(tl.x, tl.y, br.x * 2, tl.y * 2);
         objectBounds = objectRenderer.bounds;
 
         Vector3 newPosition = transform.position;
@@ -85,6 +102,8 @@ public class ScreenWrapper : MonoBehaviour
 
     Vector2 GetWorldPointFromViewport(Vector3 viewportPoint) { return Camera.main.ViewportToWorldPoint(viewportPoint); }
 
+    bool ScreenSizeChanged() { return (screenWidth != Screen.width || screenHeight != Screen.height); }
+
     void DrawObjectBoundsInSceneView()
     {
         Vector3 lowerLeft = new Vector3(objectBounds.min.x, objectBounds.min.y, 0);
@@ -97,6 +116,8 @@ public class ScreenWrapper : MonoBehaviour
         Debug.DrawLine(upperLeft, upperRight, sceneViewDisplayColor);
         Debug.DrawLine(upperRight, lowerRight, sceneViewDisplayColor);
         Debug.DrawLine(lowerRight, lowerLeft, sceneViewDisplayColor);
+
+        Debug.DrawLine(worldRect.min, worldRect.max, sceneViewDisplayColor);
     }
 
 }
