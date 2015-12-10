@@ -8,7 +8,6 @@ public class ScreenWrapper : MonoBehaviour
     [HideInInspector]
     public UnityEvent beforeWrap;
 
-    Resolution res;
     Renderer objectRenderer;
     Bounds objectBounds;
     Rect worldRect;
