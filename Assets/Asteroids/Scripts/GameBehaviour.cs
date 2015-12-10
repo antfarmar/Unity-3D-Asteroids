@@ -1,13 +1,18 @@
 ﻿using System;
 using UnityEngine;
 
-public class GameBehaviour : MonoBehaviour, PoolableAware, Recyclable
+public class GameBehaviour : MonoBehaviour, IPoolableAware, IRecyclable
 {
     Poolable poolable;
 
-    void PoolableAware.PoolableAwoke(Poolable p)
+    void IPoolableAware.PoolableAwoke(Poolable p)
     {
         poolable = p;
+    }
+
+    void IRecyclable.Recycle()
+    {
+        RemoveFromGame();
     }
 
     protected virtual void OnDisable()
@@ -23,14 +28,28 @@ public class GameBehaviour : MonoBehaviour, PoolableAware, Recyclable
             RequestDestruction();
     }
 
+    public void InvokeRemoveFromGame(float time)
+    {
+        Invoke("RemoveFromGame", time);
+    }
+
+    public static void RemoveFromGame(GameObject victim)
+    {
+        GameBehaviour handler = victim.GetComponent<GameBehaviour>();
+        if (handler)
+            handler.RemoveFromGame();
+        else
+            RequestDefaultDestruction(victim);
+    }
+
     protected virtual void RequestDestruction()
     {
         RequestDefaultDestruction(gameObject);
     }
 
-    public void InvokeRemoveFromGame(float time)
+    static void RequestDefaultDestruction(GameObject gameObject)
     {
-        Invoke("RemoveFromGame", time);
+        Destroy(gameObject);
     }
 
     public static void KillWithExplosion(GameObject victim)
@@ -43,27 +62,9 @@ public class GameBehaviour : MonoBehaviour, PoolableAware, Recyclable
         RemoveFromGame(victim);
     }
 
-    public static void RemoveFromGame(GameObject victim)
-    {
-        GameBehaviour handler = victim.GetComponent<GameBehaviour>();
-        if (handler)
-            handler.RemoveFromGame();
-        else
-            RequestDefaultDestruction(victim);
-    }
-
     protected void Score(int score)
     {
         global::Score.Earn(score);
     }
 
-    static void RequestDefaultDestruction(GameObject gameObject)
-    {
-        Destroy(gameObject);
-    }
-
-    void Recyclable.Recycle()
-    {
-        RemoveFromGame();
-    }
 }
