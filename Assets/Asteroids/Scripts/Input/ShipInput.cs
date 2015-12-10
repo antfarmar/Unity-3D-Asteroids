@@ -4,7 +4,7 @@ public static class ShipInput
 {
     public static bool IsShooting()
     {
-        return Input.GetButtonDown("Fire3");
+        return Input.GetButtonDown("Fire1");
     }
 
     public static float GetTurnAxis()
