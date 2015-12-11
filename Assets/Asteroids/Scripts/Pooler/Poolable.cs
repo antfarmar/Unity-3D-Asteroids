@@ -4,7 +4,7 @@ using System;
 
 [Serializable]
 [ExecuteInEditMode]
-public sealed class Poolable : Parkable, Recyclable
+public sealed class Poolable : Parkable, IRecyclable
 {
     [SerializeField]
     [HideInInspector]
@@ -15,7 +15,7 @@ public sealed class Poolable : Parkable, Recyclable
     void Awake()
     {
         InstantiationGuard();
-        ExecuteEvents.Execute<PoolableAware>(gameObject, null, (script, ignored) => script.PoolableAwoke(this));
+        ExecuteEvents.Execute<IPoolableAware>(gameObject, null, (script, ignored) => script.PoolableAwoke(this));
     }
 
     void InstantiationGuard()
@@ -52,15 +52,21 @@ public sealed class Poolable : Parkable, Recyclable
     }
 }
 
-public interface PoolableAware : IEventSystemHandler
+//============================================================================
+
+public interface IPoolableAware : IEventSystemHandler
 {
     void PoolableAwoke(Poolable p);
 }
 
-public interface Recyclable
+//============================================================================
+
+public interface IRecyclable
 {
     void Recycle();
 }
+
+//============================================================================
 
 public abstract class Parkable : MonoBehaviour
 {

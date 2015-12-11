@@ -19,7 +19,7 @@ public class ObjectPool : ScriptableObject
         parking.Park(p);
     }
 
-    public T GetRecyclable<T>() where T : Recyclable
+    public T GetRecyclable<T>() where T : IRecyclable
     {
         return GetRecyclable().GetComponent<T>();
     }
@@ -58,6 +58,8 @@ public class ObjectPool : ScriptableObject
         return p;
     }
 }
+
+//============================================================================
 
 [Serializable]
 public class ParkingStorage
