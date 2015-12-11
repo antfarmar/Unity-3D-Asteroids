@@ -1,16 +1,13 @@
 fileFormatVersion: 2
 guid: f1eade97d9fd07444b8fb27b561eaa50
-timeCreated: 1449800643
+timeCreated: 1449824423
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
   defaultReferences:
-  - m_BigExplosionPrefab: {fileID: 148916, guid: 1de3524cebe15314eafe374b33b9d40e,
-      type: 2}
-  - m_SmallExplosionPrefab: {fileID: 148916, guid: d133e28b226452c4dbeb57d9f7eaf843,
-      type: 2}
-  - m_ShipExplosionPrefab: {fileID: 148916, guid: 62955dd5c19945c49bb900d6e91cb021,
-      type: 2}
+  - m_BigExplosionPrefab: {instanceID: 0}
+  - m_SmallExplosionPrefab: {instanceID: 0}
+  - m_ShipExplosionPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
