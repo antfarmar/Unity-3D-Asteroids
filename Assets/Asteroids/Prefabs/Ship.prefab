@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 482464}
   m_Layer: 0
   m_Name: BulletSpawnPoint
-  m_TagString: BulletSpawn
+  m_TagString: AsteroidBig
   m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,7 +141,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -307,12 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e715fa2fc8492154f96186641f741e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BulletPrefab: {fileID: 175094, guid: c2c7c9743d4d55645b40878bbce4c25e, type: 2}
-  m_BulletPool:
-    m_MaxCount: 0
-    m_Prefab: {fileID: 0}
-    m_Pool: []
-  m_BulletVelocity: 25
+  bulletPrefab: {fileID: 175094, guid: c2c7c9743d4d55645b40878bbce4c25e, type: 2}
+  bulletPool: {fileID: 0}
 --- !u!135 &13597602
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -1376,7 +1374,9 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1476,7 +1476,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_TagString
-      value: Ship
+      value: AsteroidBig
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_IsTrigger
