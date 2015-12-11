@@ -19,6 +19,18 @@ class UniformRandomVector3
 
 public class Spawn
 {
+    public static void ShipExplosion(Vector3 position)
+    {
+        // Manager probably has too many tasks.
+        GameManager.SpawnShipExplosion(position);
+    }
+
+    public static void AsteroidExplosion(Vector3 position)
+    {
+        // Manager probably has too many tasks.
+        GameManager.SpawnAsteroidExplosion(position);
+    }
+
     public static void SmallAsteroid(Vector3 position)
     {
         GameManager.SpawnSmallAsteroid(position);

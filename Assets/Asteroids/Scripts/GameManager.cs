@@ -8,12 +8,15 @@ public class GameManager : MonoBehaviour
     static GameManager instance;
 
     public GameObject m_ShipPrefab;
+    public GameObject m_ExplosionPrefab;
+    public GameObject m_ShipExplosionPrefab;
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
     public Text m_UIText;
 
     ObjectPool bigAsteroidPool;
     ObjectPool smallAsteroidPool;
+    ObjectPool explosionPool;
 
     AsteroidWallpaper wallpaper;
     GameAnnouncer announce;
@@ -29,6 +32,7 @@ public class GameManager : MonoBehaviour
         SingletonInstanceGuard();
         bigAsteroidPool = ObjectPool.Build(m_AsteroidBigPrefab, 10, 20);
         smallAsteroidPool = ObjectPool.Build(m_AsteroidSmallPrefab, 10, 30);
+        explosionPool = ObjectPool.Build(m_ExplosionPrefab, 5, 5);
         announce = GameAnnouncer.AnnounceTo(Announcer.TextComponent(m_UIText), Announcer.Log(this));
         wallpaper = AsteroidWallpaper.New(bigAsteroidPool, smallAsteroidPool);
     }
@@ -138,9 +142,7 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            //bool decision = UnityEngine.Random.value > 0.5f;
-            bool decision = i % 2 == 0;
-            ObjectPool bigOrSmall = decision ? bigAsteroidPool : smallAsteroidPool;
+            ObjectPool bigOrSmall = i % 2 == 0 ? bigAsteroidPool : smallAsteroidPool;
             var asteroid = bigOrSmall.GetRecyclable<AsteroidBehaviour>();
             asteroid.SpawnAt(AsteroidBehaviour.FindSuitableSpawnLocation());
         }
@@ -150,6 +152,19 @@ public class GameManager : MonoBehaviour
     {
         AsteroidBehaviour asteroid = instance.smallAsteroidPool.GetRecyclable<AsteroidBehaviour>();
         asteroid.SpawnAt(position);
+    }
+
+    public static void SpawnAsteroidExplosion(Vector3 position)
+    {
+        Poolable explosion = instance.explosionPool.GetRecyclable();
+        explosion.transform.position = position;
+        explosion.transform.Rotate(new Vector3(0f, 0f, UnityEngine.Random.Range(0, 360)));
+    }
+
+    public static void SpawnShipExplosion(Vector3 position)
+    {
+        var rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0, 360));
+        Instantiate(instance.m_ShipExplosionPrefab, position, rotation);
     }
 
     void RemoveRemainingAsteroids()

@@ -13,7 +13,7 @@ GameObject:
   - 199: {fileID: 19952746}
   - 82: {fileID: 8263120}
   m_Layer: 0
-  m_Name: ExplosionSmall
+  m_Name: ExplosionAsteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 89c46cdf44caa8846ad071be2a3e2ecf, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -308,7 +308,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .00277777785
+          value: 0
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -420,7 +420,7 @@ ParticleSystem:
   RotationModule:
     enabled: 1
     curve:
-      scalar: 1.57079625
+      scalar: 8.72664642
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -458,10 +458,10 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 4278211949
+          rgba: 4284734719
         key1:
           serializedVersion: 2
-          rgba: 8184575
+          rgba: 21869
         key2:
           serializedVersion: 2
           rgba: 0
@@ -1129,9 +1129,7 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1222,7 +1220,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.key0.rgba
-      value: 4278211949
+      value: 4284734719
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSpeed.minCurve.m_Curve.Array.data[0].value
@@ -1238,7 +1236,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.key1.rgba
-      value: 8184575
+      value: 21869
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: OutputAudioMixerGroup
@@ -1248,7 +1246,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 89c46cdf44caa8846ad071be2a3e2ecf, type: 3}
+      objectReference: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
     - target: {fileID: 0}
       propertyPath: m_PlayOnAwake
       value: 0
@@ -1259,7 +1257,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: RotationModule.curve.scalar
-      value: 1.57079625
+      value: 8.72664642
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: RotationBySpeedModule.curve.scalar
@@ -1292,14 +1290,6 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: InitialModule.startRotation.minMaxState
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: ColorModule.gradient.maxGradient.atime1
-      value: 65535
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: InitialModule.startRotation.minCurve.m_Curve.Array.data[0].value
-      value: .00277777785
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -4,8 +4,6 @@ using UnityEngine.Serialization;
 
 public class AsteroidBehaviour : GameBehaviour
 {
-    public Exploder exploder;
-
     [SerializeField]
     [Range(25, 500)]
     protected int destructionScore = 25;
@@ -25,11 +23,6 @@ public class AsteroidBehaviour : GameBehaviour
 
     static int activeCount;
     public static bool Any { get { return activeCount > 0; } }
-
-    void Awake()
-    {
-        exploder.BuildPools();
-    }
 
     protected virtual void OnEnable()
     {
@@ -70,6 +63,8 @@ public class AsteroidBehaviour : GameBehaviour
     protected void HitByShip(GameObject ship)
     {
         KillWithExplosion(victim: ship);
+        //GameManager.SpawnShipExplosion(ship);
+        //RemoveFromGame(ship);
     }
     #endregion
 
@@ -81,16 +76,10 @@ public class AsteroidBehaviour : GameBehaviour
 
     protected void HitByBullet(GameObject bullet)
     {
-        RemoveFromGame(bullet);
-        KillWithExplosion(victim: this.gameObject);
+        KillWithExplosion(victim: bullet);
         Score(destructionScore);
         Shatter();
-    }
-
-    public void KillWithExplosion(GameObject victim)
-    {
-        exploder.Explode(victim.tag, victim.transform.position);
-        RemoveFromGame(victim);
+        RemoveFromGame();
     }
 
     protected virtual void Shatter()
