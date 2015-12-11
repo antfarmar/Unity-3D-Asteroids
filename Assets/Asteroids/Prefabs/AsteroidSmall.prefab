@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4447694d941b2674aa4af87367121375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exploder: {fileID: 11400000, guid: bcd2097a2d8cbad46bcd6ffb7c85f012, type: 2}
+  exploder: {fileID: 11400000, guid: 33114cb793821bb43b5d83bb7b809f56, type: 2}
   destructionScore: 25
   initialForce: 5000
   initialTorque: 2000
@@ -224,7 +224,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: exploder
       value: 
-      objectReference: {fileID: 11400000, guid: bcd2097a2d8cbad46bcd6ffb7c85f012,
+      objectReference: {fileID: 11400000, guid: 33114cb793821bb43b5d83bb7b809f56,
         type: 2}
     - target: {fileID: 0}
       propertyPath: m_StaticEditorFlags
