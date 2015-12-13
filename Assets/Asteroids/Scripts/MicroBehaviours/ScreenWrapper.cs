@@ -100,6 +100,7 @@ public class ScreenWrapper : MonoBehaviour
     void ReAllowHorizontalWrap() { allowedToWrapHorizontally = true; }
     void ReAllowVerticalWrap() { allowedToWrapVertically = true; }
 
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
     void DrawObjectBoundsInSceneView()
     {
         Vector3 lowerLeft = new Vector3(objectBounds.min.x, objectBounds.min.y, 0);
