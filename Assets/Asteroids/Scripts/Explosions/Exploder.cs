@@ -17,20 +17,20 @@ public class Exploder : ScriptableObject
     // Called in Editor too!
     void OnEnable()
     {
-        Debug.Log("S.O. ENABLED");
-        //m_BigExplosionPool = ObjectPool.Build(m_BigExplosionPrefab, 5, 5);
-        //m_SmallExplosionPool = ObjectPool.Build(m_SmallExplosionPrefab, 5, 5);
-
+        //Debug.Log("S.O. ENABLED");
+        //hideFlags = HideFlags.DontSave; // http://blogs.unity3d.com/2012/10/25/unity-serialization/   
     }
 
     // Called in Editor too!
     void OnDisable()
     {
-        Debug.Log("S.O. DISABLED");
+        //Debug.Log("S.O. DISABLED");
         poolsBuilt = false;
         DestroyImmediate(m_BigExplosionPool);
         DestroyImmediate(m_SmallExplosionPool);
+        //Resources.UnloadUnusedAssets();
     }
+
 
     public void BuildPools()
     {
@@ -38,8 +38,10 @@ public class Exploder : ScriptableObject
         {
             m_BigExplosionPool = ObjectPool.Build(m_BigExplosionPrefab, 5, 5);
             m_SmallExplosionPool = ObjectPool.Build(m_SmallExplosionPrefab, 5, 5);
+            m_BigExplosionPool.hideFlags = HideFlags.DontSave;
+            m_SmallExplosionPool.hideFlags = HideFlags.DontSave;
             poolsBuilt = true;
-            Debug.Log("BUILT EXPLOSION POOLS");
+            //Debug.Log("BUILT EXPLOSION POOLS");
         }
     }
 
