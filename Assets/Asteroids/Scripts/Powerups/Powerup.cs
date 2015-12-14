@@ -7,10 +7,10 @@ public class Powerup : GameToken
     // Reference obtained on collisions.
     protected GameObject ship;
 
-    [Range(5,30)]
+    [Range(5, 30)]
     public int lifetime = 10;
 
-    [Range(5,30)]
+    [Range(5, 30)]
     public int activeDuration = 5;
 
     void Start()
@@ -26,7 +26,7 @@ public class Powerup : GameToken
 
     protected virtual void OnCollisionEnter(Collision otherCollision)
     {
-        GameObject otherObject =  otherCollision.gameObject;
+        GameObject otherObject = otherCollision.gameObject;
         if (otherObject.tag == "Ship")
         {
             ship = otherObject;
@@ -39,6 +39,7 @@ public class Powerup : GameToken
 
     protected virtual void GrantPowerup()
     {
+        CancelInvoke("RemovePowerup"); // Allows shield "refresh" if currently enabled.
         Invoke("RemovePowerup", activeDuration);
     }
 

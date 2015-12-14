@@ -102,23 +102,20 @@ public class GameManager : MonoBehaviour
     {
         ship.EnableControls();
         announce.LevelPlaying();
-        Coroutine powerUpCoroutine = StartCoroutine(TrySpawnPowerup());
-        while (ship.IsAlive && AsteroidBehaviour.Any)
-        {
-            yield return null;
-        }
+        Coroutine powerUpCoroutine = StartCoroutine(powerupManager.PowerupSpawner());
+        while (ship.IsAlive && AsteroidBehaviour.Any) yield return null;
         StopCoroutine(powerUpCoroutine);
     }
 
-    IEnumerator TrySpawnPowerup()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(2f);
-            powerupManager.ChanceSpawn();
-        }
+    //IEnumerator TrySpawnPowerup()
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(2f);
+    //        powerupManager.ChanceSpawn();
+    //    }
 
-    }
+    //}
 
     IEnumerator LevelEnd()
     {

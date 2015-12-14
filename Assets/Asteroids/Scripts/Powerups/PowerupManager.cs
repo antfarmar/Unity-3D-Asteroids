@@ -4,21 +4,25 @@ using System.Collections;
 [CreateAssetMenu(fileName = "PowerupManager", menuName = "PowerupManager")]
 public class PowerupManager : ScriptableObject
 {
+    [Range(5f,10f)]
+    public float maxTimeBetweenSpawns = 10f;
+
     public Powerup[] powerupPrefabs;
 
-    public void ChanceSpawn()
+
+    public IEnumerator PowerupSpawner()
     {
-        foreach (var prefab in powerupPrefabs)
+        while (true)
         {
-            if (Random.value > 0.5f)
-            {
-                int mask = LayerMask.GetMask("Asteroid");
-                float collisionSphereRadius = 2f;
-                Vector3 position = Spawn.FindSuitableSpawnLocation(mask, collisionSphereRadius);
-                Powerup powerup  = Instantiate<Powerup>(prefab);
-                powerup.SpawnAt(position);
-            }
+            var wait = Random.Range(5f, maxTimeBetweenSpawns);
+            yield return new WaitForSeconds(wait);
+
+            var prefab = powerupPrefabs[Random.Range(0, powerupPrefabs.Length)];
+            Powerup powerup  = Instantiate(prefab);
+            int mask = LayerMask.GetMask("Asteroid");
+            float collisionSphereRadius = powerup.transform.localScale.x;
+            Vector3 position = Spawn.FindSuitableSpawnLocation(mask, collisionSphereRadius);
+            powerup.SpawnAt(position);
         }
     }
-
 }
