@@ -8,11 +8,15 @@ public class PowerupManager : ScriptableObject
 
     public void ChanceSpawn()
     {
-        foreach (var pu in powerupPrefabs)
+        foreach (var prefab in powerupPrefabs)
         {
             if (Random.value > 0.5f)
             {
-                Instantiate(pu, Vector3.zero, Quaternion.identity);
+                int mask = LayerMask.GetMask("Asteroid");
+                float collisionSphereRadius = 2f;
+                Vector3 position = Spawn.FindSuitableSpawnLocation(mask, collisionSphereRadius);
+                Powerup powerup  = Instantiate<Powerup>(prefab);
+                powerup.SpawnAt(position);
             }
         }
     }

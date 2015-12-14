@@ -102,18 +102,19 @@ public class GameManager : MonoBehaviour
     {
         ship.EnableControls();
         announce.LevelPlaying();
-        StartCoroutine(TrySpawnPowerup());
+        Coroutine powerUpCoroutine = StartCoroutine(TrySpawnPowerup());
         while (ship.IsAlive && AsteroidBehaviour.Any)
         {
             yield return null;
         }
+        StopCoroutine(powerUpCoroutine);
     }
 
     IEnumerator TrySpawnPowerup()
     {
         while (true)
         {
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(2f);
             powerupManager.ChanceSpawn();
         }
 
@@ -127,7 +128,7 @@ public class GameManager : MonoBehaviour
             announce.GameOver();
             yield return Pause.Brief(); Score.Tally();
             yield return Pause.Brief(); Score.Reset();
-            RemoveRemainingAsteroids();
+            RemoveRemainingGameTokens();
             announce.ClearAnnouncements();
             NewGame();
         }
@@ -160,7 +161,7 @@ public class GameManager : MonoBehaviour
         {
             ObjectPool bigOrSmall = i % 2 == 0 ? bigAsteroidPool : smallAsteroidPool;
             var asteroid = bigOrSmall.GetRecyclable<AsteroidBehaviour>();
-            asteroid.SpawnAt(AsteroidBehaviour.FindSuitableSpawnLocation());
+            asteroid.SpawnAt(AsteroidBehaviour.FindAsteroidSpawnLocation());
         }
     }
 
@@ -183,9 +184,9 @@ public class GameManager : MonoBehaviour
     //    Instantiate(instance.m_ShipExplosionPrefab, position, rotation);
     //}
 
-    void RemoveRemainingAsteroids()
+    void RemoveRemainingGameTokens()
     {
-        foreach (var a in FindObjectsOfType<AsteroidBehaviour>())
+        foreach (var a in FindObjectsOfType<GameToken>())
             a.RemoveFromGame();
     }
 }

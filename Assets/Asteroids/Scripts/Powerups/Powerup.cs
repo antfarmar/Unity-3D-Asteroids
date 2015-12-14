@@ -2,11 +2,9 @@
 using System.Collections;
 using System;
 
-public class Powerup : GameBehaviour
+public class Powerup : GameToken
 {
-
-    public GameObject prefab;
-
+    // Reference obtained on collisions.
     protected GameObject ship;
 
     [Range(5,30)]
@@ -21,10 +19,10 @@ public class Powerup : GameBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        //animation?
-    }
+    //void Update()
+    //{
+    //    //animation?
+    //}
 
     protected virtual void OnCollisionEnter(Collision otherCollision)
     {
@@ -33,6 +31,7 @@ public class Powerup : GameBehaviour
         {
             ship = otherObject;
             CancelInvoke("RemoveFromGame");
+            Score(destructionScore);
             HidePowerup();
             GrantPowerup();
         }
@@ -48,8 +47,6 @@ public class Powerup : GameBehaviour
         Debug.Log("REMOVE BASE POWERUP");
         RemoveFromGame();
     }
-
-
 
     void HidePowerup()
     {

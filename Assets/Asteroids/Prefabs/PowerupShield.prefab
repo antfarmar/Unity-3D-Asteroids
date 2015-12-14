@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 142076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,7 +73,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 142076}
   serializedVersion: 2
-  m_Mass: 1.00000001e-07
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
@@ -92,9 +92,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90e267c00c429040a721cec9c38a555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 142076}
-  lifetime: 5
-  activeDuration: 5
+  destructionScore: 100
+  initialForce: 100
+  initialTorque: 100
+  uniformScale:
+    minScale: 2
+    maxScale: 2
+  lifetime: 10
+  activeDuration: 10
 --- !u!114 &11494716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,11 +151,47 @@ Prefab:
       objectReference: {fileID: 142076}
     - target: {fileID: 0}
       propertyPath: lifetime
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: activeDuration
-      value: 10.1999998
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: initialForce
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: initialTorque
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: destructionScore
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: uniformScale.minScale
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: uniformScale.maxScale
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
