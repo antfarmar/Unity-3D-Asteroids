@@ -13,7 +13,7 @@ GameObject:
   - 199: {fileID: 19952746}
   - 82: {fileID: 8263120}
   m_Layer: 0
-  m_Name: ExplosionAsteroid
+  m_Name: ExplosionBig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: e68b774a081b1ce47860361e8f2f8f62, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 148916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85c3804104950874dbfece5fdff7a276, type: 3}
+  m_Script: {fileID: 11500000, guid: b0d81a46f91d646409993f2eab3c0c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!198 &19831888
@@ -130,7 +130,7 @@ ParticleSystem:
   InitialModule:
     enabled: 1
     startLifetime:
-      scalar: 1
+      scalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -145,7 +145,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .750000179
+          value: .5
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -153,7 +153,7 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 3
     startSpeed:
-      scalar: 10
+      scalar: 20
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -168,7 +168,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .100000001
+          value: .5
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -270,7 +270,7 @@ ParticleSystem:
         rgba: 4294967295
       minMaxState: 0
     startSize:
-      scalar: 1
+      scalar: 1.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -285,7 +285,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: .5
+          value: .666666687
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1129,7 +1129,9 @@ ParticleSystemRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -1164,11 +1166,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startLifetime.minCurve.m_Curve.Array.data[0].value
-      value: .750000179
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_CastShadows
@@ -1204,11 +1206,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSize.minCurve.m_Curve.Array.data[0].value
-      value: .5
+      value: .666666687
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSize.scalar
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.inheritVelocity
@@ -1224,7 +1226,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSpeed.minCurve.m_Curve.Array.data[0].value
-      value: .100000001
+      value: .5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.ctime1
@@ -1246,7 +1248,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 4959334cca5f52e44baf60c49fc0a11e, type: 3}
+      objectReference: {fileID: 8300000, guid: e68b774a081b1ce47860361e8f2f8f62, type: 3}
     - target: {fileID: 0}
       propertyPath: m_PlayOnAwake
       value: 0
@@ -1290,6 +1292,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: InitialModule.startRotation.minMaxState
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

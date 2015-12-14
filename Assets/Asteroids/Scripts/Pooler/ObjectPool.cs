@@ -28,7 +28,8 @@ public class ObjectPool : ScriptableObject
     {
         if (parking.IsEmpty)
             return Clone();
-        return (Poolable)parking.Unpark();
+        else
+            return (Poolable)parking.Unpark();
     }
 
     public static ObjectPool Build(GameObject prefab, int initialClones, int initialCapacity)

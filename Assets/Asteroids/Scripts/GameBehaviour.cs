@@ -52,15 +52,15 @@ public class GameBehaviour : MonoBehaviour, IPoolableAware, IRecyclable
         Destroy(gameObject);
     }
 
-    public static void KillWithExplosion(GameObject victim)
-    {
-        if (victim.tag == "Ship")
-            Spawn.ShipExplosion(victim.transform.position);
-        else
-            Spawn.AsteroidExplosion(victim.transform.position);
+    //public static void KillWithExplosion(GameObject victim)
+    //{
+    //    if (victim.tag == "Ship")
+    //        Spawn.ShipExplosion(victim.transform.position);
+    //    else
+    //        Spawn.AsteroidExplosion(victim.transform.position);
 
-        RemoveFromGame(victim);
-    }
+    //    RemoveFromGame(victim);
+    //}
 
     protected void Score(int score)
     {

@@ -10,7 +10,6 @@ public class ScreenWrapper : MonoBehaviour
 
     Renderer objectRenderer;
     Bounds objectBounds;
-    Rect worldRect;
 
     bool allowedToWrapHorizontally = true;
     bool allowedToWrapVertically = true;
@@ -18,52 +17,43 @@ public class ScreenWrapper : MonoBehaviour
 
     float wrapTimeout = 0.5f;
 
-    int screenWidth;
-    int screenHeight;
+    static Rect worldRect;
+    static int screenWidth;
+    static int screenHeight;
 
     void OnEnable()
     {
         objectRenderer = GetComponent<Renderer>();
         allowedToWrapHorizontally = true;
         allowedToWrapVertically = true;
-        SetCurrentScreenSize();
-        ComputeWorldRectSize();
     }
 
     void Update()
     {
-        if (debug) DrawObjectBoundsInSceneView();
-
         if (ScreenSizeChanged())
         {
             ComputeWorldRectSize();
-            SetCurrentScreenSize();
+            SaveCurrentScreenSize();
         }
 
-        ScreenWrap();
-    }
+        if (debug) DrawObjectBoundsInSceneView();
 
-    void ComputeWorldRectSize()
-    {
-        Vector2 worldMin = GetWorldPointFromViewport(new Vector3(0f, 0f, 0f));
-        Vector2 worldMax = GetWorldPointFromViewport(new Vector3(1f, 1f, 0f));
-        //worldRect = new Rect(tl.x, tl.y, br.x * 2, tl.y * 2);
-        worldRect = Rect.MinMaxRect(worldMin.x, worldMin.y, worldMax.x, worldMax.y);
+        ScreenWrap();
     }
 
     void ScreenWrap()
     {
         objectBounds = objectRenderer.bounds;
 
-        Vector3 newPosition = transform.position;
-
-        bool isOutOfBoundsRight = objectBounds.min.x > worldRect.xMax;
-        bool isOutOfBoundsLeft = objectBounds.max.x < worldRect.xMin;
-        bool isOutOfBoundsTop = objectBounds.min.y > worldRect.yMax;
+        bool isOutOfBoundsRight  = objectBounds.min.x > worldRect.xMax;
+        bool isOutOfBoundsLeft   = objectBounds.max.x < worldRect.xMin;
+        bool isOutOfBoundsTop    = objectBounds.min.y > worldRect.yMax;
         bool isOutOfBoundsBottom = objectBounds.max.y < worldRect.yMin;
 
         bool needToWrapHorizontally = isOutOfBoundsRight || isOutOfBoundsLeft;
-        bool needToWrapVertically = isOutOfBoundsTop || isOutOfBoundsBottom;
+        bool needToWrapVertically   = isOutOfBoundsTop || isOutOfBoundsBottom;
+
+        Vector3 newPosition = transform.position;
 
         if (needToWrapHorizontally && allowedToWrapHorizontally)
         {
@@ -89,6 +79,19 @@ public class ScreenWrapper : MonoBehaviour
         }
     }
 
+    static void ComputeWorldRectSize()
+    {
+        var viewMin = Vector2.zero;
+        var viewMax = Vector2.one;
+        Vector2 worldMin = GetWorldPointFromViewport(viewMin);
+        Vector2 worldMax = GetWorldPointFromViewport(viewMax);
+        worldRect = Rect.MinMaxRect(worldMin.x, worldMin.y, worldMax.x, worldMax.y);
+    }
+
+    static Vector2 GetWorldPointFromViewport(Vector3 viewportPoint) { return Camera.main.ViewportToWorldPoint(viewportPoint); }
+    static bool ScreenSizeChanged() { return (screenWidth != Screen.width || screenHeight != Screen.height); }
+    static void SaveCurrentScreenSize() { screenWidth = Screen.width; screenHeight = Screen.height; }
+
     float WrapRightToLeft() { return worldRect.xMin - objectBounds.extents.x; }
     float WrapLeftToRight() { return worldRect.xMax + objectBounds.extents.x; }
     float WrapTopToBottom() { return worldRect.yMin - objectBounds.extents.y; }
@@ -97,11 +100,7 @@ public class ScreenWrapper : MonoBehaviour
     void ReAllowHorizontalWrap() { allowedToWrapHorizontally = true; }
     void ReAllowVerticalWrap() { allowedToWrapVertically = true; }
 
-    Vector2 GetWorldPointFromViewport(Vector3 viewportPoint) { return Camera.main.ViewportToWorldPoint(viewportPoint); }
-
-    bool ScreenSizeChanged() { return (screenWidth != Screen.width || screenHeight != Screen.height); }
-    void SetCurrentScreenSize() { screenWidth = Screen.width; screenHeight = Screen.height; }
-
+    [System.Diagnostics.Conditional("UNITY_EDITOR")]
     void DrawObjectBoundsInSceneView()
     {
         Vector3 lowerLeft = new Vector3(objectBounds.min.x, objectBounds.min.y, 0);
@@ -117,5 +116,4 @@ public class ScreenWrapper : MonoBehaviour
 
         Debug.DrawLine(worldRect.min, worldRect.max, sceneViewDisplayColor);
     }
-
 }

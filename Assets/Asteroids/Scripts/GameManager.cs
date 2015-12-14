@@ -7,16 +7,18 @@ public class GameManager : MonoBehaviour
 {
     static GameManager instance;
 
+    public PowerupManager powerupManager;
+
     public GameObject m_ShipPrefab;
-    public GameObject m_ExplosionPrefab;
-    public GameObject m_ShipExplosionPrefab;
+    //public GameObject m_ExplosionPrefab;
+    //public GameObject m_ShipExplosionPrefab;
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
     public Text m_UIText;
 
     ObjectPool bigAsteroidPool;
     ObjectPool smallAsteroidPool;
-    ObjectPool explosionPool;
+    //ObjectPool explosionPool;
 
     AsteroidWallpaper wallpaper;
     GameAnnouncer announce;
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour
         SingletonInstanceGuard();
         bigAsteroidPool = ObjectPool.Build(m_AsteroidBigPrefab, 10, 20);
         smallAsteroidPool = ObjectPool.Build(m_AsteroidSmallPrefab, 10, 30);
-        explosionPool = ObjectPool.Build(m_ExplosionPrefab, 5, 5);
+        //explosionPool = ObjectPool.Build(m_ExplosionPrefab, 5, 5);
         announce = GameAnnouncer.AnnounceTo(Announcer.TextComponent(m_UIText), Announcer.Log(this));
         wallpaper = AsteroidWallpaper.New(bigAsteroidPool, smallAsteroidPool);
     }
@@ -100,8 +102,20 @@ public class GameManager : MonoBehaviour
     {
         ship.EnableControls();
         announce.LevelPlaying();
+        Coroutine powerUpCoroutine = StartCoroutine(powerupManager.PowerupSpawner());
         while (ship.IsAlive && AsteroidBehaviour.Any) yield return null;
+        StopCoroutine(powerUpCoroutine);
     }
+
+    //IEnumerator TrySpawnPowerup()
+    //{
+    //    while (true)
+    //    {
+    //        yield return new WaitForSeconds(2f);
+    //        powerupManager.ChanceSpawn();
+    //    }
+
+    //}
 
     IEnumerator LevelEnd()
     {
@@ -111,7 +125,7 @@ public class GameManager : MonoBehaviour
             announce.GameOver();
             yield return Pause.Brief(); Score.Tally();
             yield return Pause.Brief(); Score.Reset();
-            RemoveRemainingAsteroids();
+            RemoveRemainingGameTokens();
             announce.ClearAnnouncements();
             NewGame();
         }
@@ -144,7 +158,7 @@ public class GameManager : MonoBehaviour
         {
             ObjectPool bigOrSmall = i % 2 == 0 ? bigAsteroidPool : smallAsteroidPool;
             var asteroid = bigOrSmall.GetRecyclable<AsteroidBehaviour>();
-            asteroid.SpawnAt(AsteroidBehaviour.FindSuitableSpawnLocation());
+            asteroid.SpawnAt(AsteroidBehaviour.FindAsteroidSpawnLocation());
         }
     }
 
@@ -154,22 +168,22 @@ public class GameManager : MonoBehaviour
         asteroid.SpawnAt(position);
     }
 
-    public static void SpawnAsteroidExplosion(Vector3 position)
-    {
-        Poolable explosion = instance.explosionPool.GetRecyclable();
-        explosion.transform.position = position;
-        explosion.transform.Rotate(new Vector3(0f, 0f, UnityEngine.Random.Range(0, 360)));
-    }
+    //public static void SpawnAsteroidExplosion(Vector3 position)
+    //{
+    //    Poolable explosion = instance.explosionPool.GetRecyclable();
+    //    explosion.transform.position = position;
+    //    explosion.transform.Rotate(new Vector3(0f, 0f, UnityEngine.Random.Range(0, 360)));
+    //}
 
-    public static void SpawnShipExplosion(Vector3 position)
-    {
-        var rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0, 360));
-        Instantiate(instance.m_ShipExplosionPrefab, position, rotation);
-    }
+    //public static void SpawnShipExplosion(Vector3 position)
+    //{
+    //    var rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0, 360));
+    //    Instantiate(instance.m_ShipExplosionPrefab, position, rotation);
+    //}
 
-    void RemoveRemainingAsteroids()
+    void RemoveRemainingGameTokens()
     {
-        foreach (var a in FindObjectsOfType<AsteroidBehaviour>())
+        foreach (var a in FindObjectsOfType<GameToken>())
             a.RemoveFromGame();
     }
 }

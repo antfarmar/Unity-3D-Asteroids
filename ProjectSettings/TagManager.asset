@@ -6,9 +6,10 @@ TagManager:
   tags:
   - AsteroidBig
   - AsteroidSmall
-  - BulletSpawnPoint
   - Asteroid
   - Ship
+  - BulletSpawn
+  - Shield
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - Ship
   - Bullet
   - ShipSpawnSphere
-  - 
-  - 
+  - Powerup
+  - Shield
   - 
   - 
   - 

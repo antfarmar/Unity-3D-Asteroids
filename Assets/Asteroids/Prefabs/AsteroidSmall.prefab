@@ -73,7 +73,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186268}
   serializedVersion: 2
-  m_Mass: 10
+  m_Mass: 5
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
@@ -87,7 +87,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186268}
-  m_Material: {fileID: 13400000, guid: 75a365073168f16469403ee06d6fe850, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -104,9 +104,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4447694d941b2674aa4af87367121375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exploder: {fileID: 11400000, guid: 7d1d8c2a8d752c743925f2434a35e333, type: 2}
   destructionScore: 25
-  initialForce: 5000
-  initialTorque: 2000
+  initialForce: 2500
+  initialTorque: 1000
   uniformScale:
     minScale: .5
     maxScale: 1
@@ -126,7 +127,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  wrapTimeout: .5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -149,8 +149,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Material
       value: 
-      objectReference: {fileID: 13400000, guid: 75a365073168f16469403ee06d6fe850,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: AsteroidSmall
@@ -211,7 +210,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_Mass
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: uniformScale.minScale
@@ -220,6 +219,19 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: uniformScale.maxScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: exploder
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d1d8c2a8d752c743925f2434a35e333,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: initialForce
+      value: 2500
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: initialTorque
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

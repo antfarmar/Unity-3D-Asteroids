@@ -19,22 +19,35 @@ class UniformRandomVector3
 
 public class Spawn
 {
-    public static void ShipExplosion(Vector3 position)
-    {
-        // Manager probably has too many tasks.
-        GameManager.SpawnShipExplosion(position);
-    }
 
-    public static void AsteroidExplosion(Vector3 position)
+    public static Vector3 FindSuitableSpawnLocation(int layerMask, float collisionSphereRadius)
     {
-        // Manager probably has too many tasks.
-        GameManager.SpawnAsteroidExplosion(position);
+        Vector3 spawnPosition;
+        bool hit = false;
+        do
+        {
+            spawnPosition = Viewport.GetRandomWorldPositionXY();
+            hit = Physics.CheckSphere(spawnPosition, collisionSphereRadius, layerMask);
+        } while (hit);
+        return spawnPosition;
     }
 
     public static void SmallAsteroid(Vector3 position)
     {
         GameManager.SpawnSmallAsteroid(position);
     }
+
+    //public static void ShipExplosion(Vector3 position)
+    //{
+    //    // Manager probably has too many tasks.
+    //    GameManager.SpawnShipExplosion(position);
+    //}
+
+    //public static void AsteroidExplosion(Vector3 position)
+    //{
+    //    // Manager probably has too many tasks.
+    //    GameManager.SpawnAsteroidExplosion(position);
+    //}
 }
 
 public static class Vector3X
