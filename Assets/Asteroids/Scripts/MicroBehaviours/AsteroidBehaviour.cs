@@ -62,9 +62,11 @@ public class AsteroidBehaviour : GameBehaviour
     #endregion
 
     #region Hit by ship
-    protected virtual void OnCollisionEnter(Collision shipCollision)
+    protected virtual void OnCollisionEnter(Collision otherCollision)
     {
-        HitByShip(shipCollision.gameObject);
+        GameObject otherObject =  otherCollision.gameObject;
+        if (otherObject.tag == "Ship")
+            HitByShip(otherObject);
     }
 
     protected void HitByShip(GameObject ship)

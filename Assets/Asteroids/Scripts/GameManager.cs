@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     static GameManager instance;
 
+    public PowerupManager powerupManager;
+
     public GameObject m_ShipPrefab;
     //public GameObject m_ExplosionPrefab;
     //public GameObject m_ShipExplosionPrefab;
@@ -100,7 +102,21 @@ public class GameManager : MonoBehaviour
     {
         ship.EnableControls();
         announce.LevelPlaying();
-        while (ship.IsAlive && AsteroidBehaviour.Any) yield return null;
+        StartCoroutine(TrySpawnPowerup());
+        while (ship.IsAlive && AsteroidBehaviour.Any)
+        {
+            yield return null;
+        }
+    }
+
+    IEnumerator TrySpawnPowerup()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(5f);
+            powerupManager.ChanceSpawn();
+        }
+
     }
 
     IEnumerator LevelEnd()

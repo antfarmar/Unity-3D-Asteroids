@@ -202,7 +202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 276f227c5fa6df8419fa7698ff173ef8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShipPrefab: {fileID: 178224, guid: c1955aaa0bfd5d046a37119e23a74bc1, type: 2}
+  powerupManager: {fileID: 11400000, guid: f6e58a4c14e09514cbfc867dee9079c2, type: 2}
+  m_ShipPrefab: {fileID: 103884, guid: 2fc81e9ad150fa7439c36ae09f08c037, type: 2}
   m_AsteroidBigPrefab: {fileID: 186268, guid: 0cc2b6c448b0759409599f21e66ce41e, type: 2}
   m_AsteroidSmallPrefab: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7,
     type: 2}
