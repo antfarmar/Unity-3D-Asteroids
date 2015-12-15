@@ -10,6 +10,9 @@ public class ShipMovement : MonoBehaviour
     float m_MovementInputValue;         // The current value of the movement input.
     float m_TurnInputValue;             // The current value of the turn input.
 
+    [HideInInspector]
+    public bool hasThrustPowerup;
+
     void Awake()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
@@ -17,21 +20,15 @@ public class ShipMovement : MonoBehaviour
 
     void OnEnable()
     {
-        m_Rigidbody.isKinematic = false;
         m_MovementInputValue = 0f;
         m_TurnInputValue = 0f;
+        hasThrustPowerup = false;
     }
 
     void Update()
     {
         m_TurnInputValue = ShipInput.GetTurnAxis();
         m_MovementInputValue = ShipInput.GetForwardThrust();
-
-        // Freeze z-position (Rigidbody already does this though)
-        Vector3 pos = transform.position;
-        pos.z = 0f;
-        transform.position = pos;
-
     }
 
     void FixedUpdate()
@@ -45,7 +42,8 @@ public class ShipMovement : MonoBehaviour
     {
         // Create a vector in the direction the ship is facing.
         // Magnitude based on the input, speed and the time between frames.
-        Vector3 thrustForce = transform.up * m_MovementInputValue * m_Thrust * Time.deltaTime;
+        Vector3 thrustForce = transform.up * m_MovementInputValue * Time.deltaTime;
+        thrustForce *= hasThrustPowerup ? 2f * m_Thrust : m_Thrust;
         m_Rigidbody.AddForce(thrustForce);
     }
 

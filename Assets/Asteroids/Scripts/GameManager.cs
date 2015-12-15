@@ -43,8 +43,8 @@ public class GameManager : MonoBehaviour
     {
         ship = Ship.Spawn(m_ShipPrefab);
         ship.RemoveFromGame();
-        GC.Collect();
         StartCoroutine(GameLoop());
+        StartCoroutine(powerupManager.StartSpawner(ship));
     }
 
     void OnEnable()
@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
             yield return StartCoroutine(LevelStart());
             yield return StartCoroutine(LevelPlay());
             yield return StartCoroutine(LevelEnd());
+            GC.Collect();
         }
     }
 
@@ -102,20 +103,8 @@ public class GameManager : MonoBehaviour
     {
         ship.EnableControls();
         announce.LevelPlaying();
-        Coroutine powerUpCoroutine = StartCoroutine(powerupManager.PowerupSpawner());
         while (ship.IsAlive && AsteroidBehaviour.Any) yield return null;
-        StopCoroutine(powerUpCoroutine);
     }
-
-    //IEnumerator TrySpawnPowerup()
-    //{
-    //    while (true)
-    //    {
-    //        yield return new WaitForSeconds(2f);
-    //        powerupManager.ChanceSpawn();
-    //    }
-
-    //}
 
     IEnumerator LevelEnd()
     {
@@ -168,23 +157,14 @@ public class GameManager : MonoBehaviour
         asteroid.SpawnAt(position);
     }
 
-    //public static void SpawnAsteroidExplosion(Vector3 position)
-    //{
-    //    Poolable explosion = instance.explosionPool.GetRecyclable();
-    //    explosion.transform.position = position;
-    //    explosion.transform.Rotate(new Vector3(0f, 0f, UnityEngine.Random.Range(0, 360)));
-    //}
-
-    //public static void SpawnShipExplosion(Vector3 position)
-    //{
-    //    var rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0, 360));
-    //    Instantiate(instance.m_ShipExplosionPrefab, position, rotation);
-    //}
 
     void RemoveRemainingGameTokens()
     {
-        foreach (var a in FindObjectsOfType<GameToken>())
+        //foreach (var a in FindObjectsOfType<GameToken>())
+        foreach (var a in FindObjectsOfType<AsteroidBehaviour>())
             a.RemoveFromGame();
+
+        powerupManager.HideAllPowerups();
     }
 }
 

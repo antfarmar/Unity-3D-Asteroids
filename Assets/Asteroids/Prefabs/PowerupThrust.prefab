@@ -10,12 +10,12 @@ GameObject:
   - 4: {fileID: 470170}
   - 33: {fileID: 3337014}
   - 23: {fileID: 2391196}
-  - 135: {fileID: 13555344}
+  - 65: {fileID: 6570152}
   - 54: {fileID: 5403620}
   - 114: {fileID: 11467098}
   - 114: {fileID: 11494716}
   m_Layer: 12
-  m_Name: PowerupShield
+  m_Name: PowerupThrust
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 64a5b005ff8963a4b98e6c51b47fb66f, type: 2}
+  - {fileID: 2100000, guid: 2408179db8585854a82dae0b572bf3a2, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -65,7 +65,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 142076}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &5403620
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -81,6 +81,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
+--- !u!65 &6570152
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 142076}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &11467098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -89,15 +101,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 142076}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e90e267c00c429040a721cec9c38a555, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f6a34dfed3116b4fa646d91b3ae27cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destructionScore: 25
   initialForce: 10
   initialTorque: 10
   uniformScale:
-    minScale: 3
-    maxScale: 3
+    minScale: 2
+    maxScale: 2
   showTime: 10
   powerDuration: 10
   isShowing: 0
@@ -117,18 +129,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
---- !u!135 &13555344
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 142076}
-  m_Material: {fileID: 13400000, guid: 75a365073168f16469403ee06d6fe850, type: 2}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: .5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -139,7 +139,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+      objectReference: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 0}
       propertyPath: m_Material
       value: 
@@ -187,27 +187,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: uniformScale.minScale
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: uniformScale.maxScale
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: m_Layer
-      value: 12
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 0}
-      propertyPath: isShowing
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2408179db8585854a82dae0b572bf3a2, type: 2}
     - target: {fileID: 0}
-      propertyPath: powerDuration
-      value: 10
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

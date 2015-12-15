@@ -4,18 +4,17 @@ using System.Collections;
 public class PowerupShield : Powerup
 {
 
-    protected override void GrantPowerup()
+    protected override void GrantPower()
     {
         GameObject shield = ship.transform.Find("Shield").gameObject;
         shield.SetActive(true);
-        base.GrantPowerup();
+        base.GrantPower();
     }
 
-    protected override void RemovePowerup()
+    protected override void DenyPower()
     {
-        Debug.Log("REMOVE POWERUP");
         GameObject shield = ship.transform.Find("Shield").gameObject;
         shield.SetActive(false);
-        base.RemovePowerup();
+        base.DenyPower();
     }
 }
