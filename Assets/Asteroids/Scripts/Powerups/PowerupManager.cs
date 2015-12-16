@@ -39,7 +39,7 @@ public class PowerupManager : ScriptableObject
             if (ship.IsAlive)
             {
                 var powerup = powerupList[Random.Range(0, powerupList.Count)];
-                if (!powerup.isShowing) powerup.ShowInScene();
+                if (!powerup.isVisible) powerup.ShowInScene();
             }
         }
     }

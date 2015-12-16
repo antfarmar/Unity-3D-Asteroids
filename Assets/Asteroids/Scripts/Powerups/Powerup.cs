@@ -12,7 +12,7 @@ public class Powerup : GameToken
     [Range(5, 30)]
     public int powerDuration = 10;
 
-    public bool isShowing;
+    public bool isVisible;
 
     void Start()
     {
@@ -46,15 +46,13 @@ public class Powerup : GameToken
 
     public void ShowInScene()
     {
-        isShowing = true;
-        SetVisibility();
+        SetVisibility(true);
         Respawn();
     }
 
     public void HideInScene()
     {
-        isShowing = false;
-        SetVisibility();
+        SetVisibility(false);
     }
 
     void Respawn()
@@ -65,9 +63,10 @@ public class Powerup : GameToken
         SpawnAt(position);
     }
 
-    void SetVisibility()
+    void SetVisibility(bool isVisible)
     {
-        gameObject.GetComponent<Renderer>().enabled = isShowing;
-        gameObject.GetComponent<Collider>().enabled = isShowing;
+        this.isVisible = isVisible;
+        gameObject.GetComponent<Renderer>().enabled = this.isVisible;
+        gameObject.GetComponent<Collider>().enabled = this.isVisible;
     }
 }
