@@ -10,10 +10,11 @@ public class ShipShooter : MonoBehaviour
 
     public enum Weapons { Default, Fast, Backwards, Spread, Count }
     public int activeWeapon = (int)Weapons.Default;
+    const int bulletVelocity = 25;
 
     AudioSource shootAudio;
     Transform nozzle;
-
+    Vector3 forward() { return nozzle.up; } // Note: This is a 2D game. "up" is treated as "forward" in 2D. 
 
     void Awake()
     {
@@ -22,21 +23,18 @@ public class ShipShooter : MonoBehaviour
         nozzle = transform.Find("BulletSpawnPoint");
     }
 
-    public void OnEnable()
-    {
-        activeWeapon = (int)Weapons.Default;
-    }
+    public void OnEnable() { activeWeapon = (int)Weapons.Default; }
 
-    void Update()
-    {
-        if (ShipInput.IsShooting())
-            Shoot();
-    }
+    void Update() { if (ShipInput.IsShooting()) Shoot(); }
 
     public void Shoot()
     {
+        shootAudio.Play();
         switch (activeWeapon)
         {
+            case (int)Weapons.Default:
+                ShootDefault();
+                break;
             case (int)Weapons.Fast:
                 ShootFast();
                 break;
@@ -50,50 +48,29 @@ public class ShipShooter : MonoBehaviour
                 ShootDefault();
                 break;
         }
-        shootAudio.Play();
     }
 
-    void ShootDefault()
-    {
-        FireBullet(direction: nozzle.up, velocity: 25);
-    }
+    void ShootDefault() { FireBullet(forward()); }
 
-    void ShootFast()
-    {
-        FireBullet(direction: nozzle.up, velocity: 50);
-    }
+    void ShootFast() { FireBullet(forward(), bulletVelocity * 2); }
 
-    void ShootBackwards()
-    {
-        //Vector3 backwards = -nozzle.up;
-        FireBullet(direction: nozzle.up, velocity: 25);
-        FireBullet(direction: -nozzle.up, velocity: 25);
-    }
-
-
+    void ShootBackwards() { ShootDefault(); FireBullet(-forward()); }
 
     void ShootSpread()
     {
-        float zDegrees = 15f;
-
         for (int i = -1; i <= 1; i++)
         {
-            Vector3 direction = nozzle.up;
-            direction = Quaternion.Euler(0, 0, zDegrees * i) * nozzle.up;
-            FireBullet(direction: direction, velocity: 25);
+            float zDegrees = 15f;
+            Vector3 direction = Quaternion.Euler(0, 0, i * zDegrees) * forward();
+            FireBullet(direction);
         }
 
     }
 
-    void FireBullet(Vector3 direction, float velocity)
+    void FireBullet(Vector3 direction, float velocity = bulletVelocity)
     {
-        // Note: This is a 2D game. "up" is treated as "forward" in 2D. 
-        //Vector3 forward = nozzle.up;
         Bullet().Fire(nozzle.position, nozzle.rotation, direction * velocity);
     }
 
-    BulletBehaviour Bullet()
-    {
-        return bulletPool.GetRecyclable<BulletBehaviour>();
-    }
+    BulletBehaviour Bullet() { return bulletPool.GetRecyclable<BulletBehaviour>(); }
 }
