@@ -4,19 +4,18 @@ using System.Collections;
 public class PowerupFire : Powerup
 {
 
-    protected override void GrantPowerup()
+    protected override void GrantPower()
     {
         ShipShooter shooter = ship.GetComponent<ShipShooter>();
         int weaponChoice = Random.Range(1, (int)ShipShooter.Weapons.Count);
-        shooter.currentWeapon = weaponChoice;
-        base.GrantPowerup();
+        shooter.activeWeapon = weaponChoice;
+        base.GrantPower();
     }
 
-    protected override void RemovePowerup()
+    protected override void DenyPower()
     {
-        Debug.Log("REMOVE POWERUP");
         ShipShooter shooter = ship.GetComponent<ShipShooter>();
-        shooter.currentWeapon = (int)ShipShooter.Weapons.Default;
-        base.RemovePowerup();
+        shooter.activeWeapon = (int)ShipShooter.Weapons.Default;
+        base.DenyPower();
     }
 }

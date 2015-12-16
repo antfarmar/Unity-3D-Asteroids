@@ -4,21 +4,21 @@ using System;
 
 public class Powerup : GameToken
 {
-    // Reference obtained on collisions.
-    protected GameObject ship;
+    protected GameObject ship; // Reference obtained on collisions.
 
     [Range(5, 30)]
-    public int lifetime = 10;
+    public int showTime = 10;
 
     [Range(5, 30)]
-    public int activeDuration = 5;
+    public int powerDuration = 10;
+
+    public bool isVisible;
 
     void Start()
     {
-        InvokeRemoveFromGame(lifetime);
+        HideInScene();
     }
 
-    // Update is called once per frame
     //void Update()
     //{
     //    //animation?
@@ -29,29 +29,44 @@ public class Powerup : GameToken
         GameObject otherObject = otherCollision.gameObject;
         if (otherObject.tag == "Ship")
         {
-            ship = otherObject;
-            CancelInvoke("RemoveFromGame");
             Score(destructionScore);
-            HidePowerup();
-            GrantPowerup();
+            ship = otherObject;
+            HideInScene();
+            GrantPower();
         }
     }
 
-    protected virtual void GrantPowerup()
+    protected virtual void GrantPower()
     {
-        CancelInvoke("RemovePowerup"); // Allows shield "refresh" if currently enabled.
-        Invoke("RemovePowerup", activeDuration);
+        CancelInvoke("DenyPower"); // Allows power "refresh" if got again.
+        Invoke("DenyPower", powerDuration);
     }
 
-    protected virtual void RemovePowerup()
+    protected virtual void DenyPower() { }
+
+    public void ShowInScene()
     {
-        Debug.Log("REMOVE BASE POWERUP");
-        RemoveFromGame();
+        SetVisibility(true);
+        Respawn();
     }
 
-    void HidePowerup()
+    public void HideInScene()
     {
-        gameObject.GetComponent<Renderer>().enabled = false;
-        gameObject.GetComponent<Collider>().enabled = false;
+        SetVisibility(false);
+    }
+
+    void Respawn()
+    {
+        int mask = LayerMask.GetMask("Asteroid");
+        float collisionSphereRadius = transform.localScale.x;
+        Vector3 position = Spawn.FindSuitableSpawnLocation(mask, collisionSphereRadius);
+        SpawnAt(position);
+    }
+
+    void SetVisibility(bool isVisible)
+    {
+        this.isVisible = isVisible;
+        gameObject.GetComponent<Renderer>().enabled = this.isVisible;
+        gameObject.GetComponent<Collider>().enabled = this.isVisible;
     }
 }

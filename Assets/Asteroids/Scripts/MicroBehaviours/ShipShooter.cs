@@ -9,7 +9,7 @@ public class ShipShooter : MonoBehaviour
     public ObjectPool bulletPool;
 
     public enum Weapons { Default, Fast, Backwards, Spread, Count }
-    public int currentWeapon = (int)Weapons.Default;
+    public int activeWeapon = (int)Weapons.Default;
 
     AudioSource shootAudio;
     Transform nozzle;
@@ -22,6 +22,11 @@ public class ShipShooter : MonoBehaviour
         nozzle = transform.Find("BulletSpawnPoint");
     }
 
+    public void OnEnable()
+    {
+        activeWeapon = (int)Weapons.Default;
+    }
+
     void Update()
     {
         if (ShipInput.IsShooting())
@@ -30,7 +35,7 @@ public class ShipShooter : MonoBehaviour
 
     public void Shoot()
     {
-        switch (currentWeapon)
+        switch (activeWeapon)
         {
             case (int)Weapons.Fast:
                 ShootFast();
@@ -45,7 +50,6 @@ public class ShipShooter : MonoBehaviour
                 ShootDefault();
                 break;
         }
-
         shootAudio.Play();
     }
 

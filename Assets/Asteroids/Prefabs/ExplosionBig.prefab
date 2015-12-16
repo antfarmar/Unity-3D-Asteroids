@@ -9,9 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 416046}
   - 114: {fileID: 11484724}
+  - 82: {fileID: 8263120}
   - 198: {fileID: 19831888}
   - 199: {fileID: 19952746}
-  - 82: {fileID: 8263120}
   m_Layer: 0
   m_Name: ExplosionBig
   m_TagString: Untagged
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 148916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -418,9 +418,9 @@ ParticleSystem:
         m_PostInfinity: 2
       minMaxState: 1
   RotationModule:
-    enabled: 1
+    enabled: 0
     curve:
-      scalar: 8.72664642
+      scalar: 1.74532926
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1085,7 +1085,7 @@ ParticleSystem:
     range: {x: 0, y: 1}
   CollisionModule:
     enabled: 0
-    type: 0
+    type: 1
     plane0: {fileID: 0}
     plane1: {fileID: 0}
     plane2: {fileID: 0}
@@ -1255,11 +1255,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: RotationModule.enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: RotationModule.curve.scalar
-      value: 8.72664642
+      value: 1.74532926
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: RotationBySpeedModule.curve.scalar
@@ -1300,6 +1300,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: InitialModule.startSpeed.scalar
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: moveWithTransform
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: CollisionModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: CollisionModule.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

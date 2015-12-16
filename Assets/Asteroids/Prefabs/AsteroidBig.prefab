@@ -104,13 +104,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a99ddb8c8b89ff49be32ae82f875969, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exploder: {fileID: 11400000, guid: 7d1d8c2a8d752c743925f2434a35e333, type: 2}
   destructionScore: 100
   initialForce: 4000
   initialTorque: 1000
   uniformScale:
     minScale: 1
     maxScale: 1.5
+  exploder: {fileID: 11400000, guid: 7d1d8c2a8d752c743925f2434a35e333, type: 2}
   fragments: 2
 --- !u!114 &11492270
 MonoBehaviour:
@@ -226,6 +226,34 @@ Prefab:
       value: 
       objectReference: {fileID: 11400000, guid: 7d1d8c2a8d752c743925f2434a35e333,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: uniformScale.minScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: uniformScale.maxScale
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Mass
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186268}

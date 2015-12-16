@@ -1,28 +1,46 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "PowerupManager", menuName = "PowerupManager")]
 public class PowerupManager : ScriptableObject
 {
-    [Range(5f,10f)]
-    public float maxTimeBetweenSpawns = 10f;
+    [Range(10, 30)]
+    public int minSpawnWait = 10;
+
+    [Range(10, 30)]
+    public int maxSpawnWait = 30;
 
     public Powerup[] powerupPrefabs;
+    private List<Powerup> powerupList;
 
 
-    public IEnumerator PowerupSpawner()
+    void OnDisable() { powerupList = null; }
+
+    public void InstantiatePowerups()
     {
+        powerupList = new List<Powerup>(powerupPrefabs.Length);
+        foreach (var prefab in powerupPrefabs) powerupList.Add(Instantiate(prefab));
+    }
+
+    public void HideAllPowerups()
+    {
+        foreach (var powerup in powerupList)
+            powerup.HideInScene();
+    }
+
+    public IEnumerator StartSpawner(Ship ship)
+    {
+        if (powerupList.Count == 0) InstantiatePowerups();
         while (true)
         {
-            var wait = Random.Range(5f, maxTimeBetweenSpawns);
+            var wait = Random.Range(minSpawnWait, maxSpawnWait);
             yield return new WaitForSeconds(wait);
-
-            var prefab = powerupPrefabs[Random.Range(0, powerupPrefabs.Length)];
-            Powerup powerup  = Instantiate(prefab);
-            int mask = LayerMask.GetMask("Asteroid");
-            float collisionSphereRadius = powerup.transform.localScale.x;
-            Vector3 position = Spawn.FindSuitableSpawnLocation(mask, collisionSphereRadius);
-            powerup.SpawnAt(position);
+            if (ship.IsAlive)
+            {
+                var powerup = powerupList[Random.Range(0, powerupList.Count)];
+                if (!powerup.isVisible) powerup.ShowInScene();
+            }
         }
     }
 }

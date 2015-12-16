@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: powerup_material
+  m_Name: powerupthrust_material 1
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHABLEND_ON
   m_LightmapFlags: 5
@@ -103,7 +103,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .5
+        second: 1
       data:
         first:
           name: _BumpScale
@@ -136,4 +136,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: .682758629, b: 0, a: 1}
+        second: {r: .0344827175, g: 1, b: 0, a: .501960814}

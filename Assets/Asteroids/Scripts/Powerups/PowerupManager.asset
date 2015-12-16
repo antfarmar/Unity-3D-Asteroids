@@ -11,7 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60d87b2fd2396fa458b6021761166e19, type: 3}
   m_Name: PowerupManager
   m_EditorClassIdentifier: 
-  maxTimeBetweenSpawns: 5
+  maxTimeBetweenSpawns: 30
   powerupPrefabs:
   - {fileID: 11467098, guid: a5dd2762864435b4db7231b2a3fad5c9, type: 2}
   - {fileID: 11467098, guid: cddc33a7d153f2d46af44a4ab5913307, type: 2}
+  - {fileID: 11467098, guid: b601641f7e294bb4e84c9388d508813f, type: 2}
