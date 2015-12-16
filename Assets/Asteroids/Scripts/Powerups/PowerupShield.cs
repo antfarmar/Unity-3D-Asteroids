@@ -7,6 +7,7 @@ public class PowerupShield : Powerup
     protected override void GrantPower()
     {
         GameObject shield = ship.transform.Find("Shield").gameObject;
+        shield.transform.position = ship.transform.position; // in case it shifted by physics
         shield.SetActive(true);
         base.GrantPower();
     }
