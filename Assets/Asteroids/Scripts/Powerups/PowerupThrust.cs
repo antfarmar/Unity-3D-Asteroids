@@ -4,14 +4,14 @@ using System.Collections;
 public class PowerupThrust : Powerup
 {
 
-    protected override void GrantPower()
+    public override void GrantPower()
     {
         ShipMovement mover = ship.GetComponent<ShipMovement>();
         mover.hasThrustPowerup = true;
         base.GrantPower();
     }
 
-    protected override void DenyPower()
+    public override void DenyPower()
     {
         ShipMovement mover = ship.GetComponent<ShipMovement>();
         mover.hasThrustPowerup = false;

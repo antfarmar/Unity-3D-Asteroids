@@ -17,10 +17,15 @@ public class PowerupManager : ScriptableObject
 
     void OnDisable() { powerupList = null; }
 
-    public void InstantiatePowerups()
+    public void InstantiatePowerups(GameObject receiver)
     {
         powerupList = new List<Powerup>(powerupPrefabs.Length);
-        foreach (var prefab in powerupPrefabs) powerupList.Add(Instantiate(prefab));
+        foreach (var prefab in powerupPrefabs)
+        {
+            Powerup powerup = Instantiate(prefab);
+            powerup.SetReceiver(receiver);
+            powerupList.Add(powerup);
+        }
     }
 
     public void HideAllPowerups()
@@ -29,14 +34,20 @@ public class PowerupManager : ScriptableObject
             powerup.HideInScene();
     }
 
-    public IEnumerator StartSpawner(Ship ship)
+    public void DenyAllPower()
     {
-        if (powerupList.Count == 0) InstantiatePowerups();
+        foreach (var powerup in powerupList)
+            powerup.DenyPower();
+    }
+
+    public IEnumerator SpawnPowerupsFor(GameObject receiver)
+    {
+        if (powerupList.Count == 0) InstantiatePowerups(receiver);
         while (true)
         {
             var wait = Random.Range(minSpawnWait, maxSpawnWait);
             yield return new WaitForSeconds(wait);
-            if (ship.IsAlive)
+            if (receiver.activeInHierarchy)
             {
                 var powerup = powerupList[Random.Range(0, powerupList.Count)];
                 if (!powerup.isVisible) powerup.ShowInScene();

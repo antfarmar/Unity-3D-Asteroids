@@ -44,13 +44,10 @@ public class GameManager : MonoBehaviour
         ship = Ship.Spawn(m_ShipPrefab);
         ship.RemoveFromGame();
         StartCoroutine(GameLoop());
-        StartCoroutine(powerupManager.StartSpawner(ship));
+        StartCoroutine(powerupManager.SpawnPowerupsFor(ship.gameObject));
     }
 
-    void OnEnable()
-    {
-        instance = this;
-    }
+    void OnEnable() { instance = this; }
 
     void SingletonInstanceGuard()
     {
@@ -115,6 +112,7 @@ public class GameManager : MonoBehaviour
             yield return Pause.Brief(); Score.Tally();
             yield return Pause.Brief(); Score.Reset();
             RemoveRemainingGameTokens();
+            powerupManager.DenyAllPower();
             announce.ClearAnnouncements();
             NewGame();
         }
