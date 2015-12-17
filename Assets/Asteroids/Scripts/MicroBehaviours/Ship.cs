@@ -27,14 +27,7 @@ public class Ship : GameBehaviour
         transform.rotation = Quaternion.identity;
     }
 
-    public void ResetRigidbody()
-    {
-        var rb = GetComponent<Rigidbody>();
-        rb.position = Vector3.zero;
-        rb.rotation = Quaternion.identity;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-    }
+    public void ResetRigidbody() { RigidbodyExt.Reset(GetComponent<Rigidbody>()); }
 
     public void EnableControls()
     {
