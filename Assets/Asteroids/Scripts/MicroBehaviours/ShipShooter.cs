@@ -10,14 +10,16 @@ public class ShipShooter : MonoBehaviour
 
     public enum Weapons { Default, Fast, Backwards, Spread, Count }
     public int activeWeapon = (int)Weapons.Default;
-    const int bulletVelocity = 25;
+    const int bulletSpeed = 25;
 
+    Rigidbody rbody;
     AudioSource shootAudio;
     Transform nozzle;
     Vector3 forward() { return nozzle.up; } // Note: This is a 2D game. "up" is treated as "forward" in 2D. 
 
     void Awake()
     {
+        rbody = GetComponent<Rigidbody>();
         shootAudio = GetComponent<AudioSource>();
         bulletPool = ObjectPool.Build(bulletPrefab, initialClones: 10, initialCapacity: 10);
         nozzle = transform.Find("BulletSpawnPoint");
@@ -52,7 +54,7 @@ public class ShipShooter : MonoBehaviour
 
     void ShootDefault() { FireBullet(forward()); }
 
-    void ShootFast() { FireBullet(forward(), bulletVelocity * 2); }
+    void ShootFast() { FireBullet(forward(), bulletSpeed * 2); }
 
     void ShootBackwards() { ShootDefault(); FireBullet(-forward()); }
 
@@ -67,9 +69,10 @@ public class ShipShooter : MonoBehaviour
 
     }
 
-    void FireBullet(Vector3 direction, float velocity = bulletVelocity)
+    void FireBullet(Vector3 direction, float speedScalar = bulletSpeed)
     {
-        Bullet().Fire(nozzle.position, nozzle.rotation, direction * velocity);
+        direction = (direction * speedScalar) + rbody.velocity;
+        Bullet().Fire(nozzle.position, nozzle.rotation, direction);
     }
 
     BulletBehaviour Bullet() { return bulletPool.GetRecyclable<BulletBehaviour>(); }
