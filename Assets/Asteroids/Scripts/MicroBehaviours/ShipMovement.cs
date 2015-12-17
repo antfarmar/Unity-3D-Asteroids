@@ -3,55 +3,59 @@
 [RequireComponent(typeof(Rigidbody))]
 public class ShipMovement : MonoBehaviour
 {
-    public float m_Thrust = 1000f;      // Thrust force.
-    public float m_Torque = 200f;       // To turn the ship on z-axis.
+    public float thrust = 1000f;
+    public float torque = 200f;
+    public AudioSource hyperAudio;
 
-    Rigidbody m_Rigidbody;              // Reference used to move the ship.
-    float m_MovementInputValue;         // The current value of the movement input.
-    float m_TurnInputValue;             // The current value of the turn input.
+    Rigidbody rbody;
+    float thrustInput;
+    float turnInput;
 
     [HideInInspector]
     public bool hasThrustPowerup;
 
-    void Awake()
+    void Reset()
     {
-        m_Rigidbody = GetComponent<Rigidbody>();
+        thrustInput = 0f;
+        turnInput = 0f;
+        GetComponent<Ship>().ResetRigidbody();
     }
 
-    void OnEnable()
-    {
-        m_MovementInputValue = 0f;
-        m_TurnInputValue = 0f;
-        hasThrustPowerup = false;
-    }
+    void Awake() { rbody = GetComponent<Rigidbody>(); }
+
+    void OnEnable() { Reset(); hasThrustPowerup = false; }
 
     void Update()
     {
-        m_TurnInputValue = ShipInput.GetTurnAxis();
-        m_MovementInputValue = ShipInput.GetForwardThrust();
+        if (ShipInput.IsHyperspacing()) { HyperSpace(); return; }
+        turnInput = ShipInput.GetTurnAxis();
+        thrustInput = ShipInput.GetForwardThrust();
     }
 
-    void FixedUpdate()
+    void FixedUpdate() { Move(); Turn(); }
+
+    void HyperSpace()
     {
-        Move();
-        Turn();
+        Reset();
+        transform.position = Viewport.GetRandomWorldPositionXY();
+        transform.rotation = Quaternion.Euler(0, 0, Random.Range(1, 360));
+        hyperAudio.Play();
     }
-
 
     void Move()
     {
         // Create a vector in the direction the ship is facing.
         // Magnitude based on the input, speed and the time between frames.
-        Vector3 thrustForce = transform.up * m_MovementInputValue * Time.deltaTime;
-        thrustForce *= hasThrustPowerup ? 2f * m_Thrust : m_Thrust;
-        m_Rigidbody.AddForce(thrustForce);
+        Vector3 thrustForce = transform.up * thrustInput * Time.deltaTime;
+        thrustForce *= hasThrustPowerup ? 2f * thrust : thrust;
+        rbody.AddForce(thrustForce);
     }
 
     void Turn()
     {
         // Determine the torque based on the input, force and time between frames.
-        float turn = m_TurnInputValue * m_Torque * Time.deltaTime;
+        float turn = turnInput * torque * Time.deltaTime;
         Vector3 zTorque = transform.forward * -turn;
-        m_Rigidbody.AddTorque(zTorque);
+        rbody.AddTorque(zTorque);
     }
 }

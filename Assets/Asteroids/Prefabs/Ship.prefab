@@ -16,6 +16,7 @@ GameObject:
   - 114: {fileID: 11430604}
   - 114: {fileID: 11467160}
   - 82: {fileID: 8242498}
+  - 82: {fileID: 8242090}
   m_Layer: 9
   m_Name: Ship
   m_TagString: Ship
@@ -244,7 +245,7 @@ Rigidbody:
   m_GameObject: {fileID: 103884}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1.5
+  m_Drag: 1
   m_AngularDrag: 5
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -263,6 +264,77 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: e3450e942deff964e80bc00901c56a2f, type: 3}
+--- !u!82 &8242090
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103884}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 0c300dfd963998844abe393fece4cf9b, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!82 &8242498
 AudioSource:
   m_ObjectHideFlags: 1
@@ -347,6 +419,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Thrust: 1000
   m_Torque: 200
+  hyperAudio: {fileID: 8242090}
   hasThrustPowerup: 0
 --- !u!114 &11410018
 MonoBehaviour:
@@ -375,6 +448,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 175094, guid: c2c7c9743d4d55645b40878bbce4c25e, type: 2}
+  shootAudio: {fileID: 8242498}
   bulletPool: {fileID: 0}
   activeWeapon: 0
 --- !u!114 &11467160
@@ -1510,6 +1584,31 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: currentWeapon
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shootAudio
+      value: 
+      objectReference: {fileID: 8242498}
+    - target: {fileID: 0}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0c300dfd963998844abe393fece4cf9b, type: 3}
+    - target: {fileID: 0}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hyperAudio
+      value: 
+      objectReference: {fileID: 8242090}
+    - target: {fileID: 0}
+      propertyPath: m_Drag
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

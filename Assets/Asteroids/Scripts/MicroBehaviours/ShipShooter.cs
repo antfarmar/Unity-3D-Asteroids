@@ -3,24 +3,21 @@ using UnityEngine.Serialization;
 
 public class ShipShooter : MonoBehaviour
 {
-    [FormerlySerializedAs("m_BulletPrefab")]
     public GameObject bulletPrefab;
-    [FormerlySerializedAs("m_BulletPool")]
     public ObjectPool bulletPool;
+    public AudioSource shootAudio;
 
     public enum Weapons { Default, Fast, Backwards, Spread, Count }
     public int activeWeapon = (int)Weapons.Default;
     const int bulletSpeed = 25;
 
     Rigidbody rbody;
-    AudioSource shootAudio;
     Transform nozzle;
     Vector3 forward() { return nozzle.up; } // Note: This is a 2D game. "up" is treated as "forward" in 2D. 
 
     void Awake()
     {
         rbody = GetComponent<Rigidbody>();
-        shootAudio = GetComponent<AudioSource>();
         bulletPool = ObjectPool.Build(bulletPrefab, initialClones: 10, initialCapacity: 10);
         nozzle = transform.Find("BulletSpawnPoint");
     }
