@@ -7,6 +7,11 @@ public static class ShipInput
         return Input.GetButtonDown("Fire1");
     }
 
+    public static bool IsHyperspacing()
+    {
+        return Input.GetButtonDown("Fire2");
+    }
+
     public static float GetTurnAxis()
     {
         return Input.GetAxis("Horizontal");

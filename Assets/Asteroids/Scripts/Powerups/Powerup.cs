@@ -4,7 +4,8 @@ using System;
 
 public class Powerup : GameToken
 {
-    protected GameObject ship; // Reference obtained on collisions.
+    protected GameObject ship; // receiver of powerups
+    public void SetReceiver(GameObject receiver) { ship = receiver; }
 
     [Range(5, 30)]
     public int showTime = 10;
@@ -14,10 +15,7 @@ public class Powerup : GameToken
 
     public bool isVisible;
 
-    void Start()
-    {
-        HideInScene();
-    }
+    void Start() { HideInScene(); }
 
     //void Update()
     //{
@@ -27,31 +25,32 @@ public class Powerup : GameToken
     protected virtual void OnCollisionEnter(Collision otherCollision)
     {
         GameObject otherObject = otherCollision.gameObject;
-        if (otherObject.tag == "Ship")
+        if (otherObject.tag == ship.tag)
         {
             Score(destructionScore);
-            ship = otherObject;
             HideInScene();
             GrantPower();
         }
     }
 
-    protected virtual void GrantPower()
+    public virtual void GrantPower()
     {
         CancelInvoke("DenyPower"); // Allows power "refresh" if got again.
         Invoke("DenyPower", powerDuration);
     }
 
-    protected virtual void DenyPower() { }
+    public virtual void DenyPower() { }
 
     public void ShowInScene()
     {
+        Invoke("HideInScene", showTime);
         SetVisibility(true);
         Respawn();
     }
 
     public void HideInScene()
     {
+        CancelInvoke("HideInScene");
         SetVisibility(false);
     }
 
