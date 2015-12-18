@@ -4,7 +4,9 @@
 public class ShipMovement : MonoBehaviour
 {
     public float thrust = 1000f;
-    public float torque = 200f;
+    public float torque = 400f;
+    public float maxSpeed = 10f;
+    public float powerupSpeed = 20f;
     public AudioSource hyperAudio;
 
     Rigidbody rb;
@@ -31,7 +33,13 @@ public class ShipMovement : MonoBehaviour
         thrustInput = ShipInput.GetForwardThrust();
     }
 
-    void FixedUpdate() { Move(); Turn(); }
+    void FixedUpdate() { Move(); Turn(); ClampSpeed(); }
+
+    void ClampSpeed()
+    {
+        float clampSpeed = hasThrustPowerup ? powerupSpeed : maxSpeed;
+        rb.velocity = Vector3.ClampMagnitude(rb.velocity, clampSpeed);
+    }
 
     void HyperSpace()
     {
@@ -45,8 +53,7 @@ public class ShipMovement : MonoBehaviour
     {
         // Create a vector in the direction the ship is facing.
         // Magnitude based on the input, speed and the time between frames.
-        Vector3 thrustForce = transform.up * thrustInput * Time.deltaTime;
-        thrustForce *= hasThrustPowerup ? 2f * thrust : thrust;
+        Vector3 thrustForce = transform.up * thrustInput * thrust * Time.deltaTime;
         rb.AddForce(thrustForce);
     }
 

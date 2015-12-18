@@ -245,8 +245,8 @@ Rigidbody:
   m_GameObject: {fileID: 103884}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 5
+  m_Drag: 0
+  m_AngularDrag: 10
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -417,8 +417,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66deaeb060fc20f469a5f12ca49cdc65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Thrust: 1000
-  m_Torque: 200
+  thrust: 1000
+  torque: 500
+  maxSpeed: 10
+  powerupSpeed: 20
   hyperAudio: {fileID: 8242090}
   hasThrustPowerup: 0
 --- !u!114 &11410018
@@ -448,8 +450,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 175094, guid: c2c7c9743d4d55645b40878bbce4c25e, type: 2}
-  shootAudio: {fileID: 8242498}
   bulletPool: {fileID: 0}
+  shootAudio: {fileID: 8242498}
   activeWeapon: 0
 --- !u!114 &11467160
 MonoBehaviour:
@@ -1608,7 +1610,19 @@ Prefab:
       objectReference: {fileID: 8242090}
     - target: {fileID: 0}
       propertyPath: m_Drag
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: torque
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_AngularDrag
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
