@@ -28,14 +28,19 @@ public class AsteroidBehaviour : GameToken
     #region Hit by ship
     protected virtual void OnCollisionEnter(Collision otherCollision)
     {
-        GameObject otherObject =  otherCollision.gameObject;
+        GameObject otherObject = otherCollision.gameObject;
         if (otherObject.tag == "Ship")
             HitByShip(otherObject);
     }
 
     protected void HitByShip(GameObject ship)
     {
-        KillWithExplosion(victim: ship);
+        if (!ActiveShield(ship)) KillWithExplosion(victim: ship);
+    }
+
+    protected bool ActiveShield(GameObject ship)
+    {
+        return ship.transform.FindChild("Shield").gameObject.activeSelf;
     }
     #endregion
 
