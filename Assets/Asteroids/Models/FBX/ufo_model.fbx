@@ -11,9 +11,9 @@ FBXHeaderExtension:  {
 		Year: 2015
 		Month: 12
 		Day: 19
-		Hour: 08
-		Minute: 32
-		Second: 28
+		Hour: 10
+		Minute: 19
+		Second: 34
 		Millisecond: 0
 	}
 	Creator: "FBX SDK/FBX Plugins build 20070228"
@@ -21,7 +21,7 @@ FBXHeaderExtension:  {
 		FlagPLE: 0
 	}
 }
-CreationTime: "2015-12-19 08:32:28:000"
+CreationTime: "2015-12-19 10:19:34:000"
 Creator: "Blender version 2.76 (sub 0)"
 
 ; Object definitions
@@ -29,7 +29,7 @@ Creator: "Blender version 2.76 (sub 0)"
 
 Definitions:  {
 	Version: 100
-	Count: 3
+	Count: 5
 	ObjectType: "Model" {
 		Count: 1
 	}
@@ -37,6 +37,12 @@ Definitions:  {
 		Count: 1
 	}
 	ObjectType: "Material" {
+		Count: 1
+	}
+	ObjectType: "Texture" {
+		Count: 1
+	}
+	ObjectType: "Video" {
 		Count: 1
 	}
 	ObjectType: "Pose" {
@@ -283,6 +289,46 @@ Objects:  {
 			            1,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
 			            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
 		}
+		LayerElementUV: 0 {
+			Version: 101
+			Name: "UVMap"
+			MappingInformationType: "ByPolygonVertex"
+			ReferenceInformationType: "IndexToDirect"
+			UV: 0.871478,0.264111,0.903570,0.235866,0.726124,0.238461,0.801273,0.108404,0.831213,0.067613,0.343518,0.631938,
+			    0.027444,0.487967,0.897128,0.118756,0.811626,0.178609,0.380691,0.631938,0.377860,0.639579,0.712996,0.775909,
+			    0.758258,0.215967,0.377860,0.624298,0.922622,0.198195,0.399286,0.644550,0.394906,0.642205,0.370220,0.965981,
+			    0.370220,0.663835,0.351308,0.650850,0.392516,0.654234,0.380486,0.656625,0.370220,0.600042,0.380486,0.607252,
+			    0.370220,0.605236,0.895734,0.042129,0.968650,0.206318,0.874046,0.212366,0.904536,0.311336,0.359953,0.607252,
+			    0.789297,0.072620,0.892838,0.192940,0.345533,0.621672,0.341153,0.619326,0.944354,0.085698,0.881830,0.168255,
+			    0.803952,0.222096,0.359749,0.631938,0.402116,0.631938,0.345533,0.642205,0.341153,0.644550,0.779311,0.021584,
+			    0.839335,0.021584,0.027444,0.775910,0.784875,0.197335,0.226249,0.289162,0.347924,0.609642,0.081497,0.343216,
+			    0.394906,0.621672,0.654602,0.210923,0.396922,0.631938,0.362579,0.639579,0.741421,0.188962,0.727518,0.315088,
+			    0.370220,0.631938,0.833955,0.284597,0.821979,0.248813,0.783916,0.335633,0.797295,0.259821,0.825957,0.097396,
+			    0.226249,0.974714,0.362579,0.624298,0.338323,0.631938,0.845383,0.116188,0.830352,0.205360,0.705637,0.200938,
+			    0.389131,0.650850,0.370220,0.621467,0.749205,0.144851,0.730413,0.164277,0.370220,0.297896,0.658942,0.343216,
+			    0.392516,0.609642,0.389131,0.613027,0.357608,0.602872,0.868883,0.086664,0.382832,0.602872,0.399286,0.619326,
+			    0.036177,0.631939,0.768138,0.170934,0.792900,0.151857,0.848984,0.231977,0.792039,0.289604,0.968650,0.146293,
+			    0.917614,0.156279,0.864994,0.141250,0.838377,0.159882,0.855114,0.186283,0.514191,0.289162,0.351308,0.613027,
+			    0.357608,0.661005,0.359954,0.656625,0.370220,0.658640,0.347924,0.654235,0.382832,0.661005,0.514191,0.974714,
+			    0.658942,0.920661,0.678898,0.271519,0.712996,0.487967,0.370220,0.642409,0.654602,0.150899,0.718716,0.045881,
+			    0.751774,0.093106,0.719682,0.121351,0.675146,0.094500,0.700630,0.159022,0.774268,0.125240,0.754368,0.270553,
+			    0.777869,0.241029,0.704262,0.631938,0.819300,0.135121,0.081498,0.920661,0.948105,0.262717,0.843941,0.335633
+			UVIndex: 101,102,103,104,104,103,105,100,102,106,68,103,103,68,69,105,70,88,76,22,22,76,23,24,88,71,72,76,76,72,73,23,70,22,74,45,45,74,46,47,22,24,29,74,74,29,89,46,101,41,30,102,102,30,3,106,41,42,4,30,30,4,59,3,
+			         28,113,55,0,0,55,56,81,113,57,82,55,55,82,58,56,28,0,1,112,112,1,14,26,0,81,27,1,1,27,31,14,17,60,90,18,18,90,91,92,60,111,93,90,90,93,19,91,17,18,94,95,95,94,20,96,18,92,21,94,94,21,66,20,
+			         97,49,65,2,2,65,52,12,49,100,105,65,65,105,69,52,97,2,107,53,53,107,82,57,2,12,108,107,107,108,58,82,109,11,15,38,38,15,16,50,11,96,20,15,15,20,66,16,109,38,77,98,98,77,72,71,38,50,48,77,77,48,73,72,
+			         54,67,13,9,9,13,48,50,67,24,23,13,13,23,73,48,54,9,10,99,99,10,21,92,9,50,16,10,10,16,66,21,54,99,51,37,37,51,39,5,99,92,91,51,51,91,19,39,54,37,61,67,67,61,29,24,37,5,32,61,61,32,89,29,
+			         78,6,33,62,62,33,32,5,6,47,46,33,33,46,89,32,78,62,40,43,43,40,93,111,62,5,39,40,40,39,19,93,34,83,84,7,7,84,35,85,83,26,14,84,84,14,31,35,34,7,75,25,25,75,4,42,7,85,63,75,75,63,59,4,
+			         8,64,36,44,44,36,108,12,64,81,56,36,36,56,58,108,8,44,79,80,80,79,68,106,44,12,52,79,79,52,69,68,8,80,110,86,86,110,63,85,80,106,3,110,110,3,59,63,8,86,87,64,64,87,27,81,86,85,35,87,87,35,31,27
+		}
+		LayerElementTexture: 0 {
+			Version: 101
+			Name: "UVMap"
+			MappingInformationType: "AllSame"
+			ReferenceInformationType: "IndexToDirect"
+			BlendMode: "Translucent"
+			TextureAlpha: 1
+			TextureId: 0
+		}
 		LayerElementMaterial: 0 {
 			Version: 101
 			Name: ""
@@ -301,6 +347,10 @@ Objects:  {
 				TypedIndex: 0
 			}
 			LayerElement:  {
+				Type: "LayerElementUV"
+				TypedIndex: 0
+			}
+			LayerElement:  {
 				Type: "LayerElementTexture"
 				TypedIndex: 0
 			}
@@ -310,7 +360,7 @@ Objects:  {
 			}
 		}
 	}
-	Material: "Material::Material", "" {
+	Material: "Material::ufo_material__ufo_texture", "" {
 		Version: 102
 		ShadingModel: "lambert"
 		MultiLayer: 0
@@ -322,7 +372,7 @@ Objects:  {
 			Property: "AmbientColor", "ColorRGB", "",1.0000,1.0000,1.0000
 			Property: "AmbientFactor", "double", "",1.0000
 			Property: "DiffuseColor", "ColorRGB", "",0.8000,0.8000,0.8000
-			Property: "DiffuseFactor", "double", "",0.8000
+			Property: "DiffuseFactor", "double", "",1.0000
 			Property: "Bump", "Vector3D", "",0,0,0
 			Property: "TransparentColor", "ColorRGB", "",1,1,1
 			Property: "TransparencyFactor", "double", "",0.0000
@@ -339,6 +389,56 @@ Objects:  {
 			Property: "Opacity", "double", "",1.0
 			Property: "Reflectivity", "double", "",0
 		}
+	}
+	Video: "Video::ufo_texture", "Clip" {
+		Type: "Clip"
+		Properties60:  {
+			Property: "FrameRate", "double", "",0
+			Property: "LastFrame", "int", "",0
+			Property: "Width", "int", "",0
+			Property: "Height", "int", "",0
+			Property: "Path", "charptr", "", "ufo_texture.png"
+			Property: "StartFrame", "int", "",0
+			Property: "StopFrame", "int", "",0
+			Property: "PlaySpeed", "double", "",1
+			Property: "Offset", "KTime", "",0
+			Property: "InterlaceMode", "enum", "",0
+			Property: "FreeRunning", "bool", "",0
+			Property: "Loop", "bool", "",0
+			Property: "AccessMode", "enum", "",0
+		}
+		UseMipMap: 0
+		Filename: "ufo_texture.png"
+		RelativeFilename: "C:\Users\Joe\Documents\Unity Projects\Blender\ufo_texture.png"
+	}
+	Texture: "Texture::ufo_texture", "TextureVideoClip" {
+		Type: "TextureVideoClip"
+		Version: 202
+		TextureName: "Texture::ufo_texture"
+		Properties60:  {
+			Property: "Translation", "Vector", "A+",0,0,0
+			Property: "Rotation", "Vector", "A+",0,0,0
+			Property: "Scaling", "Vector", "A+",1,1,1
+			Property: "Texture alpha", "Number", "A+",0
+			Property: "TextureTypeUse", "enum", "",0
+			Property: "CurrentTextureBlendMode", "enum", "",1
+			Property: "UseMaterial", "bool", "",0
+			Property: "UseMipMap", "bool", "",0
+			Property: "CurrentMappingType", "enum", "",0
+			Property: "UVSwap", "bool", "",0
+			Property: "WrapModeU", "enum", "",0
+			Property: "WrapModeV", "enum", "",0
+			Property: "TextureRotationPivot", "Vector3D", "",0,0,0
+			Property: "TextureScalingPivot", "Vector3D", "",0,0,0
+			Property: "VideoProperty", "object", ""
+		}
+		Media: "Video::ufo_texture"
+		FileName: "ufo_texture.png"
+		RelativeFilename: "C:\Users\Joe\Documents\Unity Projects\Blender\ufo_texture.png"
+		ModelUVTranslation: 0,0
+		ModelUVScaling: 1,1
+		Texture_Alpha_Source: "None"
+		Cropping: 0,0,0,0
 	}
 	Pose: "Pose::BIND_POSES", "BindPose" {
 		Type: "BindPose"
@@ -387,7 +487,11 @@ Relations:  {
 	}
 	Model: "Model::Camera Switcher", "CameraSwitcher" {
 	}
-	Material: "Material::Material", "" {
+	Material: "Material::ufo_material__ufo_texture", "" {
+	}
+	Texture: "Texture::ufo_texture", "TextureVideoClip" {
+	}
+	Video: "Video::ufo_texture", "Clip" {
 	}
 }
 
@@ -396,7 +500,9 @@ Relations:  {
 
 Connections:  {
 	Connect: "OO", "Model::UFO", "Model::Scene"
-	Connect: "OO", "Material::Material", "Model::UFO"
+	Connect: "OO", "Material::ufo_material__ufo_texture", "Model::UFO"
+	Connect: "OO", "Texture::ufo_texture", "Model::UFO"
+	Connect: "OO", "Video::ufo_texture", "Texture::ufo_texture"
 }
 ;Takes and animation section
 ;----------------------------------------------------
