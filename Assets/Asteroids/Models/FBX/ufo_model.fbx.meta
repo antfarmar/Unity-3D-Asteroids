@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 627cb1e61373afa48a45d5404ef99a3a
-timeCreated: 1450531199
+timeCreated: 1450539533
 licenseType: Free
 ModelImporter:
   serializedVersion: 18
@@ -9,13 +9,11 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cube
-    4300002: UFO
-    6400000: //RootNode
+    4300000: UFO
   materials:
     importMaterials: 1
-    materialName: 0
-    materialSearch: 1
+    materialName: 1
+    materialSearch: 2
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -37,7 +35,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 100
     meshCompression: 3
-    addColliders: 1
+    addColliders: 0
     importBlendShapes: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
