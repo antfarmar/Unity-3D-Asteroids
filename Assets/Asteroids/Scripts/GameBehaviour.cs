@@ -1,24 +1,18 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameBehaviour : MonoBehaviour, IPoolableAware, IRecyclable
 {
     Poolable poolable;
+    void IPoolableAware.PoolableAwoke(Poolable p) { poolable = p; }
+    void IRecyclable.Recycle() { RemoveFromGame(); }
 
-    void IPoolableAware.PoolableAwoke(Poolable p)
-    {
-        poolable = p;
-    }
+    protected void Score(int score) { global::Score.Earn(score); }
 
-    void IRecyclable.Recycle()
-    {
-        RemoveFromGame();
-    }
+    protected virtual void OnDisable() { CancelInvokeRemoveFromGame(); }
 
-    protected virtual void OnDisable()
-    {
-        CancelInvoke("RemoveFromGame");
-    }
+    public void InvokeRemoveFromGame(float time) { Invoke("RemoveFromGame", time); }
+
+    public void CancelInvokeRemoveFromGame() { CancelInvoke("RemoveFromGame"); }
 
     public void RemoveFromGame()
     {
@@ -26,11 +20,6 @@ public class GameBehaviour : MonoBehaviour, IPoolableAware, IRecyclable
             poolable.Recycle();
         else
             RequestDestruction();
-    }
-
-    public void InvokeRemoveFromGame(float time)
-    {
-        Invoke("RemoveFromGame", time);
     }
 
     public static void RemoveFromGame(GameObject victim)
@@ -42,29 +31,7 @@ public class GameBehaviour : MonoBehaviour, IPoolableAware, IRecyclable
             RequestDefaultDestruction(victim);
     }
 
-    protected virtual void RequestDestruction()
-    {
-        RequestDefaultDestruction(gameObject);
-    }
+    protected virtual void RequestDestruction() { RequestDefaultDestruction(gameObject); }
 
-    static void RequestDefaultDestruction(GameObject gameObject)
-    {
-        Destroy(gameObject);
-    }
-
-    //public static void KillWithExplosion(GameObject victim)
-    //{
-    //    if (victim.tag == "Ship")
-    //        Spawn.ShipExplosion(victim.transform.position);
-    //    else
-    //        Spawn.AsteroidExplosion(victim.transform.position);
-
-    //    RemoveFromGame(victim);
-    //}
-
-    protected void Score(int score)
-    {
-        global::Score.Earn(score);
-    }
-
+    static void RequestDefaultDestruction(GameObject gameObject) { Destroy(gameObject); }
 }
