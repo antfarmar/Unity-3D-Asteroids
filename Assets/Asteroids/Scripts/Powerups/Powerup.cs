@@ -25,10 +25,11 @@ public class Powerup : GameToken
     protected virtual void OnCollisionEnter(Collision otherCollision)
     {
         GameObject otherObject = otherCollision.gameObject;
-        if (otherObject.tag == ship.tag)
+        //if (otherObject.tag == ship.tag)
+        if (otherObject == ship)
         {
             Score(destructionScore);
-            HideInScene();
+            RemoveFromGame();
             GrantPower();
         }
     }
@@ -41,17 +42,27 @@ public class Powerup : GameToken
 
     public virtual void DenyPower() { }
 
-    public void ShowInScene()
+    public void ActivateTemporarily()
     {
-        Invoke("HideInScene", showTime);
-        SetVisibility(true);
-        Respawn();
+        ShowInScene();
+        InvokeRemoveFromGame(showTime);
     }
 
-    public void HideInScene()
+    void ShowInScene()
     {
-        CancelInvoke("HideInScene");
+        Respawn();
+        SetVisibility(true);
+    }
+
+    void HideInScene()
+    {
+        CancelInvoke("RemoveFromGame");
         SetVisibility(false);
+    }
+
+    protected override void RequestDestruction()
+    {
+        HideInScene();
     }
 
     void Respawn()

@@ -158,11 +158,8 @@ public class GameManager : MonoBehaviour
 
     void RemoveRemainingGameTokens()
     {
-        //foreach (var a in FindObjectsOfType<GameToken>())
-        foreach (var a in FindObjectsOfType<AsteroidBehaviour>())
+        foreach (var a in FindObjectsOfType<GameToken>())
             a.RemoveFromGame();
-
-        powerupManager.HideAllPowerups();
     }
 }
 

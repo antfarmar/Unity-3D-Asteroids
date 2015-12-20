@@ -14,8 +14,19 @@ public class PowerupManager : ScriptableObject
     public Powerup[] powerupPrefabs;
     private List<Powerup> powerupList;
 
-
     void OnDisable() { powerupList = null; }
+
+    public void HideAllPowerups()
+    {
+        foreach (var powerup in powerupList)
+            powerup.RemoveFromGame();
+    }
+
+    public void DenyAllPower()
+    {
+        foreach (var powerup in powerupList)
+            powerup.DenyPower();
+    }
 
     public void InstantiatePowerups(GameObject receiver)
     {
@@ -28,18 +39,6 @@ public class PowerupManager : ScriptableObject
         }
     }
 
-    public void HideAllPowerups()
-    {
-        foreach (var powerup in powerupList)
-            powerup.HideInScene();
-    }
-
-    public void DenyAllPower()
-    {
-        foreach (var powerup in powerupList)
-            powerup.DenyPower();
-    }
-
     public IEnumerator SpawnPowerupsFor(GameObject receiver)
     {
         if (powerupList.Count == 0) InstantiatePowerups(receiver);
@@ -50,7 +49,7 @@ public class PowerupManager : ScriptableObject
             if (receiver.activeInHierarchy)
             {
                 var powerup = powerupList[Random.Range(0, powerupList.Count)];
-                if (!powerup.isVisible) powerup.ShowInScene();
+                if (!powerup.isVisible) powerup.ActivateTemporarily();
             }
         }
     }
