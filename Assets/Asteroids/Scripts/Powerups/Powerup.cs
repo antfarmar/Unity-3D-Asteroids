@@ -56,7 +56,7 @@ public class Powerup : GameToken
 
     void HideInScene()
     {
-        CancelInvoke("RemoveFromGame");
+        CancelInvokeRemoveFromGame();
         SetVisibility(false);
     }
 
