@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameBehaviour : MonoBehaviour, IPoolableAware, IRecyclable
 {
@@ -52,19 +51,8 @@ public class GameBehaviour : MonoBehaviour, IPoolableAware, IRecyclable
         Destroy(gameObject);
     }
 
-    //public static void KillWithExplosion(GameObject victim)
-    //{
-    //    if (victim.tag == "Ship")
-    //        Spawn.ShipExplosion(victim.transform.position);
-    //    else
-    //        Spawn.AsteroidExplosion(victim.transform.position);
-
-    //    RemoveFromGame(victim);
-    //}
-
     protected void Score(int score)
     {
         global::Score.Earn(score);
     }
-
 }
