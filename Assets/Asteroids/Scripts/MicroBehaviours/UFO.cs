@@ -25,14 +25,14 @@ public class UFO : EnemyToken
     void OnEnable()
     {
         Respawn();
-        InvokeRepeating("FireRandomDirection", fireRate, fireRate);
         UFOAudio.Play();
+        InvokeRepeating("FireRandomDirection", fireRate, fireRate);
     }
 
     protected override void OnDisable()
     {
-        CancelInvoke("FireRandomDirection");
         UFOAudio.Stop();
+        CancelInvoke("FireRandomDirection");
         base.OnDisable();
     }
 
@@ -42,7 +42,7 @@ public class UFO : EnemyToken
     }
 
     void Update() { RotateOnYAxis(); }
-    void RotateOnYAxis() { transform.Rotate(2f * Vector3.up); }
+    void RotateOnYAxis() { transform.Rotate(Vector3.up * 180f * Time.deltaTime); }
 
     void FixedUpdate()
     {
@@ -68,8 +68,8 @@ public class UFO : EnemyToken
 
     void FireRandomDirection()
     {
-        FireBullet(Vector3.Normalize(Random.insideUnitCircle));
         shootAudio.Play();
+        FireBullet(Vector3.Normalize(Random.insideUnitCircle));
     }
 
     // Duplicated code from ShipShooter.
