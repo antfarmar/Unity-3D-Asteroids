@@ -264,11 +264,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92d8b18b31bab5947b7a3908e01fc74c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destructionScore: 500
+  destructionScore: 200
   initialForce: 100
   initialTorque: 100
   uniformScale:
-    minScale: 1
+    minScale: .5
     maxScale: 1.5
   bulletPrefab: {fileID: 175094, guid: 6a001977cd909ab49ab679d95d3743c3, type: 2}
   shootAudio: {fileID: 8288628}
@@ -356,6 +356,19 @@ Prefab:
       propertyPath: UFOAudio
       value: 
       objectReference: {fileID: 8212412}
+    - target: {fileID: 0}
+      propertyPath: exploder
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d1d8c2a8d752c743925f2434a35e333,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: destructionScore
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: uniformScale.minScale
+      value: .5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 191014}

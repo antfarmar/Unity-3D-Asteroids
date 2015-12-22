@@ -24,14 +24,21 @@ public class UFO : EnemyToken
 
     void OnEnable()
     {
+        Respawn();
         InvokeRepeating("FireRandomDirection", fireRate, fireRate);
         UFOAudio.Play();
     }
 
     protected override void OnDisable()
     {
+        CancelInvoke("FireRandomDirection");
         UFOAudio.Stop();
         base.OnDisable();
+    }
+
+    protected override void RequestDestruction()
+    {
+        gameObject.SetActive(false);
     }
 
     void Update() { RotateOnYAxis(); }
@@ -47,6 +54,15 @@ public class UFO : EnemyToken
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
             Debug.DrawLine(rb.position, toward);
         }
+    }
+
+    // Duplicate code copied from Powerup.
+    void Respawn()
+    {
+        int mask = LayerMask.GetMask("Asteroid");
+        float collisionSphereRadius = transform.localScale.x;
+        Vector3 position = Spawn.FindSuitableSpawnLocation(mask, collisionSphereRadius);
+        SpawnAt(position);
     }
 
 

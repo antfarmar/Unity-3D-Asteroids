@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// This class is just collisions & explosions. Should be a Collision Manager?
 public class EnemyToken : GameToken
 {
-    static Exploder exploder;
+    public static Exploder exploder;
 
     void Awake()
     {
@@ -26,7 +27,7 @@ public class EnemyToken : GameToken
 
     protected void HitByShip(GameObject ship)
     {
-        if (!ActiveShield(ship)) KillWithExplosion(victim: ship);
+        if (!Ship.ActiveShield(ship)) KillWithExplosion(victim: ship);
     }
 
     protected void HitByUFO(GameObject ufo)
@@ -34,10 +35,7 @@ public class EnemyToken : GameToken
         KillWithExplosion(victim: ufo);
     }
 
-    protected bool ActiveShield(GameObject ship)
-    {
-        return ship.transform.FindChild("Shield").gameObject.activeSelf;
-    }
+
     #endregion
 
     #region Hit by Bullet

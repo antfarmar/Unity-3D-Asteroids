@@ -39,7 +39,6 @@ public class PowerupManager : ScriptableObject
         }
     }
 
-    // Needs refactoring: redundant parameter. Method could be private & called by InstantiatePowerups.
     public IEnumerator SpawnPowerupsFor(GameObject receiver)
     {
         if (powerupList.Count == 0) InstantiatePowerups(receiver);
