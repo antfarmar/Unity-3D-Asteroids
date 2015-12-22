@@ -20,10 +20,16 @@ public class GameToken : GameBehaviour
 
 
     #region Spawning
+    public virtual void Spawn()
+    {
+        ApplySpawnVariance();
+        transform.position = FindOpenPosition();
+    }
+
     public virtual void SpawnAt(Vector3 position)
     {
-        transform.position = position;
         ApplySpawnVariance();
+        transform.position = position;
     }
 
     protected virtual void ApplySpawnVariance()
@@ -35,6 +41,21 @@ public class GameToken : GameBehaviour
             RigidbodyExt.SetRandomForce(rigidbody, initialForce);
             RigidbodyExt.SetRandomTorque(rigidbody, initialTorque);
         }
+    }
+
+    Vector3 FindOpenPosition(int layerMask = ~0)
+    {
+        float x = transform.localScale.x;
+        float y = transform.localScale.y;
+        float collisionSphereRadius = x > y ? x : y;
+        bool overlap = false;
+        Vector3 openPosition;
+        do
+        {
+            openPosition = Viewport.GetRandomWorldPositionXY();
+            overlap = Physics.CheckSphere(openPosition, collisionSphereRadius, layerMask);
+        } while (overlap);
+        return openPosition;
     }
     #endregion
 }

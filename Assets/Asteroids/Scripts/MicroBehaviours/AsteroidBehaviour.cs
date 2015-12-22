@@ -28,12 +28,4 @@ public class AsteroidBehaviour : EnemyToken
     protected virtual void Shatter()
     {
     }
-
-    public static Vector3 FindAsteroidSpawnLocation()
-    {
-        int mask = LayerMask.GetMask("ShipSpawnSphere");
-        float collisionSphereRadius = 5f;
-        return Spawn.FindSuitableSpawnLocation(mask, collisionSphereRadius);
-    }
-
 }

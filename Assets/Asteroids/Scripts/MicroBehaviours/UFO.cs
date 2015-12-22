@@ -24,7 +24,7 @@ public class UFO : EnemyToken
 
     void OnEnable()
     {
-        Respawn();
+        Spawn();
         UFOAudio.Play();
         InvokeRepeating("FireRandomDirection", fireRate, fireRate);
     }
@@ -55,16 +55,6 @@ public class UFO : EnemyToken
             Debug.DrawLine(rb.position, toward);
         }
     }
-
-    // Duplicate code copied from Powerup.
-    void Respawn()
-    {
-        int mask = LayerMask.GetMask("Asteroid");
-        float collisionSphereRadius = transform.localScale.x;
-        Vector3 position = Spawn.FindSuitableSpawnLocation(mask, collisionSphereRadius);
-        SpawnAt(position);
-    }
-
 
     void FireRandomDirection()
     {

@@ -37,7 +37,7 @@ public class AsteroidWallpaper : ScriptableObject
     protected virtual AsteroidBehaviour SpawnAsteroidFromPool(ObjectPool pool)
     {
         AsteroidBehaviour asteroid = pool.GetRecyclable<AsteroidBehaviour>();
-        asteroid.SpawnAt(AsteroidBehaviour.FindAsteroidSpawnLocation());
+        asteroid.Spawn();
         return asteroid;
     }
 }

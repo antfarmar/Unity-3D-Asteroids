@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator LevelEnd()
     {
-        bool gameover = AsteroidBehaviour.Any;
+        bool gameover = !ship.IsAlive;  //AsteroidBehaviour.Any;
         if (gameover)
         {
             announce.GameOver();
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
         {
             ObjectPool bigOrSmall = i % 2 == 0 ? bigAsteroidPool : smallAsteroidPool;
             var asteroid = bigOrSmall.GetRecyclable<AsteroidBehaviour>();
-            asteroid.SpawnAt(AsteroidBehaviour.FindAsteroidSpawnLocation());
+            asteroid.Spawn();
         }
     }
 
