@@ -483,7 +483,7 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 32768
+        atime0: 49151
         atime1: 65535
         atime2: 0
         atime3: 0
@@ -1193,7 +1193,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: e5df376f6864ae54a9e7adc58786ebca, type: 2}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.atime0
-      value: 32768
+      value: 49151
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSize.minCurve.m_Curve.Array.data[0].value
@@ -1213,7 +1213,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.key0.rgba
-      value: 4284734719
+      value: 4278255601
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSpeed.minCurve.m_Curve.Array.data[0].value

@@ -16,3 +16,4 @@ MonoBehaviour:
     type: 2}
   m_ShipExplosionPrefab: {fileID: 148916, guid: 62955dd5c19945c49bb900d6e91cb021,
     type: 2}
+  m_UFOExplosionPrefab: {fileID: 148916, guid: 7b4a750613343974493035dd22cb117f, type: 2}

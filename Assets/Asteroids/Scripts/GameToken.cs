@@ -4,7 +4,7 @@ using System.Collections;
 public class GameToken : GameBehaviour
 {
     [SerializeField]
-    [Range(25, 500)]
+    [Range(0, 200)]
     protected int destructionScore = 100;
 
     [SerializeField]

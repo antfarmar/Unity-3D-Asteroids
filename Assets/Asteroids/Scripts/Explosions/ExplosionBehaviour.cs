@@ -17,4 +17,9 @@ public class ExplosionBehaviour : GameBehaviour
         m_explosionAudio.Play();
         InvokeRemoveFromGame(m_explosionPS.startLifetime);
     }
+
+    protected override void RequestDestruction()
+    {
+        gameObject.SetActive(false);
+    }
 }

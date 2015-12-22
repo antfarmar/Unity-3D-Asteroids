@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
             yield return Pause.Brief(); Score.Tally();
             yield return Pause.Brief(); Score.Reset();
             RemoveRemainingGameTokens();
-            powerupManager.DenyAllPower();
+            powerupManager.DenyAllPower(); // ship should reset itself?
             announce.ClearAnnouncements();
             NewGame();
         }
