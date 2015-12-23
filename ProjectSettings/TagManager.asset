@@ -10,6 +10,7 @@ TagManager:
   - Ship
   - BulletSpawn
   - Shield
+  - UFO
   layers:
   - Default
   - TransparentFX
@@ -21,12 +22,12 @@ TagManager:
   - 
   - Asteroid
   - Ship
-  - Bullet
+  - ShipBullet
   - ShipSpawnSphere
   - Powerup
   - Shield
-  - 
-  - 
+  - UFOBullet
+  - UFO
   - 
   - 
   - 

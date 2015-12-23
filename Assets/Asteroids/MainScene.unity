@@ -296,6 +296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupManager: {fileID: 11400000, guid: f6e58a4c14e09514cbfc867dee9079c2, type: 2}
   m_ShipPrefab: {fileID: 103884, guid: 2fc81e9ad150fa7439c36ae09f08c037, type: 2}
+  m_UFOPrefab: {fileID: 191014, guid: 33184c9aaca65824bbc52809379e9aa3, type: 2}
   m_AsteroidBigPrefab: {fileID: 186268, guid: 0cc2b6c448b0759409599f21e66ce41e, type: 2}
   m_AsteroidSmallPrefab: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7,
     type: 2}

@@ -4,20 +4,20 @@ using UnityEngine.Serialization;
 public class ShipShooter : MonoBehaviour
 {
     public GameObject bulletPrefab;
-    public ObjectPool bulletPool;
     public AudioSource shootAudio;
 
     public enum Weapons { Default, Fast, Backwards, Spread, Count }
     public int activeWeapon = (int)Weapons.Default;
     const int bulletSpeed = 25;
 
-    Rigidbody rbody;
+    ObjectPool bulletPool;
+    Rigidbody rb;
     Transform nozzle;
     Vector3 forward() { return nozzle.up; } // Note: This is a 2D game. "up" is treated as "forward" in 2D. 
 
     void Awake()
     {
-        rbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         bulletPool = ObjectPool.Build(bulletPrefab, initialClones: 10, initialCapacity: 10);
         nozzle = transform.Find("BulletSpawnPoint");
     }
@@ -68,7 +68,7 @@ public class ShipShooter : MonoBehaviour
 
     void FireBullet(Vector3 direction, float speedScalar = bulletSpeed)
     {
-        direction = (direction * speedScalar) + rbody.velocity;
+        direction = (direction * speedScalar) + rb.velocity;
         Bullet().Fire(nozzle.position, nozzle.rotation, direction);
     }
 

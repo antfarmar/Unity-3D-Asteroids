@@ -13,7 +13,7 @@ GameObject:
   - 199: {fileID: 19952746}
   - 114: {fileID: 11456104}
   m_Layer: 0
-  m_Name: ExplosionShip
+  m_Name: ExplosionUFO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: f465b280ab627e140a357861eab7ed2b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a61a584f6bb319f489fc569920a78826, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -453,10 +453,10 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 4278255601
+          rgba: 4294902011
         key1:
           serializedVersion: 2
-          rgba: 255
+          rgba: 16768768
         key2:
           serializedVersion: 2
           rgba: 0
@@ -1116,7 +1116,7 @@ ParticleSystemRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: e5df376f6864ae54a9e7adc58786ebca, type: 2}
+  - {fileID: 2100000, guid: 7f2ac4290f815e741a45b25771f72aa9, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -1190,7 +1190,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e5df376f6864ae54a9e7adc58786ebca, type: 2}
+      objectReference: {fileID: 2100000, guid: 7f2ac4290f815e741a45b25771f72aa9, type: 2}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.atime0
       value: 49151
@@ -1213,7 +1213,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.key0.rgba
-      value: 4278255601
+      value: 4294902011
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: InitialModule.startSpeed.minCurve.m_Curve.Array.data[0].value
@@ -1229,7 +1229,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: ColorModule.gradient.maxGradient.key1.rgba
-      value: 255
+      value: 16768768
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: OutputAudioMixerGroup
@@ -1239,7 +1239,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: f465b280ab627e140a357861eab7ed2b, type: 3}
+      objectReference: {fileID: 8300000, guid: a61a584f6bb319f489fc569920a78826, type: 3}
     - target: {fileID: 0}
       propertyPath: m_PlayOnAwake
       value: 0

@@ -12,10 +12,13 @@ GameObject:
   - 23: {fileID: 2307572}
   - 64: {fileID: 6461326}
   - 54: {fileID: 5448624}
+  - 114: {fileID: 11423716}
   - 114: {fileID: 11410718}
-  m_Layer: 0
+  - 82: {fileID: 8212412}
+  - 82: {fileID: 8288628}
+  m_Layer: 15
   m_Name: UFO
-  m_TagString: Untagged
+  m_TagString: UFO
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,6 +95,148 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 627cb1e61373afa48a45d5404ef99a3a, type: 3}
+--- !u!82 &8212412
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191014}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 5c7260008be4162448e7e52b90ff4ef2, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+--- !u!82 &8288628
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191014}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: 3d60718879cfbad48a1d7ae5aa32da2b, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!114 &11410718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,6 +253,29 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+--- !u!114 &11423716
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92d8b18b31bab5947b7a3908e01fc74c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destructionScore: 200
+  initialForce: 100
+  initialTorque: 100
+  uniformScale:
+    minScale: .5
+    maxScale: 1.5
+  bulletPrefab: {fileID: 175094, guid: 6a001977cd909ab49ab679d95d3743c3, type: 2}
+  shootAudio: {fileID: 8288628}
+  UFOAudio: {fileID: 8212412}
+  target: {fileID: 0}
+  maxSpeed: 10
+  trackingSpeed: 100
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -146,6 +314,60 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Mass
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: UFO
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 175094, guid: 6a001977cd909ab49ab679d95d3743c3, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300001, guid: 754c978c9a1a2cf4caf035e7228d48ef,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 3d60718879cfbad48a1d7ae5aa32da2b, type: 3}
+    - target: {fileID: 0}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: shootAudio
+      value: 
+      objectReference: {fileID: 8288628}
+    - target: {fileID: 0}
+      propertyPath: UFOAudio
+      value: 
+      objectReference: {fileID: 8212412}
+    - target: {fileID: 0}
+      propertyPath: exploder
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d1d8c2a8d752c743925f2434a35e333,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: destructionScore
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: uniformScale.minScale
+      value: .5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

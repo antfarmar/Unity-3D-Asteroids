@@ -25,7 +25,6 @@ public class Powerup : GameToken
     protected virtual void OnCollisionEnter(Collision otherCollision)
     {
         GameObject otherObject = otherCollision.gameObject;
-        //if (otherObject.tag == ship.tag)
         if (otherObject == ship)
         {
             Score(destructionScore);
@@ -50,7 +49,7 @@ public class Powerup : GameToken
 
     void ShowInScene()
     {
-        Respawn();
+        Spawn();
         SetVisibility(true);
     }
 
@@ -63,14 +62,6 @@ public class Powerup : GameToken
     protected override void RequestDestruction()
     {
         HideInScene();
-    }
-
-    void Respawn()
-    {
-        int mask = LayerMask.GetMask("Asteroid");
-        float collisionSphereRadius = transform.localScale.x;
-        Vector3 position = Spawn.FindSuitableSpawnLocation(mask, collisionSphereRadius);
-        SpawnAt(position);
     }
 
     void SetVisibility(bool isVisible)

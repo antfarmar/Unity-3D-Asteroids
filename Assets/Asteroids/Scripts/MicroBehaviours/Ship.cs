@@ -46,4 +46,22 @@ public class Ship : GameBehaviour
         DisableControls();
         gameObject.SetActive(false);
     }
+
+    // This needs to be moved/refactored.
+    public static bool ActiveShield(GameObject ship)
+    {
+        return ship.transform.FindChild("Shield").gameObject.activeSelf;
+    }
+
+    protected virtual void OnTriggerEnter(Collider bulletCollider)
+    {
+        if (ActiveShield(gameObject))
+        {
+            RemoveFromGame(bulletCollider.gameObject);
+            return;
+        }
+
+        EnemyToken.exploder.Explode(gameObject.tag, transform.position);
+        RequestDestruction();
+    }
 }

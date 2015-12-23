@@ -10,15 +10,13 @@ public class GameManager : MonoBehaviour
     public PowerupManager powerupManager;
 
     public GameObject m_ShipPrefab;
-    //public GameObject m_ExplosionPrefab;
-    //public GameObject m_ShipExplosionPrefab;
+    public GameObject m_UFOPrefab;
     public GameObject m_AsteroidBigPrefab;
     public GameObject m_AsteroidSmallPrefab;
     public Text m_UIText;
 
     ObjectPool bigAsteroidPool;
     ObjectPool smallAsteroidPool;
-    //ObjectPool explosionPool;
 
     AsteroidWallpaper wallpaper;
     GameAnnouncer announce;
@@ -32,9 +30,8 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         SingletonInstanceGuard();
-        bigAsteroidPool = ObjectPool.Build(m_AsteroidBigPrefab, 10, 20);
-        smallAsteroidPool = ObjectPool.Build(m_AsteroidSmallPrefab, 10, 30);
-        //explosionPool = ObjectPool.Build(m_ExplosionPrefab, 5, 5);
+        bigAsteroidPool = ObjectPool.Build(m_AsteroidBigPrefab, 25, 50);
+        smallAsteroidPool = ObjectPool.Build(m_AsteroidSmallPrefab, 25, 50);
         announce = GameAnnouncer.AnnounceTo(Announcer.TextComponent(m_UIText), Announcer.Log(this));
         wallpaper = AsteroidWallpaper.New(bigAsteroidPool, smallAsteroidPool);
     }
@@ -45,6 +42,7 @@ public class GameManager : MonoBehaviour
         ship.RemoveFromGame();
         StartCoroutine(GameLoop());
         StartCoroutine(powerupManager.SpawnPowerupsFor(ship.gameObject));
+        StartCoroutine(SpawnUFO());
     }
 
     void OnEnable() { instance = this; }
@@ -90,7 +88,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator LevelStart()
     {
-        ship.Recover();
+        ship.Recover(); ship.EnableControls();
         announce.LevelStarts(level);
         yield return Pause.Long();
         SpawnAsteroids(numAsteroidsForLevel);
@@ -98,21 +96,20 @@ public class GameManager : MonoBehaviour
 
     IEnumerator LevelPlay()
     {
-        ship.EnableControls();
         announce.LevelPlaying();
         while (ship.IsAlive && AsteroidBehaviour.Any) yield return null;
     }
 
     IEnumerator LevelEnd()
     {
-        bool gameover = AsteroidBehaviour.Any;
+        bool gameover = !ship.IsAlive;  //AsteroidBehaviour.Any;
         if (gameover)
         {
             announce.GameOver();
             yield return Pause.Brief(); Score.Tally();
             yield return Pause.Brief(); Score.Reset();
             RemoveRemainingGameTokens();
-            powerupManager.DenyAllPower();
+            powerupManager.DenyAllPower(); // ship should reset itself?
             announce.ClearAnnouncements();
             NewGame();
         }
@@ -145,7 +142,7 @@ public class GameManager : MonoBehaviour
         {
             ObjectPool bigOrSmall = i % 2 == 0 ? bigAsteroidPool : smallAsteroidPool;
             var asteroid = bigOrSmall.GetRecyclable<AsteroidBehaviour>();
-            asteroid.SpawnAt(AsteroidBehaviour.FindAsteroidSpawnLocation());
+            asteroid.Spawn();
         }
     }
 
@@ -161,6 +158,25 @@ public class GameManager : MonoBehaviour
         foreach (var a in FindObjectsOfType<GameToken>())
             a.RemoveFromGame();
     }
+
+    #region UFO Testing
+    IEnumerator SpawnUFO()
+    {
+        GameObject ufo = Instantiate(m_UFOPrefab);
+        ufo.SetActive(false);
+        ufo.GetComponent<UFO>().target = ship.transform;
+
+        while (true)
+        {
+            var wait = UnityEngine.Random.Range(5f, 10f);
+            yield return new WaitForSeconds(wait);
+            if (ship.gameObject.activeSelf && !ufo.activeSelf)
+            {
+                ufo.SetActive(true);
+            }
+        }
+    }
+    #endregion
 }
 
 public static class Pause

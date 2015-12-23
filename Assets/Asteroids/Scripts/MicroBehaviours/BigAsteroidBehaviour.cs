@@ -14,6 +14,6 @@ public class BigAsteroidBehaviour : AsteroidBehaviour
     protected override void Shatter()
     {
         for (int i = 0; i < fragments; ++i)
-            Spawn.SmallAsteroid(transform.position);
+            GameManager.SpawnSmallAsteroid(transform.position);
     }
 }
