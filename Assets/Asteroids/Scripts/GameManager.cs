@@ -30,8 +30,8 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         SingletonInstanceGuard();
-        bigAsteroidPool = ObjectPool.Build(m_AsteroidBigPrefab, 10, 20);
-        smallAsteroidPool = ObjectPool.Build(m_AsteroidSmallPrefab, 10, 30);
+        bigAsteroidPool = ObjectPool.Build(m_AsteroidBigPrefab, 25, 50);
+        smallAsteroidPool = ObjectPool.Build(m_AsteroidSmallPrefab, 25, 50);
         announce = GameAnnouncer.AnnounceTo(Announcer.TextComponent(m_UIText), Announcer.Log(this));
         wallpaper = AsteroidWallpaper.New(bigAsteroidPool, smallAsteroidPool);
     }

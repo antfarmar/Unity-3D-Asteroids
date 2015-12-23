@@ -18,7 +18,6 @@ public class GameToken : GameBehaviour
     UniformRandomVector3 uniformScale;
 #pragma warning restore 0649
 
-
     #region Spawning
     public virtual void Spawn()
     {
@@ -48,6 +47,7 @@ public class GameToken : GameBehaviour
         float x = transform.localScale.x;
         float y = transform.localScale.y;
         float collisionSphereRadius = x > y ? x : y;
+        //float collisionSphereRadius = GetComponent<Renderer>().bounds.size.magnitude / 4f;
         bool overlap = false;
         Vector3 openPosition;
         do
