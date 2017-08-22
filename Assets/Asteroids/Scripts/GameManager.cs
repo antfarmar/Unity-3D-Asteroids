@@ -168,7 +168,7 @@ public class GameManager : MonoBehaviour
 
         while (true)
         {
-            var wait = UnityEngine.Random.Range(5f, 10f);
+            var wait = UnityEngine.Random.Range(15f, 30f);
             yield return new WaitForSeconds(wait);
             if (ship.gameObject.activeSelf && !ufo.activeSelf)
             {
