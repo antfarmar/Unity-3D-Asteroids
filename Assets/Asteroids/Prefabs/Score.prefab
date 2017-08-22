@@ -5,15 +5,15 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22424738}
-  - 114: {fileID: 11427636}
-  - 222: {fileID: 22201450}
-  - 114: {fileID: 11492948}
-  - 114: {fileID: 11464640}
-  - 95: {fileID: 9573770}
-  - 82: {fileID: 8222392}
+  - component: {fileID: 22424738}
+  - component: {fileID: 11427636}
+  - component: {fileID: 22201450}
+  - component: {fileID: 11492948}
+  - component: {fileID: 11464640}
+  - component: {fileID: 9573770}
+  - component: {fileID: 8222392}
   m_Layer: 5
   m_Name: Score Text
   m_TagString: Untagged
@@ -26,12 +26,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 22499262}
-  - 223: {fileID: 22335748}
-  - 114: {fileID: 11442062}
-  - 114: {fileID: 11427552}
+  - component: {fileID: 22499262}
+  - component: {fileID: 22335748}
+  - component: {fileID: 11442062}
+  - component: {fileID: 11427552}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -51,11 +51,12 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: .5
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
+  SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -68,48 +69,57 @@ AudioSource:
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 1
+    - serializedVersion: 2
+      time: 1
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 4
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 4
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &9573770
 Animator:
   serializedVersion: 3
@@ -154,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e771bc94807454dbd652392583104d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textColor: {r: .850980401, g: .854901969, b: .90196079, a: .501960814}
+  textColor: {r: 0.8509804, g: 0.85490197, b: 0.9019608, a: 0.5019608}
   optionalText:
     text: {fileID: 11492948}
     scoreFormat: '{0:000000}'
@@ -212,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: .851211071, g: .855980814, b: .904411793, a: .501960814}
+  m_Color: {r: 0.8512111, g: 0.8559808, b: 0.9044118, a: 0.5019608}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -225,8 +235,9 @@ MonoBehaviour:
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 30
-    m_MaxSize: 30
+    m_MaxSize: 50
     m_Alignment: 4
+    m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
@@ -245,7 +256,7 @@ Canvas:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 192296}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -253,8 +264,11 @@ Canvas:
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!224 &22424738
 RectTransform:
   m_ObjectHideFlags: 1
@@ -267,11 +281,12 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 22499262}
   m_RootOrder: 0
-  m_AnchorMin: {x: .5, y: 1}
-  m_AnchorMax: {x: .5, y: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 50}
-  m_Pivot: {x: .5, y: 1}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &22499262
 RectTransform:
   m_ObjectHideFlags: 1
@@ -285,6 +300,7 @@ RectTransform:
   - {fileID: 22424738}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
