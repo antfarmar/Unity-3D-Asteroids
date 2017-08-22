@@ -50,7 +50,7 @@ public class Ship : GameBehaviour
     // This needs to be moved/refactored.
     public static bool ActiveShield(GameObject ship)
     {
-        return ship.transform.FindChild("Shield").gameObject.activeSelf;
+        return ship.transform.Find("Shield").gameObject.activeSelf;
     }
 
     protected virtual void OnTriggerEnter(Collider bulletCollider)
