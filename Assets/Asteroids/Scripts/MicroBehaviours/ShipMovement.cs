@@ -4,9 +4,10 @@
 public class ShipMovement : MonoBehaviour
 {
     public float thrust = 1000f;
-    public float torque = 400f;
-    public float maxSpeed = 10f;
-    public float powerupSpeed = 20f;
+    public float torque = 500f;
+    public float maxSpeed = 20f;
+    public float powerupThrust = 2000f;  
+    public float powerupSpeed = 30f;  
     public AudioSource hyperAudio;
 
     Rigidbody rb;
@@ -51,9 +52,12 @@ public class ShipMovement : MonoBehaviour
 
     void Move()
     {
+        // Quick hack to have powerup affect thrust.
+        float useThrust = hasThrustPowerup ? powerupThrust : thrust;
+
         // Create a vector in the direction the ship is facing.
         // Magnitude based on the input, speed and the time between frames.
-        Vector3 thrustForce = transform.up * thrustInput * thrust * Time.deltaTime;
+        Vector3 thrustForce = thrustInput * useThrust * Time.deltaTime * transform.up;
         rb.AddForce(thrustForce);
     }
 

@@ -460,7 +460,8 @@ MonoBehaviour:
   thrust: 1000
   torque: 500
   maxSpeed: 25
-  powerupSpeed: 50
+  powerupThrust: 2000
+  powerupSpeed: 35
   hyperAudio: {fileID: 8242090}
   hasThrustPowerup: 0
 --- !u!114 &11410018
