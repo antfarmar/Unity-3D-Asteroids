@@ -5,9 +5,9 @@
 
 ![Title Screenshot](AsteroidsScreenshot.JPG)
 
-:ant: Learning & Experimenting with Unity. Trying to determine best practices. :ant:
+Learning & Experimenting with Unity. Trying to determine best practices. 
 
-#### Design Choices
+### Design Choices
 * Architecture/Frameworks: God Objects, MVC, IoC+DI, Messaging, Events, ...
 * Software Patterns: OOP, Composition, Singletons, Object Pooling, Observer, ...
 * [Game Programming Patterns](http://gameprogrammingpatterns.com/contents.html)
@@ -19,7 +19,7 @@
 * Coroutines
 * Optimizations
 
-#### Workflow Choices
+### Workflow Choices
 * Overall process: [The clubs.](https://en.wikipedia.org/wiki/List_of_software_development_philosophies)
 * [Now choose a club...](https://www.youtube.com/watch?v=ac9Z6CN14Gs)
 * You have chosen [Cowboy coding.](https://en.wikipedia.org/wiki/Cowboy_coding)
@@ -34,16 +34,16 @@
 * GitHub: Repositories, Issues, Wiki, Markdown, Collaboration
 * Blender Exporting
 
-#### Unity Quirks
+### Unity Quirks
 * Editor/Customization
 * Interface
 * Hacks/Tricks
 
-#### [Check the Wiki for discussions](https://github.com/antfarmar/Unity-3D-Asteroids/wiki)
+### [Check the Wiki for discussions](https://github.com/antfarmar/Unity-3D-Asteroids/wiki)
 * Interesting things learned about Unity
 * Software Engineering lessons learned
 * Game design & development lessons learned
   
-#### [Check Issues for interesting issues encountered](https://github.com/antfarmar/Unity-3D-Asteroids/issues)
+### [Check Issues for interesting issues encountered](https://github.com/antfarmar/Unity-3D-Asteroids/issues)
 
-##### Chat Room: [![Join the chat at https://gitter.im/antfarmar/Unity-3D-Asteroids](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/antfarmar/Unity-3D-Asteroids?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+#### Chat Room: [![Join the chat at https://gitter.im/antfarmar/Unity-3D-Asteroids](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/antfarmar/Unity-3D-Asteroids?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
