@@ -39,7 +39,7 @@ Learning & Experimenting with Unity. Trying to determine best practices.
 * Interface
 * Hacks/Tricks
 
-### [Check the Wiki for discussions](https://github.com/antfarmar/Unity-3D-Asteroids/wiki)
+### [Check the Wiki for articles, links and discussions](https://github.com/antfarmar/Unity-3D-Asteroids/wiki)
 * Interesting things learned about Unity
 * Software Engineering lessons learned
 * Game design & development lessons learned
